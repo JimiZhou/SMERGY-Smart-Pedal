@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 
+
 import java.util.Set;
 import java.util.UUID;
 
@@ -45,14 +46,13 @@ public class BluetoothController {
         BluetoothDevice BluetoothDevice = mBluetoothAdapter.getRemoteDevice(macAddress);
         ConnectThread BTconnectThread = new ConnectThread(BluetoothDevice);
         socket = BTconnectThread.getBluetoothSocket();
-        BTconnectThread.run();
-
+        BTconnectThread.start();
     }
 
     public void manageConnection(Handler mHandler){
         ConnectedThread BTconnectedThread = new ConnectedThread(socket, mHandler);
-        System.out.println("listen for data");
-        BTconnectedThread.run();
-        System.out.println("end listening for data");
+        BTconnectedThread.start();
     }
+
+
 }

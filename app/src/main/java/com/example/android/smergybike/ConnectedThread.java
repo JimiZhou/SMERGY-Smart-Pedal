@@ -1,6 +1,7 @@
 package com.example.android.smergybike;
 
 import android.bluetooth.BluetoothSocket;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.os.Handler;
@@ -59,11 +60,12 @@ public class ConnectedThread extends Thread{
                 numBytes = mmInStream.read(mmBuffer);
                 // Send the obtained bytes to the UI activity
                 String readMessage = new String(mmBuffer, 0, numBytes);
-                System.out.println(mmHandler.obtainMessage(1, numBytes, -1, mmBuffer).toString());
-                Message msg =  mmHandler.obtainMessage(1, numBytes, -1, mmBuffer);
-                msg.setTarget(mmHandler);
-                msg.sendToTarget();
                 System.out.println(readMessage);
+                Message msg = mmHandler.obtainMessage();
+                Bundle bundle = new Bundle();
+                bundle.putString("message", readMessage);
+                msg.setData(bundle);
+                mmHandler.sendMessage(msg);
             } catch (IOException e) {
                 Log.d(TAG, "Input stream was disconnected", e);
                 break;

@@ -12,23 +12,26 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    final Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            System.out.println("in handler");
+            Bundle bundle = msg.getData();
+            String string = bundle.getString("message");
+            System.out.println("handler: " + string);
+            TextView text = (TextView) findViewById(R.id.readData);
+            text.setText(string);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final BluetoothController BTcontroller = new BluetoothController();
-        final Handler mHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg){
-                System.out.println("in handler");
-                byte[] readBuf = (byte[]) msg.obj;
-                String readMessage = new String(readBuf, 0, msg.arg1);
-                System.out.println("handler: " + readMessage);
-                TextView text = (TextView) findViewById(R.id.readData);
-                text.setText(readMessage);
-            }
-        };
+
         //BTcontroller.getAllPairedDevices();
 
         ArrayAdapter<String> BluetoothDeviceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, BTcontroller.getAllPairedDevices());
@@ -42,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(address);
                 BTcontroller.connectDevice(address);
                 BTcontroller.manageConnection(mHandler);
-                //Intent intent = new Intent( getApplicationContext() , MessageActivity.class);
-                //startActivity(intent);
             }
         });
     }
