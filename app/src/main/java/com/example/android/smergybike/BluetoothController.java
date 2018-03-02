@@ -47,6 +47,11 @@ public class BluetoothController {
         ConnectThread BTconnectThread = new ConnectThread(BluetoothDevice);
         socket = BTconnectThread.getBluetoothSocket();
         BTconnectThread.start();
+        try {
+            BTconnectThread.join();
+        }catch (InterruptedException ex){
+            System.out.println("unable to join connectThread");
+        }
     }
 
     public void manageConnection(Handler mHandler){
