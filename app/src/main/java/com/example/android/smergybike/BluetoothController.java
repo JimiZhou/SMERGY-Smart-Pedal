@@ -16,7 +16,7 @@ import java.util.UUID;
 public class BluetoothController {
 
     private static final UUID myUUID = UUID.fromString("5f3b4765-1ef9-4e32-b66a-76c18eeb9cf4");
-
+    ConnectedThread BTconnectedThread = null;
     private final BluetoothAdapter mBluetoothAdapter;
     Set<BluetoothDevice> pairedDevices;
     BluetoothSocket socket = null;
@@ -55,8 +55,12 @@ public class BluetoothController {
     }
 
     public void manageConnection(Handler mHandler){
-        ConnectedThread BTconnectedThread = new ConnectedThread(socket, mHandler);
+        BTconnectedThread = new ConnectedThread(socket, mHandler);
         BTconnectedThread.start();
+    }
+
+    public void CancelConnection(){
+        BTconnectedThread.cancel();
     }
 
 

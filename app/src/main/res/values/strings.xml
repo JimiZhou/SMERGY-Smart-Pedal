@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SmergyBike</string>
+    <string name="reset_button">Reset Button</string>
+
 </resources>

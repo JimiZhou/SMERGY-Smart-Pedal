@@ -23,6 +23,9 @@ public class ConnectedThread extends Thread{
     private final OutputStream mmOutStream;
     private byte[] mmBuffer; // mmBuffer store for the stream
     private Handler mmHandler;
+    private double speed;
+    private double power;
+    private double energy;
 
     public ConnectedThread(BluetoothSocket socket, Handler handler) {
         mmSocket = socket;
