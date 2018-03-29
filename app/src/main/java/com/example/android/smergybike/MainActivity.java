@@ -1,5 +1,6 @@
 package com.example.android.smergybike;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -30,19 +31,19 @@ public class MainActivity extends AppCompatActivity {
     private Button mStopButton;
     private BluetoothController BTcontroller;
 
+    @SuppressLint("HandlerLeak")
     final Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg){
             System.out.println("in handler");
             Bundle bundle = msg.getData();
             String string = bundle.getString("message");
-            double value = Double.parseDouble(string);
-            speed = value;
+            speed = Double.parseDouble(string);
             String string2 = ("Speed: " + speed + "km/h");
             System.out.println("handler: " + string);
             TextView text = (TextView) findViewById(R.id.readData);
             text.setText(string2);
-            calculateVermogen();
+//            calculateVermogen();
         }
     };
 
@@ -50,15 +51,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        avgpower = new ArrayList();
+        //BottomNavigationView navigationView = findViewById(R.id.navigation);
+        //navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.onNavigationItem);
 
+//        avgpower = new ArrayList();
+
+        //final BluetoothController BTcontroller = new BluetoothController();
         BTcontroller = new BluetoothController();
         mStartButton = (Button) findViewById(R.id.start_button);
         mStopButton = (Button) findViewById(R.id.stop_button);
         //BTcontroller.getAllPairedDevices();
 
-        setListeners();
-
+//        setListeners();
         ArrayAdapter<String> BluetoothDeviceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, BTcontroller.getAllPairedDevices());
         ListView listView = (ListView) findViewById(R.id.deviceListView);
         listView.setAdapter(BluetoothDeviceAdapter);
@@ -72,69 +76,70 @@ public class MainActivity extends AppCompatActivity {
                 BTcontroller.manageConnection(mHandler);
             }
         });
-    }
-
-    public void calculateVermogen() {
-
-        double vermogenRood1 = Math.pow(speed, 3.0D);
-        double vermogenRood2 = Math.pow(speed, 2.0D);
-        double vermogenRood3 = speed;
-
-        double vermogenRoodStore = 7.0D * vermogenRood1 / 24000.0D + 161.0D * vermogenRood2 / 800.0D - 287.0D * vermogenRood3 / 120.0D;
-        this.power = (Math.floor(vermogenRoodStore * 100.0D) / 100.0D);
-
-        avgpower = new ArrayList<>();
-        avgpower.add(power);
-        String string = ("Power:" + this.power);
-        TextView text = (TextView) findViewById(R.id.readPower);
-        text.setText(string);
-
 
     }
 
-    public void calculateEnergy() {
-        long elapsedMilliSeconds = stoptime - starttime;
-        long elapsedSeconds = (elapsedMilliSeconds / 1000);
-
-        double energieRoodStore = getAverage(avgpower) / elapsedSeconds;     // gedurende 1 minuut fietsen
-        this.energy = (Math.floor(energieRoodStore * 100.0D) / 100.0D);
-
-
-        String string = (" Average Power:" + getAverage(avgpower));
-        TextView text = (TextView) findViewById(R.id.readPower);
-        text.setText(string);
-        String string2 = ("energy:" + this.energy);
-        TextView text2 = (TextView) findViewById(R.id.readEnergy);
-        text2.setText(string2);
-
-    }
-
-    public void setListeners() {
-
-        mStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                starttime = SystemClock.elapsedRealtime();
-            }
-        });
-
-        mStopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stoptime = SystemClock.elapsedRealtime();
-                calculateEnergy();
-                BTcontroller.CancelConnection();
-            }
-        });
-    }
-
-    public double getAverage(List<Double> sum) {
-    double total = 0;
-        for (int i = 0; i < sum.size(); i++) {
-            total = total + sum.get(i);
-
-        }
-        return total/sum.size();
-
-    }
+//    public void calculateVermogen() {
+//
+//        double vermogenRood1 = Math.pow(speed, 3.0D);
+//        double vermogenRood2 = Math.pow(speed, 2.0D);
+//        double vermogenRood3 = speed;
+//
+//        double vermogenRoodStore = 7.0D * vermogenRood1 / 24000.0D + 161.0D * vermogenRood2 / 800.0D - 287.0D * vermogenRood3 / 120.0D;
+//        this.power = (Math.floor(vermogenRoodStore * 100.0D) / 100.0D);
+//
+//        avgpower = new ArrayList<>();
+//        avgpower.add(power);
+//        String string = ("Power:" + this.power);
+//        TextView text = (TextView) findViewById(R.id.readPower);
+//        text.setText(string);
+//
+//
+//    }
+//
+//    public void calculateEnergy() {
+//        long elapsedMilliSeconds = stoptime - starttime;
+//        long elapsedSeconds = (elapsedMilliSeconds / 1000);
+//
+//        double energieRoodStore = getAverage(avgpower) / elapsedSeconds;     // gedurende 1 minuut fietsen
+//        this.energy = (Math.floor(energieRoodStore * 100.0D) / 100.0D);
+//
+//
+//        String string = (" Average Power:" + getAverage(avgpower));
+//        TextView text = (TextView) findViewById(R.id.readPower);
+//        text.setText(string);
+//        String string2 = ("energy:" + this.energy);
+//        TextView text2 = (TextView) findViewById(R.id.readEnergy);
+//        text2.setText(string2);
+//
+//    }
+//
+//    public void setListeners() {
+//
+//        mStartButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                starttime = SystemClock.elapsedRealtime();
+//            }
+//        });
+//
+//        mStopButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                stoptime = SystemClock.elapsedRealtime();
+//                calculateEnergy();
+//                BTcontroller.CancelConnection();
+//            }
+//        });
+//    }
+//
+//    public double getAverage(List<Double> sum) {
+//    double total = 0;
+//        for (int i = 0; i < sum.size(); i++) {
+//            total = total + sum.get(i);
+//
+//        }
+//        return total/sum.size();
+//
+//    }
 }
