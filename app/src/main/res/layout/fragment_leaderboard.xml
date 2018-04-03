@@ -15,6 +15,7 @@
         <!--android:text="@string/title_leaderboard"/>-->
 
     <ListView
+        android:id="@+id/listView_leaderboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

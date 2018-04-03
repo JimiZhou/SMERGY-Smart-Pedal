@@ -1,16 +1,16 @@
 package com.example.android.smergybike;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import java.util.Arrays;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.bluetooth.BluetoothAdapter;
 
 public class Settings extends Fragment {
 
@@ -69,12 +69,7 @@ public class Settings extends Fragment {
                     android.widget.Toast.makeText(getContext(), "Unable to find device", android.widget.Toast.LENGTH_LONG).show();
                 }
             }
-        }).setPositiveButton("Scan", new android.content.DialogInterface.OnClickListener() {
-                   public void onClick(android.content.DialogInterface dialog, int id) {
-                       //scan for bluetooth devices
-                   };
         });
-
         android.support.v7.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
