@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.android.smergybike.bluetooth.BluetoothController;
+
 import java.util.Arrays;
 
 public class Settings extends Fragment {
@@ -35,6 +37,7 @@ public class Settings extends Fragment {
         ListView listView = view.findViewById(R.id.listView_settings);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mClickListener);
+        getActivity().setTitle("Settings");
         return view;
     }
 

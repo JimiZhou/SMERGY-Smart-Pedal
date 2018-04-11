@@ -14,10 +14,24 @@
         <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
         <!--android:text="@string/title_leaderboard"/>-->
 
-    <ListView
-        android:id="@+id/listView_leaderboard"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/dropdown_leaderboard"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:spinnerMode="dropdown" />
+
+        <ListView
+            android:id="@+id/listView_leaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 
 </FrameLayout>

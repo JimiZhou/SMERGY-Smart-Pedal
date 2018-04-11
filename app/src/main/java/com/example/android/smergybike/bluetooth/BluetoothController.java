@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

@@ -16,20 +16,10 @@ import java.util.List;
  */
 public class LeaderboardAdapter extends ArrayAdapter<Player> {
 
-    public LeaderboardAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
-    }
-
-    public LeaderboardAdapter(Context context, int resource, List<Player> items) {
+        public LeaderboardAdapter(Context context, int resource, List<Player> items) {
         super(context, resource, items);
     }
-
-//    public LeaderboardAdapter(Context context, ArrayList<Player> players){
-//        super(context, R.layout.leaderboard_item, players);
-//        this.dataSet = players;
-//        this.context = context;
-//    }
-
+    
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -47,7 +37,8 @@ public class LeaderboardAdapter extends ArrayAdapter<Player> {
             TextView score = v.findViewById(R.id.item_score);
 
             if (number != null) {
-                number.setText("1");
+                int rank = position + 1;
+                number.setText("" + rank);
             }
 
             if (name != null) {
