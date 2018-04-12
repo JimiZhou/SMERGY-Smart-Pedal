@@ -26,11 +26,19 @@
             android:layout_height="45dp"
             android:spinnerMode="dropdown" />
 
-        <ListView
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            tools:background="@android:color/darker_gray" />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/listView_leaderboard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            tools:listitem="@layout/leaderboard_item"/>
     </LinearLayout>
 
 

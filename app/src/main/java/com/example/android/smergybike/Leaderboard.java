@@ -3,11 +3,12 @@ package com.example.android.smergybike;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ public class Leaderboard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        ListView listView = view.findViewById(R.id.listView_leaderboard);
         players = new ArrayList<>();
         players.add(new Player("Joren", 1445));
         players.add(new Player("Lin", 1120));
@@ -38,9 +38,14 @@ public class Leaderboard extends Fragment {
         players.add(new Player("Bart", 905));
         players.add(new Player("Eva", 847));
         players.add(new Player("Gorik", 341));
-        players.add(new Player("Gorik", 341));
-        LeaderboardAdapter adapter = new LeaderboardAdapter(getContext(), R.layout.leaderboard_item ,players);
-        listView.setAdapter(adapter);
+
+        // set up recycler listview
+        RecyclerView recyclerView = view.findViewById(R.id.listView_leaderboard);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        LeaderboardAdapter adapter = new LeaderboardAdapter(players);
+        recyclerView.setAdapter(adapter);
 
         // fill dropdown menu
         Spinner spinner = view.findViewById(R.id.dropdown_leaderboard);
