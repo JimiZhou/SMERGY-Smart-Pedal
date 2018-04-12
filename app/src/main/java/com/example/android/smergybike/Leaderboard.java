@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
+import com.example.android.smergybike.localDatabase.DbModel;
+
+import java.util.List;
 
 public class Leaderboard extends Fragment {
 
-    private ArrayList<Player> players;
+    private List<Player> players;
 
     public static Leaderboard newInstance() {
         return new Leaderboard();
@@ -24,6 +26,8 @@ public class Leaderboard extends Fragment {
      @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DbModel dbModel = new DbModel(getContext());
+        players = dbModel.getAllPlayers();
     }
 
     @Override
@@ -31,13 +35,6 @@ public class Leaderboard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        players = new ArrayList<>();
-        players.add(new Player("Joren", 1445));
-        players.add(new Player("Lin", 1120));
-        players.add(new Player("Jimi", 1004));
-        players.add(new Player("Bart", 905));
-        players.add(new Player("Eva", 847));
-        players.add(new Player("Gorik", 341));
 
         // set up recycler listview
         RecyclerView recyclerView = view.findViewById(R.id.listView_leaderboard);

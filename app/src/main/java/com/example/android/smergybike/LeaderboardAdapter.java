@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Joren on 29-3-2018.
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
     //private String[] mDataset;
-    private ArrayList<Player> mDataset;
+    private List<Player> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -31,7 +31,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LeaderboardAdapter(ArrayList<Player> players) {
+    public LeaderboardAdapter(List<Player> players) {
         mDataset = players;
     }
 

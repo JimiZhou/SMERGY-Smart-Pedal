@@ -1,23 +1,52 @@
 package com.example.android.smergybike;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * Created by Joren on 29-3-2018.
  */
+@Entity
 public class Player {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "highscore")
     private int highscore;
+    @ColumnInfo(name = "totalPower")
     private int totalPower;
+    @ColumnInfo(name = "totalEnergy")
     private int totalEnergy;
+    @ColumnInfo(name = "totalDistance")
     private int totalDistance;
 
+    public Player(String name, int highscore, int totalPower, int totalEnergy, int totalDistance){
+        this.name = name;
+        this.highscore = highscore;
+        this.totalEnergy = totalEnergy;
+        this.totalPower = totalPower;
+        this.totalDistance = totalDistance;
+    }
+
+    @Ignore
     public Player(String m_name, int m_highscore){
         name = m_name;
         highscore = m_highscore;
         totalEnergy = 0;
         totalPower = 0;
         totalDistance = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -35,6 +64,7 @@ public class Player {
     public void setHighscore(int m_highscore) {
         highscore = m_highscore;
     }
+
     public int getTotalPower() {
         return totalPower;
     }
