@@ -64,7 +64,7 @@ public class ConnectedThread extends Thread{
                 // Send the obtained bytes to the UI activity
                 String readMessage = new String(mmBuffer, 0, numBytes);
                 System.out.println(readMessage);
-                Message msg = mmHandler.obtainMessage();
+                Message msg = mmHandler.obtainMessage(Constants.MESSAGE_READ);
                 Bundle bundle = new Bundle();
                 bundle.putString("message", readMessage);
                 msg.setData(bundle);

@@ -1,10 +1,14 @@
 package com.example.android.smergybike.bluetooth;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.os.Handler;
-import android.app.Application;
+import android.os.Message;
+import android.widget.Toast;
 
 import java.util.Set;
 import java.util.UUID;
@@ -16,18 +20,28 @@ import java.util.UUID;
 public class BluetoothController extends Application {
 
     private static final UUID myUUID = UUID.fromString("5f3b4765-1ef9-4e32-b66a-76c18eeb9cf4");
-    ConnectedThread BTconnectedThread = null;
+    private ConnectedThread BTconnectedThread = null;
     private final BluetoothAdapter mBluetoothAdapter;
-    Set<BluetoothDevice> pairedDevices;
-    BluetoothSocket socket = null;
+    private Set<BluetoothDevice> pairedDevices;
+    private BluetoothSocket socket = null;
     private static BluetoothController sInstance;
+    //private Handler mHandler;
+    private Context mContext;
 
     public BluetoothController(){
         sInstance = this;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-    public static BluetoothController getApplication() {
+//    public void setHandler(Handler handler){
+//        mHandler = handler;
+//    }
+
+    public void setContext(Context context){
+        mContext = context;
+    }
+
+    public static BluetoothController getBTController() {
         return sInstance;
     }
 
@@ -55,7 +69,7 @@ public class BluetoothController extends Application {
     public int connectDevice(String macAddress){
         BluetoothDevice BluetoothDevice = mBluetoothAdapter.getRemoteDevice(macAddress);
         if(BluetoothDevice != null) {
-            ConnectThread BTconnectThread = new ConnectThread(BluetoothDevice);
+            ConnectThread BTconnectThread = new ConnectThread(BluetoothDevice, mHandler);
             socket = BTconnectThread.getBluetoothSocket();
             BTconnectThread.start();
             try {
@@ -77,5 +91,23 @@ public class BluetoothController extends Application {
         BTconnectedThread.cancel();
     }
 
-
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            System.out.println("in handler settings");
+            switch(msg.what){
+                case Constants.FAILED_TO_CONNECT:
+                    Toast.makeText(mContext, "Failed to connect", Toast.LENGTH_SHORT).show();
+                    break;
+                case Constants.CONNECTED:
+                    Toast.makeText(mContext, "connection successful", Toast.LENGTH_SHORT).show();
+                    break;
+                case Constants.MESSAGE_READ:
+                    // TODO: put bluetooth data in database
+                    break;
+            }
+        }
+    };
 }
+

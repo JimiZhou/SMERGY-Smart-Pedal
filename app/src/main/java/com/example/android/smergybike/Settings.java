@@ -32,7 +32,7 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        String[] values = new String[]{"connect Bluetooth"};
+        String[] values = new String[]{"Connect Bluetooth","Start new Event"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(values));
         ListView listView = view.findViewById(R.id.listView_settings);
         listView.setAdapter(adapter);
@@ -43,32 +43,43 @@ public class Settings extends Fragment {
 
      private AdapterView.OnItemClickListener mClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
-            BluetoothAdapter mBluetoothAdapter =  BluetoothController.getApplication().getBTAdapter();
-            //BluetoothController.getApplication().setHandler(mHandler);
-            if (mBluetoothAdapter == null){
-                //device doesn't support Bluetooth
-                android.widget.Toast.makeText(getContext(), "Bluetooth is not available", android.widget.Toast.LENGTH_LONG).show();
-            }
-            else if (!mBluetoothAdapter.isEnabled()){
-                android.content.Intent enableBtIntent = new android.content.Intent(android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
-            }else {
-                //select device
-                showPairedDevicesDialog();
+            switch (position){
+                case 0:
+                    //'connect bluetooth' pressed
+                    connectBluetooth();
+                    break;
+                case 1:
+                    //new event
+                    break;
             }
         }
     };
 
+    private void connectBluetooth(){
+        BluetoothAdapter mBluetoothAdapter =  BluetoothController.getBTController().getBTAdapter();
+        //BluetoothController.getBTController().setHandler(mHandler);
+        BluetoothController.getBTController().setContext(getContext());
+        if (mBluetoothAdapter == null){
+            //device doesn't support Bluetooth
+            android.widget.Toast.makeText(getContext(), "Bluetooth is not available", android.widget.Toast.LENGTH_LONG).show();
+        }
+        else if (!mBluetoothAdapter.isEnabled()){
+            android.content.Intent enableBtIntent = new android.content.Intent(android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, 1);
+        }else {
+            showPairedDevicesDialog();
+        }
+    }
 
     private void showPairedDevicesDialog(){
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-        builder.setTitle("select paired device").setItems(BluetoothController.getApplication().getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
+        builder.setTitle("select paired device").setItems(BluetoothController.getBTController().getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
             public void onClick(android.content.DialogInterface dialog, int which) {
-                String[] deviceArray = BluetoothController.getApplication().getAllPairedDevices();
+                String[] deviceArray = BluetoothController.getBTController().getAllPairedDevices();
                 String info = deviceArray[which];
                 String address = info.substring(info.length() - 17);
                 System.out.println(address);
-                if (BluetoothController.getApplication().connectDevice(address) < 0){
+                if (BluetoothController.getBTController().connectDevice(address) < 0){
                     android.widget.Toast.makeText(getContext(), "Unable to find device", android.widget.Toast.LENGTH_LONG).show();
                 }
             }
@@ -76,5 +87,7 @@ public class Settings extends Fragment {
         android.support.v7.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
 
 }
