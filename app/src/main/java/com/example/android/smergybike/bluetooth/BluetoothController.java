@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
@@ -82,7 +83,7 @@ public class BluetoothController extends Application {
         return -1;
     }
 
-    public void manageConnection(Handler mHandler){
+    public void manageConnection(){
         BTconnectedThread = new ConnectedThread(socket, mHandler);
         BTconnectedThread.start();
     }
@@ -95,7 +96,6 @@ public class BluetoothController extends Application {
     private final Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg){
-            System.out.println("in handler settings");
             switch(msg.what){
                 case Constants.FAILED_TO_CONNECT:
                     Toast.makeText(mContext, "Failed to connect", Toast.LENGTH_SHORT).show();
@@ -104,7 +104,9 @@ public class BluetoothController extends Application {
                     Toast.makeText(mContext, "connection successful", Toast.LENGTH_SHORT).show();
                     break;
                 case Constants.MESSAGE_READ:
-                    // TODO: put bluetooth data in database
+                    Bundle bundle = msg.getData();
+                    String string = bundle.getString("message");
+                    System.out.println(string);
                     break;
             }
         }

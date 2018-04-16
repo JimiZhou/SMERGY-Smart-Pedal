@@ -82,6 +82,9 @@ public class Settings extends Fragment {
                 if (BluetoothController.getBTController().connectDevice(address) < 0){
                     android.widget.Toast.makeText(getContext(), "Unable to find device", android.widget.Toast.LENGTH_LONG).show();
                 }
+                else{
+                    BluetoothController.getBTController().manageConnection();
+                }
             }
         });
         android.support.v7.app.AlertDialog dialog = builder.create();

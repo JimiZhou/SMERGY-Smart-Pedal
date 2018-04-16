@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 String address = info.substring(info.length() - 17);
                 System.out.println(address);
                 BTcontroller.connectDevice(address);
-                BTcontroller.manageConnection(mHandler);
+                BTcontroller.manageConnection();
             }
         });
 

@@ -2,14 +2,13 @@ package com.example.android.smergybike.bluetooth;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.os.Handler;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 
 import static android.content.ContentValues.TAG;
 
@@ -55,20 +54,29 @@ public class ConnectedThread extends Thread{
         mmBuffer = new byte[1024];
         System.out.println("bufferlength: " + mmBuffer.length);
         int numBytes; // bytes returned from read()
-
+        StringBuilder stringBuilder = new StringBuilder();
         // Keep listening to the InputStream until an exception occurs.
         while (true) {
             try {
                 // Read from the InputStream.
                 numBytes = mmInStream.read(mmBuffer);
-                // Send the obtained bytes to the UI activity
                 String readMessage = new String(mmBuffer, 0, numBytes);
-                System.out.println(readMessage);
-                Message msg = mmHandler.obtainMessage(Constants.MESSAGE_READ);
-                Bundle bundle = new Bundle();
-                bundle.putString("message", readMessage);
-                msg.setData(bundle);
-                mmHandler.sendMessage(msg);
+                for(int i = 0; i < readMessage.length(); i++)
+                {
+                    char c = readMessage.charAt(i);
+                    if (c == '/'){
+                        String finalMessage = stringBuilder.toString();
+                        stringBuilder.setLength(0);
+                        Message msg = mmHandler.obtainMessage(Constants.MESSAGE_READ);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("message", finalMessage);
+                        msg.setData(bundle);
+                        mmHandler.sendMessage(msg);
+                    }
+                    else{
+                        stringBuilder.append(c);
+                    }
+                }
             } catch (IOException e) {
                 Log.d(TAG, "Input stream was disconnected", e);
                 break;
