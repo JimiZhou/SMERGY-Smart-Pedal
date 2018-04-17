@@ -1,21 +1,26 @@
 package com.example.android.smergybike;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class Race extends Fragment {
 
-public class Home extends Fragment {
+    Button testbutton;
+    ProgressBar bar1;
+    ProgressBar bar2;
 
-    Button raceButton;
-
-    public static Home newInstance() {
-        return new Home();
+    public Race() {
+        // Required empty public constructor
     }
 
     @Override
@@ -28,24 +33,19 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_race, container, false);
         getActivity().setTitle("SmergyBike");
-        raceButton = (Button) view.findViewById(R.id.button_race);
-        raceButton.setOnClickListener(new View.OnClickListener() {
+        testbutton = view.findViewById(R.id.progress_button);
+        bar1 = view.findViewById(R.id.progressRacer1);
+        bar2 = view.findViewById(R.id.progressRacer2);
+        testbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Race race_fragment = new Race();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, race_fragment);
-                transaction.commit();
+                bar1.setProgress(50);
+                bar2.setProgress(25);
             }
         });
         return view;
-
-
-
     }
-
-
 
 }
