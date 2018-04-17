@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Statistics">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginStart="74dp"
+            android:gravity="center"
+            android:text="Blue Wins"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/power_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline3" />
+
+        <TextView
+            android:id="@+id/distance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="120dp"
+            android:layout_marginStart="117dp"
+            android:layout_marginTop="16dp"
+            android:text="Distance"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/progress_4" />
+
+        <TextView
+            android:id="@+id/energy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="126dp"
+            android:layout_marginStart="126dp"
+            android:gravity="center_horizontal"
+            android:text="Energy"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline3" />
+
+        <TextView
+            android:id="@+id/power_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="129dp"
+            android:layout_marginStart="127dp"
+            android:text="Power"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/progress_2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline3" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_2"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/energy_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerBlue"
+            app:rcRadius="10dp" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/energy_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerRed"
+            app:rcRadius="10dp"
+            app:rcReverse="true" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerRed"
+            app:rcRadius="10dp"
+            app:rcReverse="true" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_4"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerBlue"
+            app:rcRadius="10dp" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_5"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/distance_text"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerRed"
+            app:rcRadius="10dp"
+            app:rcReverse="true" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_6"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/distance_text"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="100"
+            app:rcProgress="30"
+            app:rcProgressColor="@color/playerBlue"
+            app:rcRadius="10dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="56dp"
+            android:text="Time :"
+
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/progress_6" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:text="9min 34sec"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/progress_6" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/title_text"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <TextView
+            android:id="@+id/power_blue_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginStart="4dp"
+            android:text="369 W"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/guideline4" />
+
+        <TextView
+            android:id="@+id/power_red_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginBottom="49dp"
+            android:layout_marginEnd="4dp"
+            android:text="369 W"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/progress_1" />
+
+        <TextView
+            android:id="@+id/energy_red_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:text="369 J"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/progress_3"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/distance_red_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="58dp"
+            android:text="1500 m"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/progress_5"
+            app:layout_constraintTop_toBottomOf="@+id/energy_red_text" />
+
+        <TextView
+            android:id="@+id/energy_blue_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="369 J"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/distance_blue_text"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="58dp"
+            android:text="1500 m"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/energy_blue_text" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

@@ -84,6 +84,18 @@ public class ConnectedThread extends Thread{
         }
     }
 
+//    public void write(byte[] buffer) {
+//        try {
+//            mmOutStream.write(buffer);
+//
+//            // Share the sent message back to the UI Activity
+//            mHandler.obtainMessage(Constants.MESSAGE_WRITE, -1, -1, buffer)
+//                    .sendToTarget();
+//        } catch (IOException e) {
+//            Log.e(TAG, "Exception during write", e);
+//        }
+//    }
+
 
     // Call this method from the main activity to shut down the connection.
     public void cancel() {

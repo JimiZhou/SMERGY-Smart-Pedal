@@ -3,4 +3,6 @@
     <color name="colorPrimary">#546e7a</color>
     <color name="colorPrimaryDark">#5b5c5f</color>
     <color name="colorAccent">#d49735</color>
+    <color name="playerBlue">#7986cb</color>
+    <color name="playerRed">#e57373</color>
 </resources>
