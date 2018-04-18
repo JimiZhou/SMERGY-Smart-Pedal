@@ -20,6 +20,7 @@ public class DataParser {
         rpm.clear();
         power.clear();
 
+
         String patternString1 = "(lat=\")(.+?)(\")";
         String patternString2 = "(lon=\")(.+?)(\")";
         String patternString3 = "(<ele>)(.+?)(</ele>)";
