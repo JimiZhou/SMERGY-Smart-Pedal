@@ -22,7 +22,7 @@ public class Main2Activity extends AppCompatActivity {
         dbModel.loadDummyData();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, Home.newInstance());
+        transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -33,13 +33,13 @@ public class Main2Activity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    selectedFragment = Home.newInstance();
+                    selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_leaderboard:
-                    selectedFragment = Leaderboard.newInstance();
+                    selectedFragment = LeaderboardFragment.newInstance();
                     break;
                 case R.id.navigation_settings:
-                    selectedFragment = Settings.newInstance();
+                    selectedFragment = SettingsFragment.newInstance();
                     break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

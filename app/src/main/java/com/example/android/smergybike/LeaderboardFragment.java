@@ -15,12 +15,12 @@ import com.example.android.smergybike.localDatabase.DbModel;
 
 import java.util.List;
 
-public class Leaderboard extends Fragment {
+public class LeaderboardFragment extends Fragment {
 
     private List<Player> players;
 
-    public static Leaderboard newInstance() {
-        return new Leaderboard();
+    public static LeaderboardFragment newInstance() {
+        return new LeaderboardFragment();
     }
 
      @Override

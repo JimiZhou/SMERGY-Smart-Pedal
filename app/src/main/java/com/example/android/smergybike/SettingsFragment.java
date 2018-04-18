@@ -14,12 +14,12 @@ import com.example.android.smergybike.bluetooth.BluetoothController;
 
 import java.util.Arrays;
 
-public class Settings extends Fragment {
+public class SettingsFragment extends Fragment {
 
     private BluetoothController BTcontroller;
 
-    public static Settings newInstance() {
-        return new Settings();
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
     }
 
      @Override
