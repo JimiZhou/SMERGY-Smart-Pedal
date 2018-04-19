@@ -8,7 +8,7 @@
     <string name="button_race">Race</string>
     <string name="textview_racer1">Racer 1</string>
     <string name="textview_racer2">Racer 2</string>
-
+    <string name="next">Next</string>
 
     <string-array name="leaderboard_array">
         <item>Global</item>

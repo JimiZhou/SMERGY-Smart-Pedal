@@ -2,9 +2,11 @@ package com.example.android.smergybike;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ public class StatisticsFragment extends Fragment {
         TextView bluePowerText = view.findViewById(R.id.power_blue_text);
         TextView redPowerText = view.findViewById(R.id.power_red_text);
         blueDistanceText.setText("1300 m"); // race.getPlayerBlue().getTotalDistance()
-        redDistanceText.setText("1250 m");  
+        redDistanceText.setText("1250 m");
         blueEnergyText.setText("2450 J");
         redEnergyText.setText("1340 J");
         bluePowerText.setText("234 W");
@@ -62,11 +64,24 @@ public class StatisticsFragment extends Fragment {
         return view;
     }
 
+    // TODO: create actionbar_new_race button
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.actionbar, menu);
+        inflater.inflate(R.menu.actionbar_new_race, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.actionbar_newRace){
+            HomeFragment home_fragment = new HomeFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, home_fragment);
+            transaction.commit();
+            return true;
+        }
+        return false;
     }
 }

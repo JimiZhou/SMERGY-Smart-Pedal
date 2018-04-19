@@ -35,9 +35,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
             RaceFragment race_fragment = new RaceFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, race_fragment);
-                transaction.commit();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, race_fragment);
+            transaction.commit();
             }
         });
         return view;

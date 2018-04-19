@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/navigation_home"
-        android:title="New Race"
-        app:showAsAction="always"/>
+    android:id="@+id/actionbar_next"
+    android:title="@string/next"
+    android:icon="@drawable/ic_arrow_forward_white_48px"
+    app:showAsAction="always"/>
 </menu>
