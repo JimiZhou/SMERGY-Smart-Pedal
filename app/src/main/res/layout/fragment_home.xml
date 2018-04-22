@@ -14,7 +14,7 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="160dp"
             android:text="Start Race"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
@@ -26,14 +26,14 @@
 
         <Button
             android:id="@+id/button_race"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="181dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
             android:text="START"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/message" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline5"
@@ -41,6 +41,72 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Blue Bike"
+            android:textColor="@color/playerBlue"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Red bike"
+            android:textColor="@color/playerRed"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline5" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edit_blue_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:inputType="textPersonName"
+                android:hint="Name"
+                android:padding="8dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <EditText
+                android:id="@+id/edit_red_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                android:hint="Name"/>
+        </android.support.v7.widget.CardView>
 
     </android.support.constraint.ConstraintLayout>
 

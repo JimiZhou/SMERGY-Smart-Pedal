@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionbar_newRace"
-        android:title="New Race"
+        android:title="@string/new_race"
         app:showAsAction="always"/>
 </menu>
