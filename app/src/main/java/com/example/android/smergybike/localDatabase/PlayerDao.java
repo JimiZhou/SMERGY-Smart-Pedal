@@ -20,11 +20,14 @@ public interface PlayerDao {
     @Query("SELECT * FROM player WHERE id IN (:playerIds)")
     List<Player> loadAllByIds(int[] playerIds);
 
+    @Query("SELECT * FROM player WHERE id = (:playerId)")
+    Player getPlayerById(long playerId);
+
     @Insert
-    void insert(Player player);
+    long insert(Player player);
 
     @Query("DELETE FROM player")
-    void deleteAll();
+    void deleteAllPlayers();
 
     @Delete
     void delete(Player player);

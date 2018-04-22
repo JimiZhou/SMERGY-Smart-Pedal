@@ -1,38 +1,69 @@
 package com.example.android.smergybike;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.sql.Date;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * Created by Joren on 18-4-2018.
  */
+
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Player.class,
+                parentColumns = "id",
+                childColumns = "player_blue",
+                onDelete = CASCADE),
+        @ForeignKey(entity = Player.class,
+                parentColumns = "id",
+                childColumns = "player_red",
+                onDelete = CASCADE)})
+
 public class Race {
-    private int id;
-    private Player playerblue;
-    private Player playerRed;
+    @PrimaryKey (autoGenerate = true)
+    @ColumnInfo (name = "id")
+    private long id;
+    @ColumnInfo (name = "player_blue")
+    private long playerblueId;
+    @ColumnInfo (name = "player_red")
+    private long playerRedId;
+    @ColumnInfo (name = "totaltime")
     private long totalTime;
+    @Ignore
     private Date timestamp;
 
+    public Race(){
+        playerblueId = -1;
+        playerRedId = -1;
+        totalTime = 0;
+    }
+    @Ignore
     public Race(Player blue, Player red) {
-        playerblue = blue;
-        playerRed = red;
+        playerblueId = blue.getId();
+        playerRedId = red.getId();
         totalTime = 0;
         timestamp = new Date(System.currentTimeMillis());
     }
 
-    public Player getPlayerblue() {
-        return playerblue;
+    public long getPlayerblueId() {
+        return playerblueId;
     }
 
-    public void setPlayerblue(Player playerblue) {
-        this.playerblue = playerblue;
+    public void setPlayerblueId(long playerblueId) {
+        this.playerblueId = playerblueId;
     }
 
-    public Player getPlayerRed() {
-        return playerRed;
+    public long getPlayerRedId() {
+        return playerRedId;
     }
 
-    public void setPlayerRed(Player playerRed) {
-        this.playerRed = playerRed;
+    public void setPlayerRedId(long playerRedId) {
+        this.playerRedId = playerRedId;
     }
 
     public long getTotalTime() {
@@ -49,6 +80,14 @@ public class Race {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
 

@@ -12,9 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.example.android.smergybike.localDatabase.DbModel;
 
 
 public class StatisticsFragment extends Fragment {
+
+    long currentRaceId;
+    DbModel dbModel = new DbModel(getContext());
+    Race currentRace;
 
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
@@ -24,6 +29,9 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        Bundle arguments = getArguments();
+        currentRaceId= arguments.getLong("raceId");
+        currentRace = dbModel.getRaceById(currentRaceId);
     }
 
     @Override

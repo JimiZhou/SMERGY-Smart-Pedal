@@ -10,9 +10,9 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity
 public class Player {
-
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    @ColumnInfo(name = "id")
+    private long id;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "highscore")
@@ -41,11 +41,20 @@ public class Player {
         totalDistance = 0;
     }
 
-    public int getId() {
+    @Ignore
+    public Player(String m_name){
+        name = m_name;
+        highscore = 0;
+        totalEnergy = 0;
+        totalPower = 0;
+        totalDistance = 0;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
