@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.example.android.smergybike.bluetooth.BluetoothController;
 
 import com.example.android.smergybike.localDatabase.DbModel;
 
@@ -26,6 +29,9 @@ public class RaceFragment extends Fragment {
     Button testbutton;
     ProgressBar bar1;
     ProgressBar bar2;
+    double force;
+    TextView force2;
+    boolean loop = false;
 
     public RaceFragment() {
         // Required empty public constructor
@@ -47,12 +53,29 @@ public class RaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_race, container, false);
         getActivity().setTitle("SmergyBike");
         testbutton = view.findViewById(R.id.progress_button);
+        force2 = view.findViewById(R.id.time_racer1);
         bar1 = view.findViewById(R.id.progressRacer1);
+        bar1.setMax(200);
         bar2 = view.findViewById(R.id.progressRacer2);
+
+      /**        getActivity().runOnUiThread(new Runnable(){
+
+
+            @Override
+            public void run() {
+
+
+
+            }
+        });
+**/
         testbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bar1.setProgress(50);
+                force = Double.parseDouble(BluetoothController.force);
+                force2.setText("force =  " + BluetoothController.force);
+                bar1.setProgress((int) force);
+
                 bar2.setProgress(25);
             }
         });

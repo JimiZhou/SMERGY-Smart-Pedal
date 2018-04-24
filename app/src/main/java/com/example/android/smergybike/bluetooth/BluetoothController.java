@@ -28,6 +28,7 @@ public class BluetoothController extends Application {
     private static BluetoothController sInstance;
     //private Handler mHandler;
     private Context mContext;
+    public static String force = "0";
 
     public BluetoothController(){
         sInstance = this;
@@ -106,6 +107,7 @@ public class BluetoothController extends Application {
                 case Constants.MESSAGE_READ:
                     Bundle bundle = msg.getData();
                     String string = bundle.getString("message");
+                    force = string;
                     System.out.println(string);
                     break;
             }
