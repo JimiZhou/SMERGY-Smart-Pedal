@@ -26,9 +26,9 @@ public class BluetoothController extends Application {
     private Set<BluetoothDevice> pairedDevices;
     private BluetoothSocket socket = null;
     private static BluetoothController sInstance;
-    //private Handler mHandler;
+    private Handler mRaceHandler;
     private Context mContext;
-    public static String force = "0";
+//    public static String force = "0";
 
     public BluetoothController(){
         sInstance = this;
@@ -49,6 +49,10 @@ public class BluetoothController extends Application {
 
     public BluetoothAdapter getBTAdapter (){
         return mBluetoothAdapter;
+    }
+
+    public void setRaceHandler(Handler mHandler) {
+        mRaceHandler = mHandler;
     }
 
     public String[] getAllPairedDevices(){
@@ -107,8 +111,14 @@ public class BluetoothController extends Application {
                 case Constants.MESSAGE_READ:
                     Bundle bundle = msg.getData();
                     String string = bundle.getString("message");
-                    force = string;
                     System.out.println(string);
+//                    force = string;
+                    // send to race Handler
+                    Message sendmsg = mRaceHandler.obtainMessage(Constants.UPDATE_VIEW);
+                    Bundle sendbundle = new Bundle();
+                    sendbundle.putString("update", string);
+                    sendmsg.setData(sendbundle);
+                    mRaceHandler.sendMessage(msg);
                     break;
             }
         }

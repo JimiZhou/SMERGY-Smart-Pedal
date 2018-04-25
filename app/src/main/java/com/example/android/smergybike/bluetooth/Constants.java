@@ -7,5 +7,6 @@ public class Constants {
     public static final int FAILED_TO_CONNECT = 1;
     public static final int CONNECTED = 2;
     public static final int MESSAGE_READ = 3;
+    public static final int UPDATE_VIEW = 4;
 
 }
