@@ -81,7 +81,7 @@
             app:rcRadius="10dp" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_1"
+            android:id="@+id/redBar"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginBottom="16dp"
@@ -232,7 +232,7 @@
             android:text="369 W"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/progress_1" />
+            app:layout_constraintEnd_toStartOf="@+id/redBar" />
 
         <TextView
             android:id="@+id/energy_red_text"

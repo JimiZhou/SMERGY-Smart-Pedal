@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.bluetooth.Constants;
 import com.example.android.smergybike.localDatabase.DbModel;
@@ -32,19 +33,20 @@ public class RaceFragment extends Fragment {
     Button testbutton;
     ProgressBar bar1;
     ProgressBar bar2;
-    double force;
     TextView textViewForce;
-    boolean loop = false;
+    TextView textView1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         Bundle arguments = getArguments();
-        currentRaceId= arguments.getLong("raceId");
+        currentRaceId = arguments.getLong("raceId");
         Race currentRace = dbModel.getRaceById(currentRaceId);
+        //TODO: get players in the current race
         BluetoothController.getBTController().setRaceHandler(mRaceHandler);
-        //start timer
+        //TODO: start timer
+
     }
 
     @Override
@@ -53,32 +55,11 @@ public class RaceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_race, container, false);
         getActivity().setTitle("SmergyBike");
-        testbutton = view.findViewById(R.id.progress_button);
-        textViewForce = view.findViewById(R.id.time_racer1);
-        bar1 = view.findViewById(R.id.progressRacer1);
-        bar1.setMax(200);
-        bar2 = view.findViewById(R.id.progressRacer2);
-
-      /**        getActivity().runOnUiThread(new Runnable(){
-
-
-            @Override
-            public void run() {
-
-
-
-            }
-        });
-**/
-        testbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                force = Double.parseDouble(BluetoothController.force);
-//                textViewForce.setText("force =  " + BluetoothController.force);
-//                bar1.setProgress((int) force);
-//                bar2.setProgress(25);
-            }
-        });
+        RoundCornerProgressBar blueBar = view.findViewById(R.id.blueBar);
+        RoundCornerProgressBar redBar= view.findViewById(R.id.redBar);
+        blueBar.setProgress(0.3f);
+        redBar.setProgress(0.65f);
+        textView1 = view.findViewById(R.id.textView1);
         return view;
     }
 
@@ -87,15 +68,15 @@ public class RaceFragment extends Fragment {
     {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.actionbar_next_button, menu);
+        inflater.inflate(R.menu.actionbar_end_race, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.actionbar_next){
-            //stop timer
+        if(item.getItemId() == R.id.actionbar_endRace){
+            //TODO: stop timer
             //currentRace.setTotalTime();
-            // update in database
+            //TODO: update in database
             StatisticsFragment statistics_fragment = new StatisticsFragment();
             Bundle arguments = new Bundle();
             arguments.putLong( "raceId" , currentRaceId);
@@ -109,10 +90,10 @@ public class RaceFragment extends Fragment {
     }
 
     public void updateView(String string){
-        force = Double.parseDouble(string);
-        textViewForce.setText("force =  " + string);
-        bar1.setProgress((int) force);
-        bar2.setProgress(25);
+        double force = Double.parseDouble(string);
+        textView1.setText("force =  " + string);
+        //TODO: add values to players atributes
+        //TODO: update progress bars
     }
 
     @SuppressLint("HandlerLeak")

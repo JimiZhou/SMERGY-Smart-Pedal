@@ -54,7 +54,7 @@ public class StatisticsFragment extends Fragment {
         redEnergyText.setText("1340 J");
         bluePowerText.setText("234 W");
         redPowerText.setText("1934 W");
-        RoundCornerProgressBar progressRedPower = view.findViewById(R.id.progress_1);
+        RoundCornerProgressBar progressRedPower = view.findViewById(R.id.redBar);
         progressRedPower.setProgress(0.9f);
         RoundCornerProgressBar progressBluePower = view.findViewById(R.id.progress_2);
         progressBluePower.setProgress(0.1f);
