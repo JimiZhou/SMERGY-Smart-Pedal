@@ -114,11 +114,13 @@ public class BluetoothController extends Application {
                     System.out.println(string);
 //                    force = string;
                     // send to race Handler
-                    Message sendmsg = mRaceHandler.obtainMessage(Constants.UPDATE_VIEW);
-                    Bundle sendbundle = new Bundle();
-                    sendbundle.putString("update", string);
-                    sendmsg.setData(sendbundle);
-                    mRaceHandler.sendMessage(msg);
+                    if (mRaceHandler != null){
+                        Message sendmsg = mRaceHandler.obtainMessage(Constants.UPDATE_VIEW);
+                        Bundle sendbundle = new Bundle();
+                        sendbundle.putString("update", string);
+                        sendmsg.setData(sendbundle);
+                        mRaceHandler.sendMessage(sendmsg);
+                    }
                     break;
             }
         }

@@ -13,8 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -30,11 +28,22 @@ public class RaceFragment extends Fragment {
 
     DbModel dbModel = new DbModel(getContext());
     long currentRaceId;
-    Button testbutton;
-    ProgressBar bar1;
-    ProgressBar bar2;
-    TextView textViewForce;
     TextView textView1;
+    long startTime = 0;
+    TextView timerTextView;
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,8 @@ public class RaceFragment extends Fragment {
         //TODO: get players in the current race
         BluetoothController.getBTController().setRaceHandler(mRaceHandler);
         //TODO: start timer
-
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
     @Override
@@ -54,6 +64,7 @@ public class RaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_race, container, false);
+        timerTextView = view.findViewById(R.id.timerTextView);
         getActivity().setTitle("SmergyBike");
         RoundCornerProgressBar blueBar = view.findViewById(R.id.blueBar);
         RoundCornerProgressBar redBar= view.findViewById(R.id.redBar);
@@ -75,6 +86,7 @@ public class RaceFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.actionbar_endRace){
             //TODO: stop timer
+            timerHandler.removeCallbacks(timerRunnable);
             //currentRace.setTotalTime();
             //TODO: update in database
             StatisticsFragment statistics_fragment = new StatisticsFragment();
@@ -90,9 +102,9 @@ public class RaceFragment extends Fragment {
     }
 
     public void updateView(String string){
-        double force = Double.parseDouble(string);
+        //double force = Double.parseDouble(string);
         textView1.setText("force =  " + string);
-        //TODO: add values to players atributes
+        //TODO: add values to players attributes
         //TODO: update progress bars
     }
 
