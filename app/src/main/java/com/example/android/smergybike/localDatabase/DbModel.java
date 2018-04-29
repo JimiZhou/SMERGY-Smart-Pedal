@@ -125,6 +125,21 @@ public class DbModel {
         return returnRace;
     }
 
+    public void updateRace(final Race race){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mraceDao.update(race);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteAllRaces(){
         Thread thread = new Thread(new Runnable() {
             @Override

@@ -3,6 +3,7 @@ package com.example.android.smergybike;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,8 @@ import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.android.smergybike.bluetooth.Constants;
 import com.example.android.smergybike.localDatabase.DbModel;
 
+import java.util.Locale;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +29,8 @@ import com.example.android.smergybike.localDatabase.DbModel;
 public class RaceFragment extends Fragment {
 
     DbModel dbModel = new DbModel(getContext());
-    long currentRaceId;
     Race currentRace;
+    Event currentEvent;
     Player bluePlayer;
     Player redPlayer;
     TextView textView1;
@@ -36,36 +39,43 @@ public class RaceFragment extends Fragment {
     TextView textView4;
     TextView textView5;
     TextView textView6;
-    long startTime = 0;
-    long totalTime = 0;
     TextView timerTextView;
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            totalTime = System.currentTimeMillis() - startTime;
-            int seconds = (int) (totalTime / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            timerTextView.setText(String.format("%d:%02d", minutes, seconds));
-            timerHandler.postDelayed(this, 500);
-        }
-    };
+    CountDownTimer mCountDownTimer;
+    long mTimeLeftInMillis;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Bundle arguments = getArguments();
-        currentRaceId = arguments.getLong("raceId");
-        currentRace = dbModel.getRaceById(currentRaceId);
+        currentRace = Globals.getGlobals().getCurrentRace();
+        currentEvent = Globals.getGlobals().getCurrentEvent();
         bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
         redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
         Globals.getGlobals().getBluetoothController().setRaceHandler(mRaceHandler);
         //start timer
-        startTime = System.currentTimeMillis();
-        timerHandler.postDelayed(timerRunnable, 0);
+        startTimer();
+    }
+
+    private void startTimer() {
+        mCountDownTimer = new CountDownTimer(currentEvent.getRaceLength(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                //end race before redirecing to next page
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        timerTextView.setText(timeLeftFormatted);
     }
 
     @Override
@@ -100,13 +110,11 @@ public class RaceFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.actionbar_endRace){
             //stop timer
-            timerHandler.removeCallbacks(timerRunnable);
-            currentRace.setTotalTime(totalTime);
-            //TODO: update in database
+            mCountDownTimer.cancel();
+            currentRace.setTotalTime(currentEvent.getRaceLength() - mTimeLeftInMillis);
+            dbModel.updateRace(currentRace);
+            //TODO: update players in database
             StatisticsFragment statistics_fragment = new StatisticsFragment();
-            Bundle arguments = new Bundle();
-            arguments.putLong( "raceId" , currentRaceId);
-            statistics_fragment.setArguments(arguments);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, statistics_fragment);
             transaction.commit();
@@ -126,7 +134,6 @@ public class RaceFragment extends Fragment {
         //redPlayer.addPower(Integer.parseInt(string));
         //TODO: add values to players attributes
         //TODO: update progress bars
-
     }
 
     @SuppressLint("HandlerLeak")

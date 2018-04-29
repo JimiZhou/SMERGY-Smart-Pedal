@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.android.smergybike.Race;
 
@@ -20,6 +21,8 @@ public interface RaceDao {
     @Query("SELECT * FROM Race WHERE id = (:raceId)")
     Race getRaceById(long raceId);
 
+    @Update
+    void update(Race race);
     @Insert
     long insert(Race race);
 

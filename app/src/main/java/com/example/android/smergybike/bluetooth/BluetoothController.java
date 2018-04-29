@@ -24,7 +24,6 @@ public class BluetoothController {
     private final BluetoothAdapter mBluetoothAdapter;
     private Set<BluetoothDevice> pairedDevices;
     private BluetoothSocket socket = null;
-//    private static BluetoothController sInstance;
     private Handler mRaceHandler;
     private Context mContext;
 //    public static String force = "0";
@@ -34,17 +33,9 @@ public class BluetoothController {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-//    public void setHandler(Handler handler){
-//        mHandler = handler;
-//    }
-
     public void setContext(Context context){
         mContext = context;
     }
-
-//    public static BluetoothController getBTController() {
-//        return sInstance;
-//    }
 
     public BluetoothAdapter getBTAdapter (){
         return mBluetoothAdapter;

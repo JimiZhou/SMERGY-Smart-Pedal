@@ -1,5 +1,6 @@
 package com.example.android.smergybike;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.smergybike.bluetooth.BluetoothController;
+import com.example.android.smergybike.localDatabase.DbModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class SettingsFragment extends Fragment {
 
     private BluetoothController BTcontroller;
-
+    private DbModel dbModel;
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
     }
@@ -26,6 +35,7 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BTcontroller = Globals.getGlobals().getBluetoothController();
+        dbModel = new DbModel(getContext());
     }
 
     @Override
@@ -51,10 +61,46 @@ public class SettingsFragment extends Fragment {
                     break;
                 case 1:
                     //new event
+                    createNewEvent();
                     break;
             }
         }
     };
+
+    private void createNewEvent() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mview = getLayoutInflater().inflate(R.layout.dialog_event, null);
+        builder.setView(mview);
+        final AlertDialog dialog = builder.create();
+        final EditText editTextTitle = mview.findViewById(R.id.event_title);
+        final EditText editTextTime = mview.findViewById(R.id.event_duration);
+        Button button = mview.findViewById(R.id.btnCreate);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!editTextTitle.getText().toString().isEmpty() && !editTextTime.getText().toString().isEmpty()) {
+                    DateFormat formatter = new SimpleDateFormat("mm:ss");
+                    Date date = null;
+                    try {
+                        date = formatter.parse(editTextTime.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (date != null) {
+                        long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), date.getTime()));
+                        Globals.getGlobals().setCurrentEvent(dbModel.getEventById(eventId));
+                        Toast.makeText(getContext(), "New event started", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }
+                else{
+                    Toast.makeText(getContext(),"please fill in empty fields", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        dialog.show();
+
+    }
 
     private void connectBluetooth(){
         BluetoothAdapter mBluetoothAdapter =  BTcontroller.getBTAdapter();
@@ -73,7 +119,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void showPairedDevicesDialog(){
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("select paired device").setItems(BTcontroller.getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
             public void onClick(android.content.DialogInterface dialog, int which) {
                 String[] deviceArray = BTcontroller.getAllPairedDevices();
@@ -81,14 +127,14 @@ public class SettingsFragment extends Fragment {
                 String address = info.substring(info.length() - 17);
                 System.out.println(address);
                 if (BTcontroller.connectDevice(address) < 0){
-                    android.widget.Toast.makeText(getContext(), "Unable to find device", android.widget.Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Unable to find device",Toast.LENGTH_LONG).show();
                 }
                 else{
                     BTcontroller.manageConnection();
                 }
             }
         });
-        android.support.v7.app.AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
 

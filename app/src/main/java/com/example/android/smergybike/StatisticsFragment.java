@@ -29,9 +29,7 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Bundle arguments = getArguments();
-        currentRaceId= arguments.getLong("raceId");
-        currentRace = dbModel.getRaceById(currentRaceId);
+        currentRace = Globals.getGlobals().getCurrentRace();
     }
 
     @Override

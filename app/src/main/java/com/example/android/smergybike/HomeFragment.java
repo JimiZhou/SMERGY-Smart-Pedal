@@ -52,10 +52,8 @@ public class HomeFragment extends Fragment {
                 List<Player> players = dbModel.getAllPlayers();
                 long raceId = dbModel.insertRace(new Race(dbModel.getPlayerById(blueID), dbModel.getPlayerById(redId), Globals.getGlobals().getCurrentEvent()));
                 Globals.getGlobals().setCurrentRace(dbModel.getRaceById(raceId));
+
                 RaceFragment race_fragment = new RaceFragment();
-                Bundle arguments = new Bundle();
-                arguments.putLong( "raceId" , raceId);
-                race_fragment.setArguments(arguments);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, race_fragment);
                 transaction.commit();
