@@ -43,14 +43,15 @@ public class HomeFragment extends Fragment {
         raceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Player blue = new Player(editText_blue.getText().toString());
-                Player red = new Player(editText_red.getText().toString());
-                long blueID = dbModel.insertPlayer(blue);
-                long redId = dbModel.insertPlayer(red);
+                if (Globals.getGlobals().getCurrentEvent() == null){
+                    long eventId = dbModel.insertEvent(new Event("new event", 10 * 1000));
+                    Globals.getGlobals().setCurrentEvent(dbModel.getEventById(eventId));
+                }
+                long blueID = dbModel.insertPlayer(new Player(editText_blue.getText().toString()));
+                long redId = dbModel.insertPlayer(new Player(editText_red.getText().toString()));
                 List<Player> players = dbModel.getAllPlayers();
-                Race newRace = new Race(dbModel.getPlayerById(blueID), dbModel.getPlayerById(redId));
-                long raceId = dbModel.insertRace(newRace);
-
+                long raceId = dbModel.insertRace(new Race(dbModel.getPlayerById(blueID), dbModel.getPlayerById(redId), Globals.getGlobals().getCurrentEvent()));
+                Globals.getGlobals().setCurrentRace(dbModel.getRaceById(raceId));
                 RaceFragment race_fragment = new RaceFragment();
                 Bundle arguments = new Bundle();
                 arguments.putLong( "raceId" , raceId);

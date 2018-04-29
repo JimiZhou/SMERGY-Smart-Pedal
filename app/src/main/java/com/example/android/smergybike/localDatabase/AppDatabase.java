@@ -5,17 +5,19 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Player;
 import com.example.android.smergybike.Race;
 
 /**
  * Created by Joren on 12-4-2018.
  */
-@Database(entities = {Player.class, Race.class}, version = 3, exportSchema = false)
+@Database(entities = {Player.class, Race.class, Event.class}, version = 4, exportSchema = false)
 //@TypeConverters(Converters.class)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PlayerDao playerDao();
     public abstract RaceDao raceDao();
+    public abstract EventDao eventDao();
     private static AppDatabase INSTANCE;
 
     static AppDatabase getDatabase(final Context context) {

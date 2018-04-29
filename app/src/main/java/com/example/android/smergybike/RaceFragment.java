@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.bluetooth.Constants;
 import com.example.android.smergybike.localDatabase.DbModel;
 
@@ -28,16 +27,25 @@ public class RaceFragment extends Fragment {
 
     DbModel dbModel = new DbModel(getContext());
     long currentRaceId;
+    Race currentRace;
+    Player bluePlayer;
+    Player redPlayer;
     TextView textView1;
+    TextView textView2;
+    TextView textView3;
+    TextView textView4;
+    TextView textView5;
+    TextView textView6;
     long startTime = 0;
+    long totalTime = 0;
     TextView timerTextView;
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
 
         @Override
         public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
+            totalTime = System.currentTimeMillis() - startTime;
+            int seconds = (int) (totalTime / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
             timerTextView.setText(String.format("%d:%02d", minutes, seconds));
@@ -51,10 +59,11 @@ public class RaceFragment extends Fragment {
         setHasOptionsMenu(true);
         Bundle arguments = getArguments();
         currentRaceId = arguments.getLong("raceId");
-        Race currentRace = dbModel.getRaceById(currentRaceId);
-        //TODO: get players in the current race
-        BluetoothController.getBTController().setRaceHandler(mRaceHandler);
-        //TODO: start timer
+        currentRace = dbModel.getRaceById(currentRaceId);
+        bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
+        redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
+        Globals.getGlobals().getBluetoothController().setRaceHandler(mRaceHandler);
+        //start timer
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
     }
@@ -71,6 +80,11 @@ public class RaceFragment extends Fragment {
         blueBar.setProgress(0.3f);
         redBar.setProgress(0.65f);
         textView1 = view.findViewById(R.id.textView1);
+        textView2 = view.findViewById(R.id.textView2);
+        textView3 = view.findViewById(R.id.textView3);
+        textView4 = view.findViewById(R.id.textView4);
+        textView5 = view.findViewById(R.id.textView5);
+        textView6 = view.findViewById(R.id.textView6);
         return view;
     }
 
@@ -85,9 +99,9 @@ public class RaceFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.actionbar_endRace){
-            //TODO: stop timer
+            //stop timer
             timerHandler.removeCallbacks(timerRunnable);
-            //currentRace.setTotalTime();
+            currentRace.setTotalTime(totalTime);
             //TODO: update in database
             StatisticsFragment statistics_fragment = new StatisticsFragment();
             Bundle arguments = new Bundle();
@@ -103,9 +117,16 @@ public class RaceFragment extends Fragment {
 
     public void updateView(String string){
         //double force = Double.parseDouble(string);
-        textView1.setText("force =  " + string);
+        textView1.setText("" + string + " J" );
+        textView2.setText("" + " W");
+        textView3.setText("" + " m");
+        textView4.setText("" + " J");
+        textView5.setText("" + " W");
+        textView6.setText("" + " m");
+        //redPlayer.addPower(Integer.parseInt(string));
         //TODO: add values to players attributes
         //TODO: update progress bars
+
     }
 
     @SuppressLint("HandlerLeak")

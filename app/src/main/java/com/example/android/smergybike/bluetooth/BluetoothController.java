@@ -1,7 +1,6 @@
 package com.example.android.smergybike.bluetooth;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -18,20 +17,20 @@ import java.util.UUID;
  * Created by Joren on 28-2-2018.
  */
 
-public class BluetoothController extends Application {
+public class BluetoothController {
 
     private static final UUID myUUID = UUID.fromString("5f3b4765-1ef9-4e32-b66a-76c18eeb9cf4");
     private ConnectedThread BTconnectedThread = null;
     private final BluetoothAdapter mBluetoothAdapter;
     private Set<BluetoothDevice> pairedDevices;
     private BluetoothSocket socket = null;
-    private static BluetoothController sInstance;
+//    private static BluetoothController sInstance;
     private Handler mRaceHandler;
     private Context mContext;
 //    public static String force = "0";
 
     public BluetoothController(){
-        sInstance = this;
+//        sInstance = this;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
@@ -43,9 +42,9 @@ public class BluetoothController extends Application {
         mContext = context;
     }
 
-    public static BluetoothController getBTController() {
-        return sInstance;
-    }
+//    public static BluetoothController getBTController() {
+//        return sInstance;
+//    }
 
     public BluetoothAdapter getBTAdapter (){
         return mBluetoothAdapter;

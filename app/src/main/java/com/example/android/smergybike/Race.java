@@ -22,6 +22,10 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         @ForeignKey(entity = Player.class,
                 parentColumns = "id",
                 childColumns = "player_red",
+                onDelete = CASCADE),
+        @ForeignKey(entity =  Event.class,
+                parentColumns = "id",
+                childColumns = "event",
                 onDelete = CASCADE)})
 
 public class Race {
@@ -34,6 +38,8 @@ public class Race {
     private long playerRedId;
     @ColumnInfo (name = "totaltime")
     private long totalTime;
+    @ColumnInfo (name = "event")
+    private long eventId;
     @Ignore
     private Date timestamp;
 
@@ -41,12 +47,14 @@ public class Race {
         playerblueId = -1;
         playerRedId = -1;
         totalTime = 0;
+        eventId = -1;
     }
     @Ignore
-    public Race(Player blue, Player red) {
+    public Race(Player blue, Player red, Event event) {
         playerblueId = blue.getId();
         playerRedId = red.getId();
         totalTime = 0;
+        eventId = event.getId();
         timestamp = new Date(System.currentTimeMillis());
     }
 
@@ -88,6 +96,14 @@ public class Race {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long event) {
+        this.eventId = event;
     }
 }
 

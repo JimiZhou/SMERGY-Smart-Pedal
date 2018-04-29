@@ -25,6 +25,7 @@ public class SettingsFragment extends Fragment {
      @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BTcontroller = Globals.getGlobals().getBluetoothController();
     }
 
     @Override
@@ -56,9 +57,9 @@ public class SettingsFragment extends Fragment {
     };
 
     private void connectBluetooth(){
-        BluetoothAdapter mBluetoothAdapter =  BluetoothController.getBTController().getBTAdapter();
+        BluetoothAdapter mBluetoothAdapter =  BTcontroller.getBTAdapter();
         //BluetoothController.getBTController().setHandler(mHandler);
-        BluetoothController.getBTController().setContext(getContext());
+        BTcontroller.setContext(getContext());
         if (mBluetoothAdapter == null){
             //device doesn't support Bluetooth
             android.widget.Toast.makeText(getContext(), "Bluetooth is not available", android.widget.Toast.LENGTH_LONG).show();
@@ -73,17 +74,17 @@ public class SettingsFragment extends Fragment {
 
     private void showPairedDevicesDialog(){
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-        builder.setTitle("select paired device").setItems(BluetoothController.getBTController().getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
+        builder.setTitle("select paired device").setItems(BTcontroller.getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
             public void onClick(android.content.DialogInterface dialog, int which) {
-                String[] deviceArray = BluetoothController.getBTController().getAllPairedDevices();
+                String[] deviceArray = BTcontroller.getAllPairedDevices();
                 String info = deviceArray[which];
                 String address = info.substring(info.length() - 17);
                 System.out.println(address);
-                if (BluetoothController.getBTController().connectDevice(address) < 0){
+                if (BTcontroller.connectDevice(address) < 0){
                     android.widget.Toast.makeText(getContext(), "Unable to find device", android.widget.Toast.LENGTH_LONG).show();
                 }
                 else{
-                    BluetoothController.getBTController().manageConnection();
+                    BTcontroller.manageConnection();
                 }
             }
         });

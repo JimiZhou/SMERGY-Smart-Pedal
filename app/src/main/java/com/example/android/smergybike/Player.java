@@ -98,5 +98,8 @@ public class Player {
         totalDistance = m_totalDistance;
     }
 
-
+    public int addPower(int value){
+        totalPower += value;
+        return totalPower;
+    }
 }

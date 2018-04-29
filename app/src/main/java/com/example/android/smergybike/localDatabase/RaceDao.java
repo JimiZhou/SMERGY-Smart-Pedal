@@ -24,7 +24,7 @@ public interface RaceDao {
     long insert(Race race);
 
     @Query("DELETE FROM race")
-    void deleteAll();
+    void deleteAllRaces();
 
     @Delete
     void delete(Race race);
