@@ -20,6 +20,8 @@ public class StatisticsFragment extends Fragment {
     long currentRaceId;
     DbModel dbModel = new DbModel(getContext());
     Race currentRace;
+    Player bluePlayer;
+    Player redPlayer;
 
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
@@ -30,6 +32,8 @@ public class StatisticsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         currentRace = Globals.getGlobals().getCurrentRace();
+        bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
+        redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
     }
 
     @Override
@@ -46,27 +50,30 @@ public class StatisticsFragment extends Fragment {
         TextView redEnergyText = view.findViewById(R.id.energy_red_text);
         TextView bluePowerText = view.findViewById(R.id.power_blue_text);
         TextView redPowerText = view.findViewById(R.id.power_red_text);
-        blueDistanceText.setText("1300 m"); // race.getPlayerBlue().getTotalDistance()
-        redDistanceText.setText("1250 m");
-        blueEnergyText.setText("2450 J");
-        redEnergyText.setText("1340 J");
-        bluePowerText.setText("234 W");
-        redPowerText.setText("1934 W");
+        blueDistanceText.setText(bluePlayer.getTotalDistance() + " m"); // race.getPlayerBlue().getTotalDistance()
+        redDistanceText.setText(redPlayer.getTotalDistance() + " m");
+        blueEnergyText.setText(bluePlayer.getTotalEnergy() + " J");
+        redEnergyText.setText(redPlayer.getTotalEnergy() + " J");
+        bluePowerText.setText(bluePlayer.getTotalPower() + " W");
+        redPowerText.setText(redPlayer.getTotalPower() + " W");
         RoundCornerProgressBar progressRedPower = view.findViewById(R.id.redBar);
-        progressRedPower.setProgress(0.9f);
+        progressRedPower.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxPower());
         RoundCornerProgressBar progressBluePower = view.findViewById(R.id.progress_2);
-        progressBluePower.setProgress(0.1f);
+        progressBluePower.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxPower());
         RoundCornerProgressBar progressRedEnergy = view.findViewById(R.id.progress_3);
-        progressRedEnergy.setProgress(0.5f);
+        progressRedEnergy.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxEnergy());
         RoundCornerProgressBar progressBlueEnergy = view.findViewById(R.id.progress_4);
-        progressBlueEnergy.setProgress(1f);
+        progressBlueEnergy.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxEnergy());
         RoundCornerProgressBar progressRedDistance = view.findViewById(R.id.progress_5);
-        progressRedDistance.setProgress(0.8f);
+        progressRedDistance.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxDistance());
         RoundCornerProgressBar progressBlueDistance = view.findViewById(R.id.progress_6);
-        progressBlueDistance.setProgress(0.9f);
+        progressBlueDistance.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxEnergy());
 
-        TextView time = view.findViewById(R.id.totalRaceTime);
-        time.setText("5min 34sec"); // race.getTotalTime()
+        TextView timeTextView = view.findViewById(R.id.totalRaceTime);
+        long time = currentRace.getTotalTime();
+        int minutes = (int) (time / 1000) / 60;
+        int seconds = (int) (time / 1000) % 60;
+        timeTextView.setText(minutes + "min " + seconds + "sec"); // race.getTotalTime()
         return view;
     }
 

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.android.smergybike.Player;
 
@@ -22,6 +23,18 @@ public interface PlayerDao {
 
     @Query("SELECT * FROM player WHERE id = (:playerId)")
     Player getPlayerById(long playerId);
+
+    @Query("SELECT MAX(totalPower) FROM player")
+    int getMaxPower();
+
+    @Query("SELECT MAX(totalEnergy) FROM player")
+    int getMaxEnergy();
+
+    @Query("SELECT MAX(totalDistance) FROM player")
+    int getMaxDistance();
+
+    @Update
+    void update(Player player);
 
     @Insert
     long insert(Player player);

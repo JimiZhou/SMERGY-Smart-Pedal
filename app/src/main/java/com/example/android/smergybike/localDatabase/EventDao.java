@@ -25,7 +25,7 @@ public interface EventDao {
     Event getEventById(long eventId);
 
     @Query("DELETE FROM Event")
-    void deleteAllPlayers();
+    void deleteAllEvents();
 
     @Delete
     void delete(Event event);

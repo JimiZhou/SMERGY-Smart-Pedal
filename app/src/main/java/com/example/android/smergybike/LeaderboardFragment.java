@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -18,6 +19,10 @@ import java.util.List;
 public class LeaderboardFragment extends Fragment {
 
     private List<Player> players;
+    private DbModel dbModel;
+    private Spinner spinner;
+    private RecyclerView recyclerView;
+    LeaderboardAdapter adapter;
 
     public static LeaderboardFragment newInstance() {
         return new LeaderboardFragment();
@@ -26,7 +31,7 @@ public class LeaderboardFragment extends Fragment {
      @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DbModel dbModel = new DbModel(getContext());
+        dbModel = new DbModel(getContext());
         players = dbModel.getAllPlayers();
     }
 
@@ -37,21 +42,44 @@ public class LeaderboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         // set up recycler listview
-        RecyclerView recyclerView = view.findViewById(R.id.listView_leaderboard);
+        recyclerView = view.findViewById(R.id.listView_leaderboard);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        LeaderboardAdapter adapter = new LeaderboardAdapter(players);
+        adapter = new LeaderboardAdapter(players);
         recyclerView.setAdapter(adapter);
 
         // fill dropdown menu
-        Spinner spinner = view.findViewById(R.id.dropdown_leaderboard);
-        ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(getContext(), R.array.leaderboard_array, android.R.layout.simple_spinner_item);
+       spinner = view.findViewById(R.id.dropdown_leaderboard);
+//        List<String> eventTitles = dbModel.getEventTitles();
+//        eventTitles.add("All");
+        List<Event> events = dbModel.getAllEvents();
+        ArrayAdapter dropdownAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, events.toArray());
         dropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dropdownAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Event event = (Event)spinner.getSelectedItem();
+                List<Event> e = dbModel.getAllEvents();
+                List<Race> r = dbModel.getAllRaces();
+                if (i == 0){
+                    players = dbModel.getAllPlayers();
+                }else {
+                    players = dbModel.getPlayersFromEvent(event);
+                }
+                adapter.updateList(players);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         getActivity().setTitle("Leaderboard");
         return view;
     }
+
 
 }

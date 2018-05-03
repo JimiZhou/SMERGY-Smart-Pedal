@@ -50,4 +50,11 @@ public class Event {
     public void setRaceLength(long raceLength) {
         this.raceLength = raceLength;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+
 }

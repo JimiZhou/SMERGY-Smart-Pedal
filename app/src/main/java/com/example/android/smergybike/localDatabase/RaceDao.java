@@ -21,6 +21,9 @@ public interface RaceDao {
     @Query("SELECT * FROM Race WHERE id = (:raceId)")
     Race getRaceById(long raceId);
 
+    @Query("SELECT * FROM Race WHERE event = (:eventId)")
+    List<Race> getRacesFromEvent(long eventId);
+
     @Update
     void update(Race race);
     @Insert

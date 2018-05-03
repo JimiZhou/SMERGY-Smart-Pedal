@@ -158,12 +158,12 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="56dp"
-            android:text="Time :"
 
+            android:text="Time :"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/totalRaceTime"
             app:layout_constraintTop_toBottomOf="@+id/progress_6" />
 
         <TextView

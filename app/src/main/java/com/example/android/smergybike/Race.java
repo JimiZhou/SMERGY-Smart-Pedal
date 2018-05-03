@@ -58,6 +58,15 @@ public class Race {
         timestamp = new Date(System.currentTimeMillis());
     }
 
+    @Ignore
+    public Race(long blueId, long redId, long evId) {
+        playerblueId = blueId;
+        playerRedId = redId;
+        totalTime = 0;
+        eventId = evId;
+        timestamp = new Date(System.currentTimeMillis());
+    }
+
     public long getPlayerblueId() {
         return playerblueId;
     }

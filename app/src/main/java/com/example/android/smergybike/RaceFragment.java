@@ -40,6 +40,8 @@ public class RaceFragment extends Fragment {
     TextView textView5;
     TextView textView6;
     TextView timerTextView;
+    RoundCornerProgressBar blueBar;
+    RoundCornerProgressBar redBar;
     CountDownTimer mCountDownTimer;
     long mTimeLeftInMillis;
 
@@ -52,28 +54,28 @@ public class RaceFragment extends Fragment {
         bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
         redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
         Globals.getGlobals().getBluetoothController().setRaceHandler(mRaceHandler);
-        //start timer
-        startTimer();
     }
 
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(currentEvent.getRaceLength(), 1000) {
+        mCountDownTimer = new CountDownTimer(currentEvent.getRaceLength(), 500) {
             @Override
             public void onTick(long millisUntilFinished) {
+                updateCountDownText(millisUntilFinished);
                 mTimeLeftInMillis = millisUntilFinished;
-                updateCountDownText();
             }
 
             @Override
             public void onFinish() {
-                //end race before redirecing to next page
+                timerTextView.setText("00:00");
+                mTimeLeftInMillis -= 1000;
+                endRace();
             }
         }.start();
     }
 
-    private void updateCountDownText() {
-        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+    private void updateCountDownText(long millisUntilFinished) {
+        int minutes = (int) (millisUntilFinished / 1000) / 60;
+        int seconds = (int) (millisUntilFinished / 1000) % 60;
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         timerTextView.setText(timeLeftFormatted);
     }
@@ -85,16 +87,18 @@ public class RaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_race, container, false);
         timerTextView = view.findViewById(R.id.timerTextView);
         getActivity().setTitle("SmergyBike");
-        RoundCornerProgressBar blueBar = view.findViewById(R.id.blueBar);
-        RoundCornerProgressBar redBar= view.findViewById(R.id.redBar);
-        blueBar.setProgress(0.3f);
-        redBar.setProgress(0.65f);
+        blueBar = view.findViewById(R.id.blueBar);
+        redBar= view.findViewById(R.id.redBar);
+        blueBar.setProgress(0f);
+        redBar.setProgress(0f);
         textView1 = view.findViewById(R.id.textView1);
         textView2 = view.findViewById(R.id.textView2);
         textView3 = view.findViewById(R.id.textView3);
         textView4 = view.findViewById(R.id.textView4);
         textView5 = view.findViewById(R.id.textView5);
         textView6 = view.findViewById(R.id.textView6);
+        updateCountDownText(currentEvent.getRaceLength());
+        startTimer();
         return view;
     }
 
@@ -111,9 +115,7 @@ public class RaceFragment extends Fragment {
         if(item.getItemId() == R.id.actionbar_endRace){
             //stop timer
             mCountDownTimer.cancel();
-            currentRace.setTotalTime(currentEvent.getRaceLength() - mTimeLeftInMillis);
-            dbModel.updateRace(currentRace);
-            //TODO: update players in database
+            endRace();
             StatisticsFragment statistics_fragment = new StatisticsFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, statistics_fragment);
@@ -121,6 +123,15 @@ public class RaceFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    private void endRace() {
+        currentRace.setTotalTime(currentEvent.getRaceLength() - mTimeLeftInMillis);
+
+        //update database
+        dbModel.updateRace(currentRace);
+        dbModel.updatePlayer(redPlayer);
+        dbModel.updatePlayer(bluePlayer);
     }
 
     public void updateView(String string){

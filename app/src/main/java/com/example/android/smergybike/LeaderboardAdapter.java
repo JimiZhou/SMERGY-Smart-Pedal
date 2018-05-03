@@ -60,6 +60,10 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public void updateList(List<Player> data) {
+        mDataset = data;
+    }
 }
 
 

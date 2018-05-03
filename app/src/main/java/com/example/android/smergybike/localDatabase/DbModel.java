@@ -6,6 +6,7 @@ import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Player;
 import com.example.android.smergybike.Race;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +20,12 @@ public class DbModel {
     private List<Player> returnValue;
     private Player returnPlayer;
     private long returnValueId;
+    private int returnMax;
     private Race returnRace;
     private Event returnEvent;
+    private List<Event> returnEventList;
+    private List<Race> returnRaceList;
+    private List<String> returnEventTitles;
 
 
     public DbModel(Context context) {
@@ -83,6 +88,69 @@ public class DbModel {
         return returnPlayer;
     }
 
+    public void updatePlayer(final Player player){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mplayerDao.update(player);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getMaxPower(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnMax = mplayerDao.getMaxPower();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnMax;
+    }
+
+    public int getMaxEnergy() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnMax = mplayerDao.getMaxEnergy();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnMax;
+    }
+
+    public int getMaxDistance() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnMax = mplayerDao.getMaxDistance();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnMax;
+    }
+
     public long insertRace(final Race race) {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -107,6 +175,22 @@ public class DbModel {
             }
         });
         thread.start();
+    }
+
+    public List<Race> getAllRaces(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnRaceList = mraceDao.getAll();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnRaceList;
     }
 
     public Race getRaceById(final long id){
@@ -182,14 +266,70 @@ public class DbModel {
         return returnEvent;
     }
 
+    public void deleteAllEvents(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mEventDao.deleteAllEvents();
+            }
+        });
+        thread.start();
+    }
+
+    public List<Event> getAllEvents(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnEventList = mEventDao.getAll();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnEventList;
+    }
+
+    public List<Race> getRacesFromEvent(final long eventId){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnRaceList = mraceDao.getRacesFromEvent(eventId);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnRaceList;
+    }
+    public List<Player> getPlayersFromEvent(Event event){
+        List<Race> races = getRacesFromEvent(event.getId());
+        List<Player> players = new ArrayList<>();
+        for (Race race : races){
+            players.add(getPlayerById(race.getPlayerblueId()));
+            players.add(getPlayerById(race.getPlayerRedId()));
+        }
+        return players;
+    }
+
     public void loadDummyData(){
         deleteAllPlayers();
         deleteAllRaces();
-        insertPlayer(new Player("Joren", 1445,0,0,0));
-        insertPlayer(new Player("Lin", 1120,0,0,0));
-        insertPlayer(new Player("Jimi", 1004,0,0,0));
-        insertPlayer(new Player("Bart", 905,0,0,0));
-        insertPlayer(new Player("Eva", 847,0,0,0));
-        insertPlayer(new Player("Gorik", 341,0,0,0));
+        deleteAllEvents();
+        long e = insertEvent(new Event("All", 60000));
+        long p1 = insertPlayer(new Player("Joren", 1445,100,44,1000));
+        long p2 = insertPlayer(new Player("Lin", 1120,521,44,1000));
+        long p3 = insertPlayer(new Player("Jimi", 1004,151,44,1000));
+        long p4 = insertPlayer(new Player("Bart", 905,75,44,1000));
+        long p5 = insertPlayer(new Player("Eva", 847,99,44,1000));
+        long p6 = insertPlayer(new Player("Gorik", 341,14,44,1000));
+//        insertRace(new Race(p1, p2, e));
+//        insertRace(new Race(p3, p4, e));
+//        insertRace(new Race(p5, p6, e));
     }
 }
