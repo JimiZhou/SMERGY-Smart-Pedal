@@ -63,7 +63,7 @@ public class LeaderboardFragment extends Fragment {
                 Event event = (Event)spinner.getSelectedItem();
                 List<Event> e = dbModel.getAllEvents();
                 List<Race> r = dbModel.getAllRaces();
-                if (i == 0){
+                if (event.getId() == Globals.getGlobals().getAllId()){
                     players = dbModel.getAllPlayers();
                 }else {
                     players = dbModel.getPlayersFromEvent(event);

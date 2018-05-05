@@ -13,12 +13,14 @@ public class Globals extends Application {
     private BluetoothController bluetoothController;
     private Event currentEvent;
     private Race currentRace;
+    private long allId;
 
     public Globals(){
        sInstance = this;
        bluetoothController = new BluetoothController();
        currentEvent = null;
        currentRace = null;
+       allId = 0;
     }
 
     public static Globals getGlobals() {
@@ -48,4 +50,13 @@ public class Globals extends Application {
     public void setCurrentRace(Race currentRace) {
         this.currentRace = currentRace;
     }
+
+    public long getAllId() {
+        return allId;
+    }
+
+    public void setAllId(long allId) {
+        this.allId = allId;
+    }
+
 }

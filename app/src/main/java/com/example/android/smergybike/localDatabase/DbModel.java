@@ -3,6 +3,7 @@ package com.example.android.smergybike.localDatabase;
 import android.content.Context;
 
 import com.example.android.smergybike.Event;
+import com.example.android.smergybike.Globals;
 import com.example.android.smergybike.Player;
 import com.example.android.smergybike.Race;
 
@@ -175,6 +176,11 @@ public class DbModel {
             }
         });
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Race> getAllRaces(){
@@ -232,6 +238,11 @@ public class DbModel {
             }
         });
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public long insertEvent(final Event event) {
@@ -274,6 +285,11 @@ public class DbModel {
             }
         });
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Event> getAllEvents(){
@@ -317,11 +333,27 @@ public class DbModel {
         return players;
     }
 
+    public void delete(final Event event){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mEventDao.delete(event);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadDummyData(){
         deleteAllPlayers();
         deleteAllRaces();
         deleteAllEvents();
         long e = insertEvent(new Event("All", 60000));
+        Globals.getGlobals().setAllId(e);
         long p1 = insertPlayer(new Player("Joren", 1445,100,44,1000));
         long p2 = insertPlayer(new Player("Lin", 1120,521,44,1000));
         long p3 = insertPlayer(new Player("Jimi", 1004,151,44,1000));
