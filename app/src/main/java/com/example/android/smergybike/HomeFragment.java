@@ -17,6 +17,7 @@ import com.example.android.smergybike.localDatabase.DbModel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -103,7 +104,10 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                     if (date != null) {
-                        long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), date.getTime()));
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);
+                        long time = cal.get(Calendar.MINUTE) * 60000 + cal.get(Calendar.SECOND) * 1000; // number of minutes * number of milli in minute + number of sec ...
+                        long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), time));
                         Globals.getGlobals().setCurrentEvent(dbModel.getEventById(eventId));
                         Toast.makeText(getContext(), "New event started", Toast.LENGTH_LONG).show();
                         dialog.dismiss();

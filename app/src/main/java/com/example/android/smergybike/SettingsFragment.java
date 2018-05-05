@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,6 +21,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SettingsFragment extends Fragment {
@@ -44,25 +44,36 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        String[] values = new String[]{"Connect Bluetooth","Start new Event", "List Events"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(values));
-        ListView listView = view.findViewById(R.id.listView_settings);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(mClickListener);
+        String[] bluetooth_values = new String[]{"Connect Bluetooth"};
+        String[] event_values = new String[]{"Start new Event", "List Events"};
+        SettingsAdapter adapter_bt = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(bluetooth_values));
+        SettingsAdapter adapter_event = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(event_values));
+        ListView listView_bt = view.findViewById(R.id.listView_settings_bluetooth);
+        ListView listView_event = view.findViewById(R.id.listView_settings_event);
+        listView_bt.setAdapter(adapter_bt);
+        listView_event.setAdapter(adapter_event);
+        listView_bt.setOnItemClickListener(mClickListener_bluetooth);
+        listView_event.setOnItemClickListener(mClickListener_event);
         getActivity().setTitle("Settings");
         return view;
     }
 
-     private AdapterView.OnItemClickListener mClickListener = new AdapterView.OnItemClickListener() {
+     private AdapterView.OnItemClickListener mClickListener_bluetooth = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             switch (position){
                 case 0:
                     connectBluetooth();
-                    break;
-                case 1:
+            }
+        }
+    };
+
+    private AdapterView.OnItemClickListener mClickListener_event = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+            switch (position){
+                case 0:
                     createNewEvent();
                     break;
-                case 2:
+                case 1:
                     showEventList();
                     break;
             }
@@ -96,7 +107,10 @@ public class SettingsFragment extends Fragment {
                         e.printStackTrace();
                     }
                     if (date != null) {
-                        long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), date.getTime()));
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);
+                        long time = cal.get(Calendar.MINUTE) * 60000 + cal.get(Calendar.SECOND) * 1000; // number of minutes * number of milli in minute + number of sec ...
+                        long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), time));
                         Globals.getGlobals().setCurrentEvent(dbModel.getEventById(eventId));
                         Toast.makeText(getContext(), "New event started", Toast.LENGTH_LONG).show();
                         dialog.dismiss();

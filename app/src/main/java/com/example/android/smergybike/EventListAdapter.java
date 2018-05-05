@@ -42,7 +42,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.list_item, null);
+            v = vi.inflate(R.layout.eventlist_item, null);
         }
 
         Event p = getItem(position);
