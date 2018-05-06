@@ -386,18 +386,18 @@ public class DbModel {
         }
     }
 
-    public void loadDummyData(){
+    public void databaseSetupData(){
         deleteAllPlayers();
         deleteAllRaces();
         deleteAllEvents();
         long e = insertEvent(new Event("All", 60000));
         Globals.getGlobals().setAllId(e);
-        long p1 = insertPlayer(new Player("Joren", 1445,100,44,1000));
-        long p2 = insertPlayer(new Player("Lin", 1120,521,44,1000));
-        long p3 = insertPlayer(new Player("Jimi", 1004,151,44,1000));
-        long p4 = insertPlayer(new Player("Bart", 905,75,44,1000));
-        long p5 = insertPlayer(new Player("Eva", 847,99,44,1000));
-        long p6 = insertPlayer(new Player("Gorik", 341,14,44,1000));
+//        long p1 = insertPlayer(new Player("Joren", 1445,100,44,1000));
+//        long p2 = insertPlayer(new Player("Lin", 1120,521,44,1000));
+//        long p3 = insertPlayer(new Player("Jimi", 1004,151,44,1000));
+//        long p4 = insertPlayer(new Player("Bart", 905,75,44,1000));
+//        long p5 = insertPlayer(new Player("Eva", 847,99,44,1000));
+//        long p6 = insertPlayer(new Player("Gorik", 341,14,44,1000));
 //        insertRace(new Race(p1, p2, e));
 //        insertRace(new Race(p3, p4, e));
 //        insertRace(new Race(p5, p6, e));

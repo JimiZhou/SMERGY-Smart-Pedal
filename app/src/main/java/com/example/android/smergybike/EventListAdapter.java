@@ -42,7 +42,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.eventlist_item, null);
+            v = vi.inflate(R.layout.list_item, null);
         }
 
         Event p = getItem(position);
@@ -63,7 +63,6 @@ public class EventListAdapter extends ArrayAdapter<Event> {
                 }else{
                     starImage.setImageResource(0);
                 }
-
             }
 
             if (deleteImage != null) {
@@ -74,9 +73,6 @@ public class EventListAdapter extends ArrayAdapter<Event> {
             starImage.setOnClickListener(starListener);
             deleteImage.setOnClickListener(deleteListener);
         }
-
-
-
         return v;
     }
 
@@ -86,7 +82,11 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 //            ImageView star = (ImageView) view;
             int position = (Integer) view.getTag();
             Event selectedEvent = events.get(position);
-            if (selectedEvent.getId() != Globals.getGlobals().getCurrentEvent().getId()){
+            if(Globals.getGlobals().getCurrentEvent() == null){
+                Globals.getGlobals().setCurrentEvent(selectedEvent);
+                notifyDataSetChanged();
+            }
+            else if (selectedEvent.getId() != Globals.getGlobals().getCurrentEvent().getId()){
                 Globals.getGlobals().setCurrentEvent(selectedEvent);
                 notifyDataSetChanged();
             }

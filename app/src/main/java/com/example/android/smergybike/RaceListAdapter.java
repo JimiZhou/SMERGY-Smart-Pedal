@@ -44,7 +44,7 @@ public class RaceListAdapter extends ArrayAdapter<Race> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.eventlist_item, null);
+            v = vi.inflate(R.layout.list_item, null);
         }
 
         Race p = getItem(position);
@@ -71,7 +71,6 @@ public class RaceListAdapter extends ArrayAdapter<Race> {
             }
             deleteImage.setOnClickListener(deleteListener);
         }
-
         return v;
     }
 

@@ -1,6 +1,8 @@
 package com.example.android.smergybike;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -17,9 +19,20 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        //load dummy data
-        DbModel dbModel = new DbModel(this);
-        dbModel.loadDummyData();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences globals
+        Globals.getGlobals().setAllId(prefs.getLong("allid", 0));
+
+        //loads setupdate when app gets installed for the first time
+        if (!prefs.getBoolean("firstTime", false)) {
+            DbModel dbModel = new DbModel(this);
+            dbModel.databaseSetupData();
+            // mark first time has runned.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.putLong("allid", Globals.getGlobals().getAllId());
+            editor.apply();
+        }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
