@@ -2,6 +2,7 @@ package com.example.android.smergybike;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,13 @@ public class EventListFragment extends Fragment {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             Event clickedEvent = events.get(position);
             //show all races
+            RaceListFragment list_fragment = new RaceListFragment();
+            Bundle arguments = new Bundle();
+            arguments.putLong( "eventId" , clickedEvent.getId());
+            list_fragment.setArguments(arguments);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout,list_fragment);
+            transaction.commit();
 
         }
     };

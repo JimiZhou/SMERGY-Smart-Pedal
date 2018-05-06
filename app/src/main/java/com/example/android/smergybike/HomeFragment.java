@@ -50,12 +50,14 @@ public class HomeFragment extends Fragment {
         editText_blue = view.findViewById(R.id.edit_blue_name);
         editText_red = view.findViewById(R.id.edit_red_name);
         TextView raceTimeView = view.findViewById(R.id.race_duration);
+        TextView eventTextView = view.findViewById(R.id.event_indicator);
         if (currentEvent != null) {
             long time = currentEvent.getRaceLength();
             int minutes = (int) (time / 1000) / 60;
             int seconds = (int) (time / 1000) % 60;
             currentEvent.getRaceLength();
             raceTimeView.setText("Race time:  " + minutes + "min " + seconds + "sec");
+            eventTextView.setText(Globals.getGlobals().getCurrentEvent().getTitle());
         }
         raceButton.setOnClickListener(new View.OnClickListener() {
             @Override

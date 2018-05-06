@@ -334,10 +334,48 @@ public class DbModel {
     }
 
     public void delete(final Event event){
+        //find every race and delete races
+        List<Race> races = getRacesFromEvent(event.getId());
+        for (Race race :races){
+            delete(race);
+        }
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 mEventDao.delete(event);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(final Race race){
+        //find players and delete players
+        delete(getPlayerById(race.getPlayerRedId()));
+        delete(getPlayerById(race.getPlayerblueId()));
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mraceDao.delete(race);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(final Player player){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mplayerDao.delete(player);
             }
         });
         thread.start();
