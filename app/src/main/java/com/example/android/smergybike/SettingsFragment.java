@@ -84,6 +84,7 @@ public class SettingsFragment extends Fragment {
         EventListFragment list_fragment = new EventListFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout,list_fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

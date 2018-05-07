@@ -53,8 +53,8 @@ public class EventListFragment extends Fragment {
             list_fragment.setArguments(arguments);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout,list_fragment);
+            transaction.addToBackStack(null);
             transaction.commit();
-
         }
     };
 

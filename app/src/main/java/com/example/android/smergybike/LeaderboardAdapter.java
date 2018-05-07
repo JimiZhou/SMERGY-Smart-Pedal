@@ -11,24 +11,33 @@ import java.util.List;
 /**
  * Created by Joren on 29-3-2018.
  */
-public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
+class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    //private String[] mDataset;
-    private List<Player> mDataset;
+    public TextView itemNumber;
+    public TextView itemScore;
+    public TextView itemName;
+    private RecyclerViewItemClickListener itemClickListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView itemNumber;
-        public TextView itemScore;
-        public TextView itemName;
-
-        public ViewHolder(View v) {
-            super(v);
-            itemNumber = itemView.findViewById(R.id.item_number);
-            itemScore = itemView.findViewById(R.id.item_score);
-            itemName = itemView.findViewById(R.id.item_name);
-        }
+    public RecyclerViewHolder(View itemView) {
+        super(itemView);
+        itemView.setOnClickListener(this);
+        itemNumber = itemView.findViewById(R.id.item_number);
+        itemScore = itemView.findViewById(R.id.item_score);
+        itemName = itemView.findViewById(R.id.item_name);
     }
+
+    public void setItemClickListener(RecyclerViewItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        itemClickListener.onClick(view, getAdapterPosition());
+    }
+}
+public class LeaderboardAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+
+    private List<Player> mDataset;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public LeaderboardAdapter(List<Player> players) {
@@ -37,15 +46,13 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
     // Create new views (invoked by the layout manager)
     @Override
-    public LeaderboardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.leaderboard_item, parent, false));
+    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.leaderboard_item, parent, false));
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
+    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         Player item = mDataset.get(position);
         if (item != null) {
             int rank = position + 1;
@@ -53,6 +60,13 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             holder.itemName.setText(item.getName());
             holder.itemScore.setText("" + item.getHighscore());
         }
+        holder.setItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                System.out.println("clicked on " + mDataset.get(position).getName());
+                //transaction to race
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
