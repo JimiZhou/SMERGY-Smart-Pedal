@@ -73,10 +73,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void createRace() {
-        long blueID = dbModel.insertPlayer(new Player(editText_blue.getText().toString()));
-        long redId = dbModel.insertPlayer(new Player(editText_red.getText().toString()));
+        Event currentEvent = Globals.getGlobals().getCurrentEvent();
+        long raceId = dbModel.insertRace(new Race(0 , Globals.getGlobals().getCurrentEvent().getId()));
+        long blueID = dbModel.insertPlayer(new Player(editText_blue.getText().toString(), 0 , 0 ,0 ,0 , raceId, currentEvent.getId(), true));
+        long redId = dbModel.insertPlayer(new Player(editText_red.getText().toString(), 0,0,0,0, raceId, currentEvent.getId(), false));
         List<Player> players = dbModel.getAllPlayers();
-        long raceId = dbModel.insertRace(new Race(dbModel.getPlayerById(blueID), dbModel.getPlayerById(redId), Globals.getGlobals().getCurrentEvent()));
+
         Globals.getGlobals().setCurrentRace(dbModel.getRaceById(raceId));
 
         RaceFragment race_fragment = new RaceFragment();

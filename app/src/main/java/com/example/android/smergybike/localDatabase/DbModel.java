@@ -7,7 +7,6 @@ import com.example.android.smergybike.Globals;
 import com.example.android.smergybike.Player;
 import com.example.android.smergybike.Race;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class DbModel {
     private PlayerDao mplayerDao;
     private RaceDao mraceDao;
     private EventDao mEventDao;
-    private List<Player> returnValue;
+    private List<Player> returnPlayerList;
     private Player returnPlayer;
     private long returnValueId;
     private int returnMax;
@@ -37,7 +36,7 @@ public class DbModel {
     }
 
     private void setReturnValue(List<Player> value){
-        returnValue = value;
+        returnPlayerList = value;
     }
 
     public long insertPlayer(final Player player) {
@@ -70,7 +69,7 @@ public class DbModel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return returnValue;
+        return returnPlayerList;
     }
 
     public Player getPlayerById(final long id){
@@ -323,22 +322,55 @@ public class DbModel {
         }
         return returnRaceList;
     }
-    public List<Player> getPlayersFromEvent(Event event){
-        List<Race> races = getRacesFromEvent(event.getId());
-        List<Player> players = new ArrayList<>();
-        for (Race race : races){
-            players.add(getPlayerById(race.getPlayerblueId()));
-            players.add(getPlayerById(race.getPlayerRedId()));
+    public List<Player> getPlayersFromEvent(final Event event){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnPlayerList = mplayerDao.getPlayersFromEvent(event.getId());
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return players;
+        return returnPlayerList;
+    }
+
+    public List<Player> getPlayersFromRace(final Race race){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnPlayerList = mplayerDao.getPlayersFromRace(race.getId());
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnPlayerList;
+    }
+
+    public Player getPlayer(final Race race, final boolean isBlue){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnPlayer = mplayerDao.getPlayer(race.getId(), isBlue);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnPlayer;
     }
 
     public void delete(final Event event){
-        //find every race and delete races
-        List<Race> races = getRacesFromEvent(event.getId());
-        for (Race race :races){
-            delete(race);
-        }
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -354,9 +386,6 @@ public class DbModel {
     }
 
     public void delete(final Race race){
-        //find players and delete players
-        delete(getPlayerById(race.getPlayerRedId()));
-        delete(getPlayerById(race.getPlayerblueId()));
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

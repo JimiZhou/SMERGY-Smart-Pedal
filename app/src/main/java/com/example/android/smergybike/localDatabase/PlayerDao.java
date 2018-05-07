@@ -33,6 +33,15 @@ public interface PlayerDao {
     @Query("SELECT MAX(totalDistance) FROM player")
     int getMaxDistance();
 
+    @Query("SELECT * FROM player WHERE eventId = (:eventId)")
+    List<Player> getPlayersFromEvent(long eventId);
+
+    @Query("SELECT * FROM player WHERE raceId = (:raceId)")
+    List<Player> getPlayersFromRace(long raceId);
+
+    @Query("SELECT * FROM player WHERE raceId = (:raceId) AND colorBlue = (:isblue)")
+    Player getPlayer(long raceId, boolean isblue);
+
     @Update
     void update(Player player);
 

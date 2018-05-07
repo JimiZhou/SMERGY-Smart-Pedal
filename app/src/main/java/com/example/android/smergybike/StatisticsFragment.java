@@ -32,8 +32,8 @@ public class StatisticsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         currentRace = Globals.getGlobals().getCurrentRace();
-        bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
-        redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
+        bluePlayer = dbModel.getPlayer(currentRace, true);
+        redPlayer = dbModel.getPlayer(currentRace, false);
     }
 
     @Override

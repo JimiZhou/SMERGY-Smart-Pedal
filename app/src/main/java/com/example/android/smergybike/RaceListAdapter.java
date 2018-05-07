@@ -47,17 +47,17 @@ public class RaceListAdapter extends ArrayAdapter<Race> {
             v = vi.inflate(R.layout.list_item, null);
         }
 
-        Race p = getItem(position);
+        Race r = getItem(position);
 
-        if (p != null) {
+        if (r != null) {
             title = v.findViewById(R.id.item_title);
             starImage = v.findViewById(R.id.starImage);
             deleteImage = v.findViewById(R.id.imageBtn);
 
             if (title != null) {
-                Player blue = dbModel.getPlayerById(p.getPlayerblueId());
-                Player red = dbModel.getPlayerById(p.getPlayerRedId());
-                String text = blue.getName() + " vs." + red.getName();
+                Player blue = dbModel.getPlayer(r, true);
+                Player red = dbModel.getPlayer(r, false);
+                String text = blue.getName() + " vs. " + red.getName();
                 title.setText(text);
             }
 

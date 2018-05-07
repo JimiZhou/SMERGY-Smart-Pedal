@@ -51,8 +51,8 @@ public class RaceFragment extends Fragment {
         setHasOptionsMenu(true);
         currentRace = Globals.getGlobals().getCurrentRace();
         currentEvent = Globals.getGlobals().getCurrentEvent();
-        bluePlayer = dbModel.getPlayerById(currentRace.getPlayerblueId());
-        redPlayer = dbModel.getPlayerById(currentRace.getPlayerRedId());
+        bluePlayer = dbModel.getPlayer(currentRace, true);
+        redPlayer = dbModel.getPlayer(currentRace, false);
         Globals.getGlobals().getBluetoothController().setRaceHandler(mRaceHandler);
     }
 
