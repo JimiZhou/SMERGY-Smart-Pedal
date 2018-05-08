@@ -146,4 +146,9 @@ public class Player {
         totalPower += value;
         return totalPower;
     }
+
+    public int addEnergy(int value){
+        totalEnergy += value;
+        return totalEnergy;
+    }
 }

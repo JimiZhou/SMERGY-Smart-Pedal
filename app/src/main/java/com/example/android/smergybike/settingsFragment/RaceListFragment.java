@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.settingsFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.android.smergybike.R;
+import com.example.android.smergybike.Race;
 import com.example.android.smergybike.localDatabase.DbModel;
 
 import java.util.List;

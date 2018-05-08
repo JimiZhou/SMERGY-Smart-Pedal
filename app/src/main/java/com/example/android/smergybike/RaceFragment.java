@@ -127,24 +127,26 @@ public class RaceFragment extends Fragment {
 
     private void endRace() {
         currentRace.setTotalTime(currentEvent.getRaceLength() - mTimeLeftInMillis);
-
+        // set players Highscore
+        bluePlayer.setHighscore(bluePlayer.getTotalEnergy());
+        redPlayer.setHighscore(redPlayer.getTotalEnergy());
         //update database
         dbModel.updateRace(currentRace);
         dbModel.updatePlayer(redPlayer);
         dbModel.updatePlayer(bluePlayer);
     }
 
-    public void updateView(String string){
+    public void updateView(String[] string, boolean isBlue){
         //double force = Double.parseDouble(string);
-        textView1.setText("" + string + " J" );
-        textView2.setText("" + " W");
-        textView3.setText("" + " m");
-        textView4.setText("" + " J");
-        textView5.setText("" + " W");
-        textView6.setText("" + " m");
-        //redPlayer.addPower(Integer.parseInt(string));
-        //TODO: add values to players attributes
-        //TODO: update progress bars
+        if(isBlue){
+            textView1.setText("" + string[0] + " J" );
+            textView2.setText("" + string[1] + " W");
+            textView3.setText("" + string[2] +" m");
+        }else{
+            textView4.setText("" + string[0] + " J");
+            textView5.setText("" + string[1] + " W");
+            textView6.setText("" + string[2] + " m");
+        }
     }
 
     @SuppressLint("HandlerLeak")
@@ -155,9 +157,45 @@ public class RaceFragment extends Fragment {
                 case Constants.UPDATE_VIEW:
                     Bundle bundle = msg.getData();
                     String string = bundle.getString("update");
-                    updateView(string);
+                    parseData(string);
+                    updateProgressBars();
                     break;
             }
         }
     };
+
+    private void updateProgressBars() {
+        int maxEnergy = dbModel.getMaxEnergy();
+        blueBar.setProgress(bluePlayer.getTotalEnergy()/maxEnergy);
+        redBar.setProgress(redPlayer.getTotalEnergy()/maxEnergy);
+    }
+
+    private void parseData(String data) {
+        String bikeColor = data.replaceAll("[^a-zA-Z]+", "");
+        data = data.replaceAll("[a-zA-Z]+", "");
+        String[] output = data.split("\\-");
+        for(String str: output){
+            System.out.println(str);
+        }
+        if(bikeColor.equals("red")){
+            assert(output.length > 3);
+            updateView(output, false );
+            updatePlayersParam(output, false);
+        }else if(bikeColor.equals("blue")){
+            updateView(output, true);
+            updatePlayersParam(output, true);
+        }
+    }
+
+    private void updatePlayersParam(String[] data, boolean isBlue) {
+        if(isBlue){
+            bluePlayer.addEnergy((int) Double.parseDouble(data[0]));
+            bluePlayer.addPower((int) Double.parseDouble(data[1]));
+            bluePlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+        }else{
+            redPlayer.addEnergy((int) Double.parseDouble(data[0]));
+            redPlayer.addPower((int) Double.parseDouble(data[1]));
+            redPlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+        }
+    }
 }

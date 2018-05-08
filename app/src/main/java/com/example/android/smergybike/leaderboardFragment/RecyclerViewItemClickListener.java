@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.leaderboardFragment;
 
 import android.view.View;
 

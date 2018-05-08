@@ -17,9 +17,8 @@ import com.example.android.smergybike.localDatabase.DbModel;
 
 public class StatisticsFragment extends Fragment {
 
-    long currentRaceId;
     DbModel dbModel = new DbModel(getContext());
-    Race currentRace;
+    Race showedRace;
     Player bluePlayer;
     Player redPlayer;
 
@@ -31,9 +30,16 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        currentRace = Globals.getGlobals().getCurrentRace();
-        bluePlayer = dbModel.getPlayer(currentRace, true);
-        redPlayer = dbModel.getPlayer(currentRace, false);
+
+        Bundle arguments = getArguments();
+        if(arguments != null){
+            long raceId = arguments.getLong("SelectedPlayer_raceId");
+            showedRace = dbModel.getRaceById(raceId);
+        }else{
+            showedRace = Globals.getGlobals().getCurrentRace();
+        }
+        bluePlayer = dbModel.getPlayer(showedRace, true);
+        redPlayer = dbModel.getPlayer(showedRace, false);
     }
 
     @Override
@@ -42,8 +48,8 @@ public class StatisticsFragment extends Fragment {
         // Inflate the layout for this fragment
         getActivity().setTitle("Statistics");
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        TextView winner = view.findViewById(R.id.title_text);
-        winner.setText("Red Wins");
+        TextView winnerText = view.findViewById(R.id.title_text);
+        setWinnerText(winnerText);
         TextView blueDistanceText = view.findViewById(R.id.distance_blue_text);
         TextView redDistanceText = view.findViewById(R.id.distance_red_text);
         TextView blueEnergyText = view.findViewById(R.id.energy_blue_text);
@@ -70,11 +76,21 @@ public class StatisticsFragment extends Fragment {
         progressBlueDistance.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxEnergy());
 
         TextView timeTextView = view.findViewById(R.id.totalRaceTime);
-        long time = currentRace.getTotalTime();
+        long time = showedRace.getTotalTime();
         int minutes = (int) (time / 1000) / 60;
         int seconds = (int) (time / 1000) % 60;
         timeTextView.setText(minutes + "min " + seconds + "sec"); // race.getTotalTime()
         return view;
+    }
+
+    private void setWinnerText(TextView winnerText) {
+        if(redPlayer.getHighscore() > bluePlayer.getHighscore()){
+            winnerText.setText("Red Wins");
+        }else if(redPlayer.getHighscore() < bluePlayer.getHighscore()){
+            winnerText.setText("Blue Wins");
+        }else{
+            winnerText.setText("It's a draw");
+        }
     }
 
     // TODO: create actionbar_new_race button

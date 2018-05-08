@@ -1,10 +1,17 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.leaderboardFragment;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.android.smergybike.Player;
+import com.example.android.smergybike.R;
+import com.example.android.smergybike.StatisticsFragment;
 
 import java.util.List;
 
@@ -38,10 +45,12 @@ class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 public class LeaderboardAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private List<Player> mDataset;
+    private FragmentManager fragmentManager;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LeaderboardAdapter(List<Player> players) {
+    public LeaderboardAdapter(List<Player> players, FragmentManager fragmentManager) {
         mDataset = players;
+        this.fragmentManager = fragmentManager;
     }
 
     // Create new views (invoked by the layout manager)
@@ -53,7 +62,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<RecyclerViewHolder>
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        Player item = mDataset.get(position);
+        final Player item = mDataset.get(position);
         if (item != null) {
             int rank = position + 1;
             holder.itemNumber.setText("" + rank);
@@ -65,6 +74,13 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<RecyclerViewHolder>
             public void onClick(View view, int position) {
                 System.out.println("clicked on " + mDataset.get(position).getName());
                 //transaction to race
+                StatisticsFragment stats_fragment = new StatisticsFragment();
+                Bundle arguments = new Bundle();
+                arguments.putLong( "SelectedPlayer_raceId" , item.getRaceId());
+                stats_fragment.setArguments(arguments);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frame_layout, stats_fragment);
+                transaction.commit();
             }
         });
     }

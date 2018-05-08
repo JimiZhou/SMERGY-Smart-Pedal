@@ -10,7 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.android.smergybike.leaderboardFragment.LeaderboardFragment;
 import com.example.android.smergybike.localDatabase.DbModel;
+import com.example.android.smergybike.settingsFragment.SettingsFragment;
 
 public class Main2Activity extends AppCompatActivity {
 

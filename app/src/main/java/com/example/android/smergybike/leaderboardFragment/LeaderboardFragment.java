@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.leaderboardFragment;
 
 
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.android.smergybike.Event;
+import com.example.android.smergybike.Globals;
+import com.example.android.smergybike.Player;
+import com.example.android.smergybike.R;
+import com.example.android.smergybike.Race;
 import com.example.android.smergybike.localDatabase.DbModel;
 
 import java.util.List;
@@ -46,7 +51,7 @@ public class LeaderboardFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new LeaderboardAdapter(players);
+        adapter = new LeaderboardAdapter(players, getFragmentManager());
         recyclerView.setAdapter(adapter);
 
         // fill dropdown menu

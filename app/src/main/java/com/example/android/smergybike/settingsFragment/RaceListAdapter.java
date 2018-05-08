@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.settingsFragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.smergybike.Player;
+import com.example.android.smergybike.R;
+import com.example.android.smergybike.Race;
 import com.example.android.smergybike.localDatabase.DbModel;
 
 import java.util.List;

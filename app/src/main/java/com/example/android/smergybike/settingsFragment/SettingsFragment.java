@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.settingsFragment;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.android.smergybike.Event;
+import com.example.android.smergybike.Globals;
+import com.example.android.smergybike.R;
 import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.localDatabase.DbModel;
 
