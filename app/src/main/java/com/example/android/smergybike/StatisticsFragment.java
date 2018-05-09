@@ -63,17 +63,20 @@ public class StatisticsFragment extends Fragment {
         bluePowerText.setText(bluePlayer.getTotalPower() + " W");
         redPowerText.setText(redPlayer.getTotalPower() + " W");
         RoundCornerProgressBar progressRedPower = view.findViewById(R.id.redBar);
-        progressRedPower.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxPower());
+        int maxPower = 500;
+        int maxEnergy = 500;
+        int maxDistance = 500;
+        progressRedPower.setProgress((float) redPlayer.getTotalPower()/maxPower);
         RoundCornerProgressBar progressBluePower = view.findViewById(R.id.progress_2);
-        progressBluePower.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxPower());
+        progressBluePower.setProgress((float) bluePlayer.getTotalPower()/maxPower);
         RoundCornerProgressBar progressRedEnergy = view.findViewById(R.id.progress_3);
-        progressRedEnergy.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxEnergy());
+        progressRedEnergy.setProgress((float) redPlayer.getTotalPower()/maxEnergy);
         RoundCornerProgressBar progressBlueEnergy = view.findViewById(R.id.progress_4);
-        progressBlueEnergy.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxEnergy());
+        progressBlueEnergy.setProgress((float) bluePlayer.getTotalPower()/maxEnergy);
         RoundCornerProgressBar progressRedDistance = view.findViewById(R.id.progress_5);
-        progressRedDistance.setProgress((float) redPlayer.getTotalPower()/dbModel.getMaxDistance());
+        progressRedDistance.setProgress((float) redPlayer.getTotalPower()/maxDistance);
         RoundCornerProgressBar progressBlueDistance = view.findViewById(R.id.progress_6);
-        progressBlueDistance.setProgress((float) bluePlayer.getTotalPower()/dbModel.getMaxEnergy());
+        progressBlueDistance.setProgress((float) bluePlayer.getTotalPower()/maxDistance);
 
         TextView timeTextView = view.findViewById(R.id.totalRaceTime);
         long time = showedRace.getTotalTime();

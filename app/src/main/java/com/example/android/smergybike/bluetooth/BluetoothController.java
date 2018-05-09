@@ -101,7 +101,7 @@ public class BluetoothController {
                 case Constants.MESSAGE_READ:
                     Bundle bundle = msg.getData();
                     String string = bundle.getString("message");
-                    System.out.println(string);
+                    System.out.println("BTdata: " + string);
 //                    force = string;
                     // send to race Handler
                     if (mRaceHandler != null){

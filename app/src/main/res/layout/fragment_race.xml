@@ -1,118 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:id="@+id/frameLayout2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context="com.example.android.smergybike.RaceFragment">-->
-
-    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressRacer1"-->
-        <!--style="@android:style/Widget.Holo.ProgressBar.Horizontal"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="63dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:max="100"-->
-        <!--android:maxHeight="60dp"-->
-        <!--android:progressTint="@color/colorPrimaryDark"-->
-        <!--android:visibility="visible"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/racer2"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.515"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/racer"-->
-        <!--tools:visibility="visible" />-->
-
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressRacer2"-->
-        <!--style="?android:attr/progressBarStyleHorizontal"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="63dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:max="100"-->
-        <!--android:maxHeight="60dp"-->
-        <!--android:progressTint="@color/colorPrimary"-->
-        <!--android:visibility="visible"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.515"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/racer2" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/racer"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:text="@string/textview_racer1"-->
-        <!--android:textSize="30sp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/progressRacer1"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.43"-->
-        <!--tools:text="@string/textview_racer1" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/time_racer1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="TextView"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/progressRacer1"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/racer" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/racer2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="150dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="200dp"-->
-        <!--android:text="@string/textview_racer2"-->
-        <!--android:textSize="30sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--tools:text="@string/textview_racer2" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/time_racer2"-->
-        <!--android:layout_width="58dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="TextView"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/progressRacer2"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/racer2" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/progress_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Button"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="0dp" />-->
-    <!---->
-    <!---->
-<!--</android.support.constraint.ConstraintLayout>-->
-
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -123,7 +9,7 @@
     tools:context="com.example.android.smergybike.RaceFragment">
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/blueBar"
+        android:id="@+id/redBar"
         android:layout_width="248dp"
         android:layout_height="48dp"
         android:layout_marginTop="100dp"
@@ -131,14 +17,14 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineMiddle"
         app:layout_constraintTop_toBottomOf="@+id/guideline8"
         app:rcBackgroundPadding="5dp"
-        app:rcMax="1"
-        app:rcProgressColor="@color/playerBlue"
+        app:rcMax="1000"
+        app:rcProgressColor="@color/playerRed"
         app:rcRadius="10dp">
 
     </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/redBar"
+        android:id="@+id/blueBar"
         android:layout_width="248dp"
         android:layout_height="48dp"
         android:layout_marginTop="100dp"
@@ -146,8 +32,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineMiddle"
         app:layout_constraintTop_toBottomOf="@+id/guideline8"
         app:rcBackgroundPadding="5dp"
-        app:rcMax="1"
-        app:rcProgressColor="@color/playerRed"
+        app:rcMax="1000"
+        app:rcProgressColor="@color/playerBlue"
         app:rcRadius="10dp">
 
     </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
