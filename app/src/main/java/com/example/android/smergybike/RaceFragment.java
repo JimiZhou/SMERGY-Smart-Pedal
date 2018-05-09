@@ -2,10 +2,15 @@ package com.example.android.smergybike;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -14,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -40,6 +46,8 @@ public class RaceFragment extends Fragment {
     TextView textView5;
     TextView textView6;
     TextView timerTextView;
+    ImageView blueImageView;
+    ImageView redImageView;
     RoundCornerProgressBar blueBar;
     RoundCornerProgressBar redBar;
     CountDownTimer mCountDownTimer;
@@ -97,6 +105,8 @@ public class RaceFragment extends Fragment {
         textView4 = view.findViewById(R.id.textView4);
         textView5 = view.findViewById(R.id.textView5);
         textView6 = view.findViewById(R.id.textView6);
+        blueImageView = view.findViewById(R.id.imageView2);
+        redImageView = view.findViewById(R.id.imageView);
         updateCountDownText(currentEvent.getRaceLength());
         startTimer();
         return view;
@@ -192,10 +202,43 @@ public class RaceFragment extends Fragment {
             bluePlayer.addEnergy((int) Double.parseDouble(data[0]));
             bluePlayer.addPower((int) Double.parseDouble(data[1]));
             bluePlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+            updateImageViewsBlue();
         }else{
             redPlayer.addEnergy((int) Double.parseDouble(data[0]));
             redPlayer.addPower((int) Double.parseDouble(data[1]));
             redPlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+            updateImageViewRed();
+        }
+    }
+
+    private void updateImageViewsBlue(){
+        if(bluePlayer.getTotalPower() <= 60.0D){
+             blueImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lightbulb_outline_black_24dp));
+        }else if((bluePlayer.getTotalPower() > 60.0D) && (bluePlayer.getTotalPower() <= 100.0D)){
+             blueImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_laptop)));
+        } else if((bluePlayer.getTotalPower() > 100.0D ) && (bluePlayer.getTotalPower() <= 150.0D)){
+            blueImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_console)));
+        } else if((bluePlayer.getTotalPower() > 150.0D ) && (bluePlayer.getTotalPower() <= 200.0D)){
+            blueImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_fridge)));
+        } else if((bluePlayer.getTotalPower() > 200.0D ) && (bluePlayer.getTotalPower() <= 250.0D)){
+            blueImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_cooler)));
+        } else if((bluePlayer.getTotalPower() > 250.0D )) {
+            blueImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_blender)));
+        }
+    }
+    private void updateImageViewRed(){
+        if(redPlayer.getTotalPower() <= 60.0D){
+            redImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_lightbulb_outline_black_24dp));
+        }else if((redPlayer.getTotalPower() > 60.0D) && (redPlayer.getTotalPower() <= 100.0D)){
+            redImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_laptop)));
+        } else if((redPlayer.getTotalPower() > 100.0D ) && (redPlayer.getTotalPower() <= 150.0D)){
+            redImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_console)));
+        } else if((redPlayer.getTotalPower() > 150.0D ) && (redPlayer.getTotalPower() <= 200.0D)){
+            redImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_fridge)));
+        } else if((redPlayer.getTotalPower() > 200.0D ) && (redPlayer.getTotalPower() <= 250.0D)){
+            redImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_cooler)));
+        } else if((redPlayer.getTotalPower() > 250.0D )) {
+            redImageView.setImageDrawable((getResources().getDrawable(R.drawable.ic_blender)));
         }
     }
 }
