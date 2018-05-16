@@ -14,6 +14,7 @@ public class Globals extends Application {
     private Event currentEvent;
     private Race currentRace;
     private long allId;
+    private boolean BTconnected;
 
     public Globals(){
        sInstance = this;
@@ -21,6 +22,7 @@ public class Globals extends Application {
        currentEvent = null;
        currentRace = null;
        allId = 0;
+       BTconnected = false;
     }
 
     public static Globals getGlobals() {
@@ -59,4 +61,11 @@ public class Globals extends Application {
         this.allId = allId;
     }
 
+    public boolean isBTconnected() {
+        return BTconnected;
+    }
+
+    public void setBTconnected(boolean BTconnected) {
+        this.BTconnected = BTconnected;
+    }
 }

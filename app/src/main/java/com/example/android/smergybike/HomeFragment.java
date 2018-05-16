@@ -1,6 +1,7 @@
 package com.example.android.smergybike;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.smergybike.localDatabase.DbModel;
+import com.example.android.smergybike.settingsFragment.SettingsFragment;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,7 +29,8 @@ public class HomeFragment extends Fragment {
     private DbModel dbModel;
     private EditText editText_blue;
     private EditText editText_red;
-    Event currentEvent;
+    private Event currentEvent;
+    private Boolean isBTconnected;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -38,6 +41,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         dbModel = new DbModel(getContext());
         currentEvent = Globals.getGlobals().getCurrentEvent();
+        isBTconnected = Globals.getGlobals().isBTconnected();
     }
 
     @Override
@@ -62,14 +66,35 @@ public class HomeFragment extends Fragment {
         raceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentEvent == null){
+                if (isBTconnected == false){
+                    bluetoothNotConnDialog();
+                }else if(currentEvent == null){
                     createNewEvent();
-                }else{
+                }
+                else{
                     createRace();
                 }
             }
         });
         return view;
+    }
+
+    private void bluetoothNotConnDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("No connection")
+                .setMessage("Please connect to the bikes through bluetooth")
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SettingsFragment settings_fragment = new SettingsFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frame_layout, settings_fragment);
+                        transaction.commit();
+                    }
+                })
+                .setNegativeButton("Cancel", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void createRace() {
@@ -80,7 +105,6 @@ public class HomeFragment extends Fragment {
         List<Player> players = dbModel.getAllPlayers();
 
         Globals.getGlobals().setCurrentRace(dbModel.getRaceById(raceId));
-
         RaceFragment race_fragment = new RaceFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, race_fragment);
@@ -124,7 +148,5 @@ public class HomeFragment extends Fragment {
             }
         });
         dialog.show();
-
     }
-
 }

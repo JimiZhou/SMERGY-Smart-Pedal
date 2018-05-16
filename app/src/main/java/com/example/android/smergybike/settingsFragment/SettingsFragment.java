@@ -129,7 +129,7 @@ public class SettingsFragment extends Fragment {
 
     }
 
-    private void connectBluetooth(){
+    public void connectBluetooth(){
         BluetoothAdapter mBluetoothAdapter =  BTcontroller.getBTAdapter();
         //BluetoothController.getBTController().setHandler(mHandler);
         BTcontroller.setContext(getContext());
@@ -158,6 +158,7 @@ public class SettingsFragment extends Fragment {
                 }
                 else{
                     BTcontroller.manageConnection();
+                    Globals.getGlobals().setBTconnected(true);
                 }
             }
         });

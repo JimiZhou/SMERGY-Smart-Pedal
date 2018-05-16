@@ -16,18 +16,21 @@ import com.example.android.smergybike.settingsFragment.SettingsFragment;
 
 public class Main2Activity extends AppCompatActivity {
 
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        DbModel dbModel = new DbModel(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //sharedPreferences globals
         Globals.getGlobals().setAllId(prefs.getLong("allid", 0));
-
+        if(prefs.getLong("currentEventId",-1) != -1) {
+            Globals.getGlobals().setCurrentEvent(dbModel.getEventById(prefs.getLong("currentEventId", 0)));
+        }
         //loads setupdate when app gets installed for the first time
         if (!prefs.getBoolean("firstTime", false)) {
-            DbModel dbModel = new DbModel(this);
             dbModel.databaseSetupData();
             // mark first time has runned.
             SharedPreferences.Editor editor = prefs.edit();
@@ -64,5 +67,13 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("currentEventId", Globals.getGlobals().getCurrentEvent().getId());
+        editor.apply();
     }
 }
