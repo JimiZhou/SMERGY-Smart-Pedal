@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.example.android.smergybike.Globals;
+
 import java.util.Set;
 import java.util.UUID;
 
@@ -94,19 +96,25 @@ public class BluetoothController {
             switch(msg.what){
                 case Constants.FAILED_TO_CONNECT:
                     Toast.makeText(mContext, "Failed to connect", Toast.LENGTH_SHORT).show();
+                    Globals.getGlobals().setBTconnected(false);
                     break;
                 case Constants.CONNECTED:
                     Toast.makeText(mContext, "connection successful", Toast.LENGTH_SHORT).show();
+                    Globals.getGlobals().setBTconnected(true);
                     break;
                 case Constants.MESSAGE_READ:
                     Bundle bundle = msg.getData();
-                    String string = bundle.getString("message");
-                    System.out.println("BTdata: " + string);
-                    // send to race Handler
-                    if (mRaceHandler != null){
+                    String data = bundle.getString("message");
+                    System.out.println("BTdata: " + data);
+                    String header = data.replaceAll("[^a-zA-Z]+", "");
+                    if(header.equals("setup")){
+                        String setupCode = data.replaceAll("[a-zA-Z]+", "");
+                        processSetupCode(Integer.parseInt(setupCode));
+                    }
+                    else if (mRaceHandler != null){
                         Message sendmsg = mRaceHandler.obtainMessage(Constants.UPDATE_VIEW);
                         Bundle sendbundle = new Bundle();
-                        sendbundle.putString("update", string);
+                        sendbundle.putString("update", data);
                         sendmsg.setData(sendbundle);
                         mRaceHandler.sendMessage(sendmsg);
                     }
@@ -114,5 +122,18 @@ public class BluetoothController {
             }
         }
     };
+
+    private void processSetupCode(int code){
+        switch (code){
+            case 1:
+                // error
+                Toast.makeText(mContext, "error, connection between bikes failed", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                // success
+                Toast.makeText(mContext, "successfull connection between the bikes", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 }
 

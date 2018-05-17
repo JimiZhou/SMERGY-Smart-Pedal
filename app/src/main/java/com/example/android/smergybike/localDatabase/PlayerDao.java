@@ -24,14 +24,11 @@ public interface PlayerDao {
     @Query("SELECT * FROM player WHERE id = (:playerId)")
     Player getPlayerById(long playerId);
 
-    @Query("SELECT MAX(totalPower) FROM player")
-    int getMaxPower();
-
-    @Query("SELECT MAX(totalEnergy) FROM player")
-    int getMaxEnergy();
-
-    @Query("SELECT MAX(totalDistance) FROM player")
-    int getMaxDistance();
+//    @Query("SELECT MAX(power) FROM player")
+//    int getMaxPower();
+//
+//    @Query("SELECT MAX(energy) FROM player")
+//    int getMaxEnergy();
 
     @Query("SELECT * FROM player WHERE eventId = (:eventId)")
     List<Player> getPlayersFromEvent(long eventId);

@@ -92,7 +92,16 @@ public class HomeFragment extends Fragment {
                         transaction.commit();
                     }
                 })
-                .setNegativeButton("Cancel", null);
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(currentEvent != null){
+                            createRace();
+                        }else{
+                            createNewEvent();
+                        }
+                    }
+                });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -100,8 +109,8 @@ public class HomeFragment extends Fragment {
     private void createRace() {
         Event currentEvent = Globals.getGlobals().getCurrentEvent();
         long raceId = dbModel.insertRace(new Race(0 , Globals.getGlobals().getCurrentEvent().getId()));
-        long blueID = dbModel.insertPlayer(new Player(editText_blue.getText().toString(), 0 , 0 ,0 ,0 , raceId, currentEvent.getId(), true));
-        long redId = dbModel.insertPlayer(new Player(editText_red.getText().toString(), 0,0,0,0, raceId, currentEvent.getId(), false));
+        long blueID = dbModel.insertPlayer(new Player(editText_blue.getText().toString(), 0 , 0 ,0 ,0 , 0,  raceId, currentEvent.getId(), true));
+        long redId = dbModel.insertPlayer(new Player(editText_red.getText().toString(), 0,0,0,0, 0, raceId, currentEvent.getId(), false));
         List<Player> players = dbModel.getAllPlayers();
 
         Globals.getGlobals().setCurrentRace(dbModel.getRaceById(raceId));

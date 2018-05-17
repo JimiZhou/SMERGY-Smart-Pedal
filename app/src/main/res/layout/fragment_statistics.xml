@@ -26,18 +26,6 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@+id/guideline3" />
 
-        <TextView
-            android:id="@+id/distance_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="120dp"
-            android:layout_marginStart="117dp"
-            android:layout_marginTop="16dp"
-            android:text="Distance"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/progress_4" />
 
         <TextView
             android:id="@+id/energy_text"
@@ -67,6 +55,21 @@
             app:layout_constraintStart_toEndOf="@+id/guideline3" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/energy_text"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:rcBackgroundPadding="5dp"
+            app:rcMax="1"
+            app:rcProgressColor="@color/playerBlue"
+            app:rcRadius="10dp"
+            app:rcReverse="true" />
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/progress_2"
             android:layout_width="0dp"
             android:layout_height="30dp"
@@ -77,23 +80,8 @@
             app:layout_constraintStart_toEndOf="@+id/guideline"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
-            app:rcProgressColor="@color/playerBlue"
-            app:rcRadius="10dp" />
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/redBar"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/energy_text"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toEndOf="@+id/guideline3"
-            app:rcBackgroundPadding="5dp"
-            app:rcMax="1"
             app:rcProgressColor="@color/playerRed"
-            app:rcRadius="10dp"
-            app:rcReverse="true" />
+            app:rcRadius="10dp" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/progress_3"
@@ -106,7 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline2"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
-            app:rcProgressColor="@color/playerRed"
+            app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp"
             app:rcReverse="true" />
 
@@ -121,50 +109,19 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline2"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
-            app:rcProgressColor="@color/playerBlue"
-            app:rcRadius="10dp" />
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_5"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toEndOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/distance_text"
-            app:rcBackgroundPadding="5dp"
-            app:rcMax="1"
             app:rcProgressColor="@color/playerRed"
-            app:rcRadius="10dp"
-            app:rcReverse="true" />
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_6"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/distance_text"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:rcBackgroundPadding="5dp"
-            app:rcMax="1"
-            app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/text_red_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="56dp"
-
+            android:layout_marginTop="100dp"
             android:text="Time :"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/totalRaceTime"
-            app:layout_constraintTop_toBottomOf="@+id/progress_6" />
+            app:layout_constraintTop_toBottomOf="@+id/progress_3" />
 
         <TextView
             android:id="@+id/totalRaceTime"
@@ -172,13 +129,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="100dp"
             android:text="9min 34sec"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/progress_6" />
+            app:layout_constraintTop_toBottomOf="@+id/progress_3" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -216,26 +173,15 @@
             android:id="@+id/power_blue_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_marginBottom="48dp"
-            android:layout_marginStart="4dp"
-            android:text="369 W"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintStart_toEndOf="@+id/guideline4" />
-
-        <TextView
-            android:id="@+id/power_red_text"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
             android:layout_marginBottom="49dp"
             android:layout_marginEnd="4dp"
             android:text="369 W"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/redBar" />
+            app:layout_constraintEnd_toStartOf="@+id/progress_1" />
 
         <TextView
-            android:id="@+id/energy_red_text"
+            android:id="@+id/energy_blue_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_marginEnd="4dp"
@@ -246,18 +192,18 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
         <TextView
-            android:id="@+id/distance_red_text"
+            android:id="@+id/power_red_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginTop="58dp"
-            android:text="1500 m"
+            android:layout_marginBottom="48dp"
+            android:layout_marginStart="4dp"
+            android:text="369 W"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/progress_5"
-            app:layout_constraintTop_toBottomOf="@+id/energy_red_text" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/guideline4" />
 
         <TextView
-            android:id="@+id/energy_blue_text"
+            android:id="@+id/energy_red_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_marginStart="4dp"
@@ -267,16 +213,6 @@
             app:layout_constraintStart_toEndOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
-        <TextView
-            android:id="@+id/distance_blue_text"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="58dp"
-            android:text="1500 m"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/energy_blue_text" />
 
     </android.support.constraint.ConstraintLayout>
 

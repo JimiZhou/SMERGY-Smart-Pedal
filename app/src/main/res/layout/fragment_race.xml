@@ -39,13 +39,13 @@
     </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_blue"
         android:layout_width="116dp"
         android:layout_height="99dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@color/playerRed"
+        android:background="@color/playerBlue"
         android:padding="1dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
@@ -53,73 +53,91 @@
         app:srcCompat="@drawable/ic_directions_bike_black_24px" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView_red"
         android:layout_width="119dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@color/playerBlue"
+        android:background="@color/playerRed"
         android:padding="1dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_blue"
         app:srcCompat="@drawable/ic_directions_bike_black_24px" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/text_blue_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 m/s"
         app:layout_constraintStart_toEndOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_blue_force"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 N"
         app:layout_constraintStart_toEndOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        app:layout_constraintTop_toBottomOf="@+id/text_blue_speed" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_blue_power"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 W"
         app:layout_constraintStart_toEndOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_blue_force" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/text_red_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 m/s"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/text_red_force"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 N"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/text_red_speed" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/text_red_power"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="0 W"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/text_red_force" />
+
+    <TextView
+        android:id="@+id/text_blue_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="0 J"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/text_blue_power" />
+
+    <TextView
+        android:id="@+id/text_red_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="0 J"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/text_red_power" />
 
     <TextView
         android:id="@+id/timerTextView"
@@ -130,7 +148,7 @@
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/text_blue_energy" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
@@ -166,4 +184,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.56" />
+
 </android.support.constraint.ConstraintLayout>

@@ -147,25 +147,42 @@ public class SettingsFragment extends Fragment {
 
     private void showPairedDevicesDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(true);
         builder.setTitle("select paired device").setItems(BTcontroller.getAllPairedDevices(), new android.content.DialogInterface.OnClickListener() {
             public void onClick(android.content.DialogInterface dialog, int which) {
-                String[] deviceArray = BTcontroller.getAllPairedDevices();
-                String info = deviceArray[which];
-                String address = info.substring(info.length() - 17);
-                System.out.println(address);
-                if (BTcontroller.connectDevice(address) < 0){
-                    Toast.makeText(getContext(), "Unable to find device",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    BTcontroller.manageConnection();
-                    Globals.getGlobals().setBTconnected(true);
-                }
+                final int position = which;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View mview = getLayoutInflater().inflate(R.layout.dialog_loading, null);
+                builder.setView(mview);
+                final AlertDialog dialog_loading = builder.create();
+                dialog_loading.show();
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showLoadingDialog(position);
+                        dialog_loading.dismiss();
+                    }
+                });
+                thread.start();
             }
         });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        AlertDialog listDialog = builder.create();
+        listDialog.show();
     }
 
+    private void showLoadingDialog(int which) {
+        String[] deviceArray = BTcontroller.getAllPairedDevices();
+        String info = deviceArray[which];
+        String address = info.substring(info.length() - 17);
+        System.out.println(address);
+        if (BTcontroller.connectDevice(address) < 0){
+            Toast.makeText(getContext(), "Unable to find device",Toast.LENGTH_LONG).show();
+        }
+        else{
+            BTcontroller.manageConnection();
+        }
+
+    }
 
 
 }

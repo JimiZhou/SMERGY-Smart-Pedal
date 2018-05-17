@@ -28,12 +28,14 @@ public class Player {
     private String name;
     @ColumnInfo(name = "highscore")
     private int highscore;
-    @ColumnInfo(name = "totalPower")
-    private int totalPower;
-    @ColumnInfo(name = "totalEnergy")
-    private int totalEnergy;
-    @ColumnInfo(name = "totalDistance")
-    private int totalDistance;
+    @ColumnInfo(name = "pedalSpeed")
+    private int pedalSpeed;
+    @ColumnInfo(name = "force")
+    private int force;
+    @ColumnInfo(name = "power")
+    private int power;
+    @ColumnInfo(name = "energy")
+    private int energy;
     @ColumnInfo(name = "raceId")
     private long raceId;
     @ColumnInfo(name = "eventId")
@@ -41,12 +43,13 @@ public class Player {
     @ColumnInfo(name = "colorBlue")
     private boolean colorBlue;
 
-    public Player(String name, int highscore, int totalPower, int totalEnergy, int totalDistance, long raceId, long eventId, boolean colorBlue){
+    public Player(String name, int highscore, int pedalSpeed, int force, int power, int energy, long raceId, long eventId, boolean colorBlue){
         this.name = name;
         this.highscore = highscore;
-        this.totalEnergy = totalEnergy;
-        this.totalPower = totalPower;
-        this.totalDistance = totalDistance;
+        this.pedalSpeed = pedalSpeed;
+        this.force = force;
+        this.power = power;
+        this.energy = energy;
         this.raceId = raceId;
         this.eventId = eventId;
         this.colorBlue = colorBlue;
@@ -94,28 +97,36 @@ public class Player {
         highscore = m_highscore;
     }
 
-    public int getTotalPower() {
-        return totalPower;
+    public int getPedalSpeed() {
+        return pedalSpeed;
     }
 
-    public void setTotalPower(int m_totalPower) {
-        totalPower = m_totalPower;
+    public void setPedalSpeed(int pedalSpeed) {
+        this.pedalSpeed = pedalSpeed;
     }
 
-    public int getTotalEnergy() {
-        return totalEnergy;
+    public int getForce() {
+        return force;
     }
 
-    public void setTotalEnergy(int m_totalEnergy) {
-        totalEnergy = m_totalEnergy;
+    public void setForce(int force) {
+        this.force = force;
     }
 
-    public int getTotalDistance() {
-        return totalDistance;
+    public int getPower() {
+        return power;
     }
 
-    public void setTotalDistance(int m_totalDistance) {
-        totalDistance = m_totalDistance;
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
     public long getRaceId() {
@@ -142,13 +153,4 @@ public class Player {
         this.colorBlue = colorBlue;
     }
 
-    public int addPower(int value){
-        totalPower += value;
-        return totalPower;
-    }
-
-    public int addEnergy(int value){
-        totalEnergy += value;
-        return totalEnergy;
-    }
 }

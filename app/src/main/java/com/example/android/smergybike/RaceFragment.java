@@ -34,12 +34,14 @@ public class RaceFragment extends Fragment {
     Event currentEvent;
     Player bluePlayer;
     Player redPlayer;
-    TextView textView1;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-    TextView textView5;
-    TextView textView6;
+    TextView textBlueSpeed;
+    TextView textBlueForce;
+    TextView textBluePower;
+    TextView textBlueEnergy;
+    TextView textRedSpeed;
+    TextView textRedForce;
+    TextView textRedPower;
+    TextView textRedEnergy;
     TextView timerTextView;
     ImageView blueImageView;
     ImageView redImageView;
@@ -94,14 +96,16 @@ public class RaceFragment extends Fragment {
         redBar= view.findViewById(R.id.redBar);
         blueBar.setProgress(0f);
         redBar.setProgress(0f);
-        textView1 = view.findViewById(R.id.textView1);
-        textView2 = view.findViewById(R.id.textView2);
-        textView3 = view.findViewById(R.id.textView3);
-        textView4 = view.findViewById(R.id.textView4);
-        textView5 = view.findViewById(R.id.textView5);
-        textView6 = view.findViewById(R.id.textView6);
-        blueImageView = view.findViewById(R.id.imageView2);
-        redImageView = view.findViewById(R.id.imageView);
+        textBlueSpeed = view.findViewById(R.id.text_blue_speed);
+        textBlueForce = view.findViewById(R.id.text_blue_force);
+        textBluePower = view.findViewById(R.id.text_blue_power);
+        textBlueEnergy = view.findViewById(R.id.text_blue_energy);
+        textRedSpeed = view.findViewById(R.id.text_red_speed);
+        textRedForce = view.findViewById(R.id.text_red_force);
+        textRedPower = view.findViewById(R.id.text_red_power);
+        textRedEnergy = view.findViewById(R.id.text_red_energy);
+        blueImageView = view.findViewById(R.id.imageView_red);
+        redImageView = view.findViewById(R.id.imageView_blue);
         updateCountDownText(currentEvent.getRaceLength());
         startTimer();
         return view;
@@ -133,8 +137,8 @@ public class RaceFragment extends Fragment {
     private void endRace() {
         currentRace.setTotalTime(currentEvent.getRaceLength() - mTimeLeftInMillis);
         // set players Highscore
-        bluePlayer.setHighscore(bluePlayer.getTotalPower());
-        redPlayer.setHighscore(redPlayer.getTotalPower());
+        bluePlayer.setHighscore(bluePlayer.getEnergy());
+        redPlayer.setHighscore(redPlayer.getEnergy());
         //update database
         dbModel.updateRace(currentRace);
         dbModel.updatePlayer(redPlayer);
@@ -144,13 +148,15 @@ public class RaceFragment extends Fragment {
     public void updateView(boolean isBlue){
         //double force = Double.parseDouble(string);
         if(isBlue){
-            textView1.setText("" + bluePlayer.getTotalEnergy() + " J" );
-            textView2.setText("" + bluePlayer.getTotalPower() + " W");
-            textView3.setText("" + bluePlayer.getTotalDistance() +" m");
+            textBlueSpeed.setText("" + bluePlayer.getPedalSpeed() + " m/s");
+            textBlueForce.setText("" + bluePlayer.getForce() + " N");
+            textBluePower.setText("" + bluePlayer.getPower() + " W");
+            textBlueEnergy.setText("" + bluePlayer.getEnergy() + " J" );
         }else{
-            textView4.setText("" + redPlayer.getTotalEnergy() + " J");
-            textView5.setText("" + redPlayer.getTotalPower() + " W");
-            textView6.setText("" + redPlayer.getTotalDistance() + " m");
+            textRedSpeed.setText("" + redPlayer.getPedalSpeed() + " m/s");
+            textRedForce.setText("" + redPlayer.getForce() + " N");
+            textRedForce.setText("" + redPlayer.getPower() + " W");
+            textRedEnergy.setText("" + redPlayer.getEnergy() + " J");
         }
     }
 
@@ -171,8 +177,8 @@ public class RaceFragment extends Fragment {
 
     private void updateProgressBars() {
         int maxPower = 500;
-        blueBar.setProgress(bluePlayer.getTotalPower());
-        redBar.setProgress(redPlayer.getTotalPower());
+        blueBar.setProgress(bluePlayer.getEnergy());
+        redBar.setProgress(redPlayer.getEnergy());
     }
 
     private void parseData(String data) {
@@ -183,7 +189,7 @@ public class RaceFragment extends Fragment {
             System.out.println(str);
         }
         if(bikeColor.equals("red")){
-            assert(output.length > 3);
+            assert(output.length > 4);
             updatePlayersParam(output, false);
             updateView(false );
         }else if(bikeColor.equals("blue")){
@@ -194,45 +200,47 @@ public class RaceFragment extends Fragment {
 
     private void updatePlayersParam(String[] data, boolean isBlue) {
         if(isBlue){
-            bluePlayer.addEnergy((int) Double.parseDouble(data[0]));
-            bluePlayer.addPower((int) Double.parseDouble(data[1]));
-            bluePlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+            bluePlayer.setPedalSpeed((int) Double.parseDouble(data[0]));
+            bluePlayer.setForce((int) Double.parseDouble(data[1]));
+            bluePlayer.setPower((int) Double.parseDouble(data[2]));
+            bluePlayer.setEnergy((int) Double.parseDouble(data[3]));
             updateImageViewsBlue();
         }else{
-            redPlayer.addEnergy((int) Double.parseDouble(data[0]));
-            redPlayer.addPower((int) Double.parseDouble(data[1]));
-            redPlayer.setTotalDistance((int) Double.parseDouble(data[2]));
+            redPlayer.setPedalSpeed((int) Double.parseDouble(data[0]));
+            redPlayer.setForce((int) Double.parseDouble(data[1]));
+            redPlayer.setPower((int) Double.parseDouble(data[2]));
+            redPlayer.setEnergy((int) Double.parseDouble(data[3]));
             updateImageViewRed();
         }
     }
 
     private void updateImageViewsBlue(){
-        if(bluePlayer.getTotalPower() <= 60.0D){
+        if(bluePlayer.getPower() <= 60.0D){
              blueImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((bluePlayer.getTotalPower() > 60.0D) && (bluePlayer.getTotalPower() <= 100.0D)){
+        }else if((bluePlayer.getPower() > 60.0D) && (bluePlayer.getPower() <= 100.0D)){
              blueImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((bluePlayer.getTotalPower() > 100.0D ) && (bluePlayer.getTotalPower() <= 150.0D)){
+        } else if((bluePlayer.getPower() > 100.0D ) && (bluePlayer.getPower() <= 150.0D)){
             blueImageView.setImageResource(R.drawable.ic_console);
-        } else if((bluePlayer.getTotalPower() > 150.0D ) && (bluePlayer.getTotalPower() <= 200.0D)){
+        } else if((bluePlayer.getPower() > 150.0D ) && (bluePlayer.getPower() <= 200.0D)){
             blueImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((bluePlayer.getTotalPower() > 200.0D ) && (bluePlayer.getTotalPower() <= 250.0D)){
+        } else if((bluePlayer.getPower() > 200.0D ) && (bluePlayer.getPower() <= 250.0D)){
             blueImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((bluePlayer.getTotalPower() > 250.0D )) {
+        } else if((bluePlayer.getPower() > 250.0D )) {
             blueImageView.setImageResource(R.drawable.ic_blender);
         }
     }
     private void updateImageViewRed(){
-        if(redPlayer.getTotalPower() <= 60.0D){
+        if(redPlayer.getPower() <= 60.0D){
             redImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((redPlayer.getTotalPower() > 60.0D) && (redPlayer.getTotalPower() <= 100.0D)){
+        }else if((redPlayer.getPower() > 60.0D) && (redPlayer.getPower() <= 100.0D)){
             redImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((redPlayer.getTotalPower() > 100.0D ) && (redPlayer.getTotalPower() <= 150.0D)){
+        } else if((redPlayer.getPower() > 100.0D ) && (redPlayer.getPower() <= 150.0D)){
             redImageView.setImageResource(R.drawable.ic_console);
-        } else if((redPlayer.getTotalPower() > 150.0D ) && (redPlayer.getTotalPower() <= 200.0D)){
+        } else if((redPlayer.getPower() > 150.0D ) && (redPlayer.getPower() <= 200.0D)){
             redImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((redPlayer.getTotalPower() > 200.0D ) && (redPlayer.getTotalPower() <= 250.0D)){
+        } else if((redPlayer.getPower() > 200.0D ) && (redPlayer.getPower() <= 250.0D)){
             redImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((redPlayer.getTotalPower() > 250.0D )) {
+        } else if((redPlayer.getPower() > 250.0D )) {
             redImageView.setImageResource(R.drawable.ic_blender);
         }
     }
