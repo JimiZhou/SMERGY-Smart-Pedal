@@ -151,12 +151,12 @@ public class RaceFragment extends Fragment {
             textBlueSpeed.setText("" + bluePlayer.getPedalSpeed() + " m/s");
             textBlueForce.setText("" + bluePlayer.getForce() + " N");
             textBluePower.setText("" + bluePlayer.getPower() + " W");
-            textBlueEnergy.setText("" + bluePlayer.getEnergy() + " J" );
+            textBlueEnergy.setText("" + bluePlayer.getEnergy() + " kJ" );
         }else{
             textRedSpeed.setText("" + redPlayer.getPedalSpeed() + " m/s");
             textRedForce.setText("" + redPlayer.getForce() + " N");
-            textRedForce.setText("" + redPlayer.getPower() + " W");
-            textRedEnergy.setText("" + redPlayer.getEnergy() + " J");
+            textRedPower.setText("" + redPlayer.getPower() + " W");
+            textRedEnergy.setText("" + redPlayer.getEnergy() + " kJ");
         }
     }
 
