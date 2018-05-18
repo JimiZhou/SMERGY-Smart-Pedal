@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time"
-        android:hint="race duration"/>
+        android:hint="race duration (mm:ss)"/>
 
     <Button
         android:id="@+id/btnCreate"

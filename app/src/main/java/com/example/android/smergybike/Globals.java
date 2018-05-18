@@ -15,6 +15,8 @@ public class Globals extends Application {
     private Race currentRace;
     private long allId;
     private boolean BTconnected;
+    private String blueName;
+    private String redName;
 
     public Globals(){
        sInstance = this;
@@ -23,6 +25,8 @@ public class Globals extends Application {
        currentRace = null;
        allId = 0;
        BTconnected = false;
+       blueName = null;
+       redName = null;
     }
 
     public static Globals getGlobals() {
@@ -67,5 +71,21 @@ public class Globals extends Application {
 
     public void setBTconnected(boolean BTconnected) {
         this.BTconnected = BTconnected;
+    }
+
+    public String getBlueName() {
+        return blueName;
+    }
+
+    public void setBlueName(String blueName) {
+        this.blueName = blueName;
+    }
+
+    public String getRedName() {
+        return redName;
+    }
+
+    public void setRedName(String redName) {
+        this.redName = redName;
     }
 }

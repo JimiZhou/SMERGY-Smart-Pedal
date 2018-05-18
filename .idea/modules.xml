@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EE5.iml" filepath="$PROJECT_DIR$/EE5.iml" />
-      <module fileurl="file://C:\Users\Gebruiker\Downloads\EE5\SmergyBike.iml" filepath="C:\Users\Gebruiker\Downloads\EE5\SmergyBike.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmergyBike.iml" filepath="$PROJECT_DIR$/SmergyBike.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

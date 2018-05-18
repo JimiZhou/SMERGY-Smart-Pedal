@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.android.smergybike.Globals;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,9 +24,6 @@ public class ConnectedThread extends Thread{
     private final OutputStream mmOutStream;
     private byte[] mmBuffer; // mmBuffer store for the stream
     private Handler mmHandler;
-    private double speed;
-    private double power;
-    private double energy;
 
     public ConnectedThread(BluetoothSocket socket, Handler handler) {
         mmSocket = socket;
@@ -78,7 +77,8 @@ public class ConnectedThread extends Thread{
                     }
                 }
             } catch (IOException e) {
-                Log.d(TAG, "Input stream was disconnected", e);
+                Log.d(TAG, "Connection lost", e);
+                Globals.getGlobals().setBTconnected(false);
                 break;
             }
         }

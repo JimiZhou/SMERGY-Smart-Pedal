@@ -215,32 +215,32 @@ public class RaceFragment extends Fragment {
     }
 
     private void updateImageViewsBlue(){
-        if(bluePlayer.getPower() <= 60.0D){
+        if((bluePlayer.getEnergy() > 0) && (bluePlayer.getEnergy() <= 60)){
              blueImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((bluePlayer.getPower() > 60.0D) && (bluePlayer.getPower() <= 100.0D)){
+        }else if((bluePlayer.getEnergy() > 60) && (bluePlayer.getEnergy() <= 100)){
              blueImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((bluePlayer.getPower() > 100.0D ) && (bluePlayer.getPower() <= 150.0D)){
+        } else if((bluePlayer.getEnergy() > 100 ) && (bluePlayer.getEnergy() <= 150)){
             blueImageView.setImageResource(R.drawable.ic_console);
-        } else if((bluePlayer.getPower() > 150.0D ) && (bluePlayer.getPower() <= 200.0D)){
+        } else if((bluePlayer.getEnergy() > 150) && (bluePlayer.getEnergy() <= 200)){
             blueImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((bluePlayer.getPower() > 200.0D ) && (bluePlayer.getPower() <= 250.0D)){
+        } else if((bluePlayer.getEnergy() > 200 ) && (bluePlayer.getEnergy() <= 250)){
             blueImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((bluePlayer.getPower() > 250.0D )) {
+        } else if((bluePlayer.getEnergy() > 250)) {
             blueImageView.setImageResource(R.drawable.ic_blender);
         }
     }
     private void updateImageViewRed(){
-        if(redPlayer.getPower() <= 60.0D){
+        if((redPlayer.getEnergy() > 0) && (redPlayer.getEnergy() <= 60)){
             redImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((redPlayer.getPower() > 60.0D) && (redPlayer.getPower() <= 100.0D)){
+        }else if((redPlayer.getEnergy() > 60) && (redPlayer.getEnergy() <= 100)){
             redImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((redPlayer.getPower() > 100.0D ) && (redPlayer.getPower() <= 150.0D)){
+        } else if((redPlayer.getEnergy() > 100 ) && (redPlayer.getEnergy() <= 150)){
             redImageView.setImageResource(R.drawable.ic_console);
-        } else if((redPlayer.getPower() > 150.0D ) && (redPlayer.getPower() <= 200.0D)){
+        } else if((redPlayer.getEnergy() > 150) && (redPlayer.getEnergy() <= 200)){
             redImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((redPlayer.getPower() > 200.0D ) && (redPlayer.getPower() <= 250.0D)){
+        } else if((redPlayer.getEnergy() > 200 ) && (redPlayer.getEnergy() <= 250)){
             redImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((redPlayer.getPower() > 250.0D )) {
+        } else if((redPlayer.getEnergy() > 250)) {
             redImageView.setImageResource(R.drawable.ic_blender);
         }
     }
