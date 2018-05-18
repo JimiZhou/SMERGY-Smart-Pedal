@@ -133,9 +133,13 @@ public class HomeFragment extends Fragment {
         List<Player> players = dbModel.getAllPlayers();
 
         global.setCurrentRace(dbModel.getRaceById(raceId));
-        RaceFragment race_fragment = new RaceFragment();
+//        RaceFragment race_fragment = new RaceFragment();
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frame_layout, race_fragment);
+//        transaction.commit();
+        CountdownFragment countdownFragment = new CountdownFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, race_fragment);
+        transaction.replace(R.id.frame_layout, countdownFragment);
         transaction.commit();
     }
 
@@ -164,9 +168,10 @@ public class HomeFragment extends Fragment {
                         cal.setTime(date);
                         long time = cal.get(Calendar.MINUTE) * 60000 + cal.get(Calendar.SECOND) * 1000; // number of minutes * number of milli in minute + number of sec ...
                         long eventId = dbModel.insertEvent(new Event(editTextTitle.getText().toString(), time));
-                        global.setCurrentEvent(dbModel.getEventById(eventId));
+                        Globals.getGlobals().setCurrentEvent(dbModel.getEventById(eventId));
                         Toast.makeText(getContext(), "New event started", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
+                        createRace();
                     }
                 }
                 else{
