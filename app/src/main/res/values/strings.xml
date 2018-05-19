@@ -22,4 +22,6 @@
     <string name="new_race">New Race</string>
     <string name="end_race">Finish Race</string>
     <string name="prev">back\\</string>
+
+    <string name="title_activity_tutorial">Tutorial</string>
 </resources>

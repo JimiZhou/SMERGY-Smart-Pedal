@@ -102,7 +102,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 //            ImageView deleteImage = (ImageView) view;
             int position = (Integer) view.getTag();
             final Event selectedEvent = events.get(position);
-            if (selectedEvent.getId() == Globals.getGlobals().getCurrentEvent().getId()){
+            if (Globals.getGlobals().getCurrentEvent() != null && selectedEvent.getId() ==  Globals.getGlobals().getCurrentEvent().getId()){
                 System.out.println("you can't delete an active event, create first a new event or select an other out of the list");
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Unable to delete event")
@@ -111,7 +111,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            else{
+             else{
                 System.out.println("Are you sure you want to delete?");
                 //delete
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -131,7 +131,6 @@ public class EventListAdapter extends ArrayAdapter<Event> {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-
         }
     };
 

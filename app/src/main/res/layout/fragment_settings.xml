@@ -49,6 +49,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp"
+            android:text="Tutorial"
+            android:textSize="18sp" />
+
+        <ListView
+            android:id="@+id/listView_settings_tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF" />
     </LinearLayout>
 
 </FrameLayout>

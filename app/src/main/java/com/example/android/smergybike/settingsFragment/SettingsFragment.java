@@ -2,6 +2,7 @@ package com.example.android.smergybike.settingsFragment;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Globals;
 import com.example.android.smergybike.R;
+import com.example.android.smergybike.TutorialActivity;
 import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.localDatabase.DbModel;
 
@@ -49,14 +51,19 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         String[] bluetooth_values = new String[]{"Connect Bluetooth"};
         String[] event_values = new String[]{"Start new Event", "List Events"};
+        String[] tutorial_values = new String[] {"Start Tutorial"};
         SettingsAdapter adapter_bt = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(bluetooth_values));
         SettingsAdapter adapter_event = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(event_values));
+        SettingsAdapter adapter_tutorial = new SettingsAdapter(getContext(), android.R.layout.simple_list_item_1, Arrays.asList(tutorial_values));
         ListView listView_bt = view.findViewById(R.id.listView_settings_bluetooth);
         ListView listView_event = view.findViewById(R.id.listView_settings_event);
+        ListView listView_tutorial = view.findViewById(R.id.listView_settings_tutorial);
         listView_bt.setAdapter(adapter_bt);
         listView_event.setAdapter(adapter_event);
+        listView_tutorial.setAdapter(adapter_tutorial);
         listView_bt.setOnItemClickListener(mClickListener_bluetooth);
         listView_event.setOnItemClickListener(mClickListener_event);
+        listView_tutorial.setOnItemClickListener(mClickListener_tutorial);
         getActivity().setTitle("Settings");
         return view;
     }
@@ -82,6 +89,18 @@ public class SettingsFragment extends Fragment {
             }
         }
     };
+
+    private AdapterView.OnItemClickListener mClickListener_tutorial = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+            switch (position){
+                case 0:
+                    Globals.getGlobals().setChangeActivity(true);
+                    Intent intent = new Intent(getActivity(), TutorialActivity.class);
+                    startActivity(intent);
+            }
+        }
+    };
+
 
     private void showEventList() {
         EventListFragment list_fragment = new EventListFragment();

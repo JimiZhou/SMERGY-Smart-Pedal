@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#546e7a</color>
-    <color name="colorPrimaryDark">#5b5c5f</color>
-    <color name="colorAccent">#d49735</color>
+    <color name="colorPrimary">#344955</color>
+    <color name="colorPrimaryDark">#232F34</color>
+    <color name="colorAccent">#F9AA33</color>
     <color name="playerBlue">#7986cb</color>
     <color name="playerRed">#e57373</color>
+    <color name="transparantDots">#a8a9b2</color>
+    <color name="white">#ffffff</color>
+    <color name="black_overlay">#66000000</color>
 </resources>
+
+<!--primary #546e7a-->
+<!--#5b5c5f-->
+<!--d49735-->

@@ -72,8 +72,10 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("currentEventId", Globals.getGlobals().getCurrentEvent().getId());
-        editor.apply();
+        if(!Globals.getGlobals().isChangeActivity()){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong("currentEventId", Globals.getGlobals().getCurrentEvent().getId());
+            editor.apply();
+        }
     }
 }
