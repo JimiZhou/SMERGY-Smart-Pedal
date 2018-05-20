@@ -17,7 +17,6 @@ public class Globals extends Application {
     private boolean BTconnected;
     private String blueName;
     private String redName;
-    private boolean changeActivity;
 
     public Globals(){
        sInstance = this;
@@ -28,7 +27,6 @@ public class Globals extends Application {
        BTconnected = false;
        blueName = null;
        redName = null;
-       changeActivity = false;
     }
 
     public static Globals getGlobals() {
@@ -89,13 +87,5 @@ public class Globals extends Application {
 
     public void setRedName(String redName) {
         this.redName = redName;
-    }
-
-    public boolean isChangeActivity() {
-        return changeActivity;
-    }
-
-    public void setChangeActivity(boolean changeActivity) {
-        this.changeActivity = changeActivity;
     }
 }

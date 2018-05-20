@@ -21,6 +21,7 @@
             android:layout_marginStart="74dp"
             android:gravity="center"
             android:text="Blue Wins"
+            android:textColor="@color/white"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@+id/power_text"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -36,6 +37,7 @@
             android:layout_marginStart="126dp"
             android:gravity="center_horizontal"
             android:text="Energy"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -49,6 +51,7 @@
             android:layout_marginEnd="129dp"
             android:layout_marginStart="127dp"
             android:text="Power"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/progress_2"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -65,6 +68,7 @@
             app:layout_constraintStart_toEndOf="@+id/guideline3"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
+            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp"
             app:rcReverse="true" />
@@ -80,6 +84,7 @@
             app:layout_constraintStart_toEndOf="@+id/guideline"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
+            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerRed"
             app:rcRadius="10dp" />
 
@@ -94,6 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline2"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
+            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp"
             app:rcReverse="true" />
@@ -109,6 +115,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline2"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
+            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerRed"
             app:rcRadius="10dp" />
 
@@ -119,6 +126,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="100dp"
             android:text="Time :"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/totalRaceTime"
             app:layout_constraintTop_toBottomOf="@+id/progress_3" />
@@ -131,6 +139,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="100dp"
             android:text="9min 34sec"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintHorizontal_bias="0.65"
@@ -176,6 +185,7 @@
             android:layout_marginBottom="49dp"
             android:layout_marginEnd="4dp"
             android:text="369 W"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/progress_1" />
@@ -187,6 +197,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginTop="8dp"
             android:text="369 J"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/progress_3"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />
@@ -198,6 +209,7 @@
             android:layout_marginBottom="48dp"
             android:layout_marginStart="4dp"
             android:text="369 W"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/guideline4" />
@@ -209,6 +221,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="369 J"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />

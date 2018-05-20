@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Globals;
@@ -65,6 +66,7 @@ public class LeaderboardFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white));
                 Event event = (Event)spinner.getSelectedItem();
                 List<Event> e = dbModel.getAllEvents();
                 List<Race> r = dbModel.getAllRaces();

@@ -94,7 +94,6 @@ public class SettingsFragment extends Fragment {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             switch (position){
                 case 0:
-                    Globals.getGlobals().setChangeActivity(true);
                     Intent intent = new Intent(getActivity(), TutorialActivity.class);
                     startActivity(intent);
             }

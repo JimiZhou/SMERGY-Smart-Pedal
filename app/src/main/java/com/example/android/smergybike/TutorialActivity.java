@@ -66,7 +66,7 @@ public class TutorialActivity extends AppCompatActivity {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226"));
             mDots[i].setTextSize(35);
-            mDots[i].setTextColor(getResources().getColor(R.color.transparantDots));
+            mDots[i].setTextColor(getResources().getColor(R.color.transparantish));
             mDotsLayout.addView(mDots[i]);
         }
 

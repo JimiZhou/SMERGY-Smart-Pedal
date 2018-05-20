@@ -41,7 +41,7 @@ public class SettingsAdapter extends  ArrayAdapter<String>{
             textView.setText(getItem(position));
 
             ImageView imageView = v.findViewById(R.id.settings_list_icon);
-            imageView.setImageResource(R.drawable.ic_keyboard_arrow_right_black_24px);
+            imageView.setImageResource(R.drawable.ic_keyboard_arrow_right_white_24px);
             return v;
         }
 

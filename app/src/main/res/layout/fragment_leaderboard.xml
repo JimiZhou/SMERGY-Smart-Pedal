@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".leaderboardFragment.LeaderboardFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".leaderboardFragment.LeaderboardFragment"
+    android:background="@color/colorPrimaryDark">
 
     <!--<TextView-->
         <!--android:id="@+id/message"-->
@@ -20,18 +22,20 @@
         android:gravity="end"
         android:orientation="vertical">
 
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/dropdown_leaderboard"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:spinnerMode="dropdown" />
+            android:popupBackground="@color/white"
+            android:spinnerMode="dropdown"
+            app:backgroundTint="@color/white" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
-            tools:background="@android:color/darker_gray" />
+            tools:background="@color/transparantish" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listView_leaderboard"

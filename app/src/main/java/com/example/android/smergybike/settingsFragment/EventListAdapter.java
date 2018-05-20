@@ -70,7 +70,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
             if (deleteImage != null) {
                 deleteImage.setTag(position);
-                deleteImage.setImageResource(R.drawable.ic_delete_forever_black_24px);
+                deleteImage.setImageResource(R.drawable.ic_delete_forever_white_24px);
             }
 
             starImage.setOnClickListener(starListener);

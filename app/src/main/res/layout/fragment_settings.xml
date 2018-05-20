@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#F6F6F6">
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:layout_width="match_parent"
@@ -27,13 +27,14 @@
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
             android:text="Bluetooth"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ListView
             android:id="@+id/listView_settings_bluetooth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"/>
+            android:background="@color/colorPrimaryDarkSecond"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -42,13 +43,14 @@
             android:paddingTop="15dp"
             android:paddingBottom="10dp"
             android:text="Events"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ListView
             android:id="@+id/listView_settings_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF" />
+            android:background="@color/colorPrimaryDarkSecond" />
 
         <TextView
             android:layout_width="match_parent"
@@ -57,13 +59,14 @@
             android:paddingTop="15dp"
             android:paddingBottom="10dp"
             android:text="Tutorial"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ListView
             android:id="@+id/listView_settings_tutorial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF" />
+            android:background="@color/colorPrimaryDarkSecond" />
     </LinearLayout>
 
 </FrameLayout>

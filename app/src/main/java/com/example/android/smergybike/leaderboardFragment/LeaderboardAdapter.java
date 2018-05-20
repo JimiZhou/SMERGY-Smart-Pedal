@@ -80,6 +80,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<RecyclerViewHolder>
                 stats_fragment.setArguments(arguments);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.frame_layout, stats_fragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });

@@ -17,10 +17,12 @@ import com.example.android.smergybike.localDatabase.DbModel;
 
 public class StatisticsFragment extends Fragment {
 
-    DbModel dbModel = new DbModel(getContext());
-    Race showedRace;
-    Player bluePlayer;
-    Player redPlayer;
+    private DbModel dbModel = new DbModel(getContext());
+    private Race showedRace;
+    private Player bluePlayer;
+    private Player redPlayer;
+    private boolean fromLeaderboard;
+
 
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
@@ -35,8 +37,10 @@ public class StatisticsFragment extends Fragment {
         if(arguments != null){
             long raceId = arguments.getLong("SelectedPlayer_raceId");
             showedRace = dbModel.getRaceById(raceId);
+            fromLeaderboard = true;
         }else{
             showedRace = Globals.getGlobals().getCurrentRace();
+            fromLeaderboard = false;
         }
         bluePlayer = dbModel.getPlayer(showedRace, true);
         redPlayer = dbModel.getPlayer(showedRace, false);
@@ -46,7 +50,7 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Statistics");
+        getActivity().setTitle("Overview");
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         TextView winnerText = view.findViewById(R.id.title_text);
         setWinnerText(winnerText);
@@ -94,7 +98,9 @@ public class StatisticsFragment extends Fragment {
     {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.actionbar_new_race, menu);
+        if(!fromLeaderboard){
+            inflater.inflate(R.menu.actionbar_new_race, menu);
+        }
     }
 
     @Override
