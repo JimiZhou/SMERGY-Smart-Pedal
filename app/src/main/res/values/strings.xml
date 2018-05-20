@@ -10,13 +10,6 @@
     <string name="textview_racer2">Racer 2</string>
     <string name="next">Next</string>
 
-    <string-array name="leaderboard_array">
-        <item>Global</item>
-        <item>Event 1</item>
-        <item>Event 2</item>
-        <item>Event 3</item>
-    </string-array>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_race">New Race</string>
@@ -24,4 +17,5 @@
     <string name="prev">back\\</string>
 
     <string name="title_activity_tutorial">Tutorial</string>
+    <string name="title_activity_milestones">Milestones</string>
 </resources>

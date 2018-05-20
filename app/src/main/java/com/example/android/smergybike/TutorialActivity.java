@@ -34,7 +34,7 @@ public class TutorialActivity extends AppCompatActivity {
                 if(mCurrentPage < 3){
                     mSlideViewPager.setCurrentItem(mCurrentPage + 1);
                 }else{
-                    changeActivity();
+                    finishActivity();
                 }
             }
         });
@@ -52,7 +52,7 @@ public class TutorialActivity extends AppCompatActivity {
         this.setTitle("Tutorial");
     }
 
-    private void changeActivity() {
+    private void finishActivity() {
         this.finish();
 //        Intent intent = new Intent(this, Main2Activity.class);
 //        startActivity(intent);

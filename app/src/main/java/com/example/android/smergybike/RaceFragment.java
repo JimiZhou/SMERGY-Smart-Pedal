@@ -126,6 +126,9 @@ public class RaceFragment extends Fragment {
             mCountDownTimer.cancel();
             endRace();
             StatisticsFragment statistics_fragment = new StatisticsFragment();
+            Bundle arguments = new Bundle();
+            arguments.putLong( "currentRaceId" , Globals.getGlobals().getCurrentRace().getId());
+            statistics_fragment.setArguments(arguments);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, statistics_fragment);
             transaction.commit();

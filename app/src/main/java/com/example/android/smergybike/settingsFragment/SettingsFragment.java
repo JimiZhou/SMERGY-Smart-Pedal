@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Globals;
+import com.example.android.smergybike.MilestonesActivity;
 import com.example.android.smergybike.R;
 import com.example.android.smergybike.TutorialActivity;
 import com.example.android.smergybike.bluetooth.BluetoothController;
@@ -51,7 +52,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         String[] bluetooth_values = new String[]{"Connect Bluetooth"};
         String[] event_values = new String[]{"Start new Event", "List Events"};
-        String[] tutorial_values = new String[] {"Start Tutorial"};
+        String[] tutorial_values = new String[] {"Start Tutorial", "Milestones Overview"};
         SettingsAdapter adapter_bt = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(bluetooth_values));
         SettingsAdapter adapter_event = new SettingsAdapter(getContext(),android.R.layout.simple_list_item_1, Arrays.asList(event_values));
         SettingsAdapter adapter_tutorial = new SettingsAdapter(getContext(), android.R.layout.simple_list_item_1, Arrays.asList(tutorial_values));
@@ -94,8 +95,13 @@ public class SettingsFragment extends Fragment {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             switch (position){
                 case 0:
-                    Intent intent = new Intent(getActivity(), TutorialActivity.class);
-                    startActivity(intent);
+                    Intent tutorialIntent = new Intent(getActivity(), TutorialActivity.class);
+                    startActivity(tutorialIntent);
+                    break;
+                case 1:
+                    Intent milestoneIntent = new Intent(getActivity(), MilestonesActivity.class);
+                    startActivity(milestoneIntent);
+                    break;
             }
         }
     };

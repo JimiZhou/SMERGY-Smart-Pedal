@@ -1,5 +1,6 @@
 package com.example.android.smergybike;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -43,12 +44,17 @@ public class Main2Activity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        final BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
+            if(Globals.getGlobals().getCurrentRace() != null){
+                showdialog();
+                navigation.getMenu().getItem(0).setChecked(true);
+                return false;
+            }
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     selectedFragment = HomeFragment.newInstance();
@@ -67,6 +73,15 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         });
+    }
+
+    private void showdialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Not Allowed")
+                .setMessage("finish race before navigating to a different page")
+                .setPositiveButton("ok",null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

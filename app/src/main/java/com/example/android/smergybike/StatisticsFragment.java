@@ -32,14 +32,15 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
+        Globals.getGlobals().setCurrentRace(null);
         Bundle arguments = getArguments();
-        if(arguments != null){
-            long raceId = arguments.getLong("SelectedPlayer_raceId");
+        if(arguments.getLong("SelectedPlayer_raceId", -1) != -1){
+            long raceId = arguments.getLong("SelectedPlayer_raceId", -1);
             showedRace = dbModel.getRaceById(raceId);
             fromLeaderboard = true;
-        }else{
-            showedRace = Globals.getGlobals().getCurrentRace();
+        }else if (arguments.getLong("currentRaceId", -1) != -1){
+            long raceId = arguments.getLong("currentRaceId");
+            showedRace = dbModel.getRaceById(raceId);;
             fromLeaderboard = false;
         }
         bluePlayer = dbModel.getPlayer(showedRace, true);
