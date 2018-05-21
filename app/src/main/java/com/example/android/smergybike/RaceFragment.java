@@ -218,32 +218,48 @@ public class RaceFragment extends Fragment {
     }
 
     private void updateImageViewsBlue(){
-        if((bluePlayer.getEnergy() > 0) && (bluePlayer.getEnergy() <= 60)){
-             blueImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((bluePlayer.getEnergy() > 60) && (bluePlayer.getEnergy() <= 100)){
-             blueImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((bluePlayer.getEnergy() > 100 ) && (bluePlayer.getEnergy() <= 150)){
-            blueImageView.setImageResource(R.drawable.ic_console);
-        } else if((bluePlayer.getEnergy() > 150) && (bluePlayer.getEnergy() <= 200)){
+        if((bluePlayer.getEnergy() > 0.01) && (bluePlayer.getEnergy() <= 0.07)){
+             blueImageView.setImageResource(R.drawable.ic_alarm_clock);
+        }else if((bluePlayer.getEnergy() > 0.07) && (bluePlayer.getEnergy() <= 0.2)){
+             blueImageView.setImageResource(R.drawable.ic_led_bulb);
+        } else if((bluePlayer.getEnergy() > 0.2 ) && (bluePlayer.getEnergy() <= 0.45)){
+            blueImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        } else if((bluePlayer.getEnergy() > 0.45) && (bluePlayer.getEnergy() <= 0.95)){
             blueImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((bluePlayer.getEnergy() > 200 ) && (bluePlayer.getEnergy() <= 250)){
+        } else if((bluePlayer.getEnergy() > 0.95 ) && (bluePlayer.getEnergy() <= 1.45)){
+            blueImageView.setImageResource(R.drawable.ic_laptop);
+        } else if((bluePlayer.getEnergy() > 1.45 ) && (bluePlayer.getEnergy() <= 1.95)){
+            blueImageView.setImageResource(R.drawable.ic_console);
+        } else if((bluePlayer.getEnergy() > 1.95 ) && (bluePlayer.getEnergy() <= 2.45)){
             blueImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((bluePlayer.getEnergy() > 250)) {
+        } else if((bluePlayer.getEnergy() > 2.45 ) && (bluePlayer.getEnergy() <= 2.95)){
+            blueImageView.setImageResource(R.drawable.ic_flatscreen_tv);
+        } else if((bluePlayer.getEnergy() > 2.95 ) && (bluePlayer.getEnergy() <= 4.95)){
+            blueImageView.setImageResource(R.drawable.ic_desktop_computer);
+        } else if((bluePlayer.getEnergy() > 4.95)) {
             blueImageView.setImageResource(R.drawable.ic_blender);
         }
     }
     private void updateImageViewRed(){
-        if((redPlayer.getEnergy() > 0) && (redPlayer.getEnergy() <= 60)){
+        if((redPlayer.getEnergy() > 0.01) && (redPlayer.getEnergy() <= 0.07)){
+            redImageView.setImageResource(R.drawable.ic_alarm_clock);
+        }else if((redPlayer.getEnergy() > 0.07) && (redPlayer.getEnergy() <= 0.2)){
+            redImageView.setImageResource(R.drawable.ic_led_bulb);
+        } else if((redPlayer.getEnergy() > 0.2 ) && (redPlayer.getEnergy() <= 0.45)){
             redImageView.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-        }else if((redPlayer.getEnergy() > 60) && (redPlayer.getEnergy() <= 100)){
-            redImageView.setImageResource(R.drawable.ic_laptop);
-        } else if((redPlayer.getEnergy() > 100 ) && (redPlayer.getEnergy() <= 150)){
-            redImageView.setImageResource(R.drawable.ic_console);
-        } else if((redPlayer.getEnergy() > 150) && (redPlayer.getEnergy() <= 200)){
+        } else if((redPlayer.getEnergy() > 0.45) && (redPlayer.getEnergy() <= 0.95)){
             redImageView.setImageResource(R.drawable.ic_fridge);
-        } else if((redPlayer.getEnergy() > 200 ) && (redPlayer.getEnergy() <= 250)){
+        } else if((redPlayer.getEnergy() > 0.95 ) && (redPlayer.getEnergy() <= 1.45)){
+            redImageView.setImageResource(R.drawable.ic_laptop);
+        } else if((redPlayer.getEnergy() > 1.45 ) && (redPlayer.getEnergy() <= 1.95)){
+            redImageView.setImageResource(R.drawable.ic_console);
+        } else if((redPlayer.getEnergy() > 1.95 ) && (redPlayer.getEnergy() <= 2.45)){
             redImageView.setImageResource(R.drawable.ic_cooler);
-        } else if((redPlayer.getEnergy() > 250)) {
+        } else if((redPlayer.getEnergy() > 2.45 ) && (redPlayer.getEnergy() <= 2.95)){
+            redImageView.setImageResource(R.drawable.ic_flatscreen_tv);
+        } else if((redPlayer.getEnergy() > 2.95 ) && (redPlayer.getEnergy() <= 4.95)){
+            redImageView.setImageResource(R.drawable.ic_desktop_computer);
+        } else if((redPlayer.getEnergy() > 4.95)) {
             redImageView.setImageResource(R.drawable.ic_blender);
         }
     }
