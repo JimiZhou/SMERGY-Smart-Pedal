@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.bluetooth.Constants;
 import com.example.android.smergybike.localDatabase.DbModel;
 
@@ -125,6 +126,8 @@ public class RaceFragment extends Fragment {
             //stop timer
             mCountDownTimer.cancel();
             endRace();
+            BluetoothController bluetoothController = Globals.getGlobals().getBluetoothController();
+            bluetoothController.writeMessage("R");
             StatisticsFragment statistics_fragment = new StatisticsFragment();
             Bundle arguments = new Bundle();
             arguments.putLong( "currentRaceId" , Globals.getGlobals().getCurrentRace().getId());
