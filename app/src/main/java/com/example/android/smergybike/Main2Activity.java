@@ -77,7 +77,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void showdialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Not Allowed")
+        builder.setTitle("Warning")
                 .setMessage("finish race before navigating to a different page")
                 .setPositiveButton("ok",null);
         AlertDialog dialog = builder.create();

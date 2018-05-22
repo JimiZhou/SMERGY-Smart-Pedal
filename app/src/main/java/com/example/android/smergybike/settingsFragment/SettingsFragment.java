@@ -205,8 +205,10 @@ public class SettingsFragment extends Fragment {
         else{
             BTcontroller.manageConnection();
         }
-
     }
+
+
+
 
 
 }

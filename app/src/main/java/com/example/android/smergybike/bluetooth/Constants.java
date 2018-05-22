@@ -8,5 +8,6 @@ public class Constants {
     public static final int CONNECTED = 2;
     public static final int MESSAGE_READ = 3;
     public static final int UPDATE_VIEW = 4;
+    public static final int MESSAGE_WRITE = 5;
 
 }

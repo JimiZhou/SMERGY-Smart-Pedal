@@ -83,6 +83,12 @@ public class BluetoothController {
     public void manageConnection(){
         BTconnectedThread = new ConnectedThread(socket, mHandler);
         BTconnectedThread.start();
+        checkBikeModule();
+    }
+
+    public void writeMessage(String message){
+        byte[] send = message.getBytes();
+        BTconnectedThread.write(send);
     }
 
     public void CancelConnection(){
@@ -99,7 +105,6 @@ public class BluetoothController {
                     Globals.getGlobals().setBTconnected(false);
                     break;
                 case Constants.CONNECTED:
-                    Toast.makeText(mContext, "connection successful", Toast.LENGTH_SHORT).show();
                     Globals.getGlobals().setBTconnected(true);
                     break;
                 case Constants.MESSAGE_READ:
@@ -109,7 +114,7 @@ public class BluetoothController {
                     String header = data.replaceAll("[^a-zA-Z]+", "");
                     if(header.equals("setup")){
                         String setupCode = data.replaceAll("[a-zA-Z]+", "");
-                        processSetupCode(Integer.parseInt(setupCode));
+                        proccessSetupCode(Integer.parseInt(setupCode));
                     }
                     else if (mRaceHandler != null){
                         Message sendmsg = mRaceHandler.obtainMessage(Constants.UPDATE_VIEW);
@@ -119,21 +124,27 @@ public class BluetoothController {
                         mRaceHandler.sendMessage(sendmsg);
                     }
                     break;
+                case Constants.MESSAGE_WRITE:
+                    byte[] writeBuf = (byte[]) msg.obj;
+                    String writeMessage = new String(writeBuf);
+                    System.out.println("bluetooth write: " + writeMessage);
             }
         }
     };
 
-    private void processSetupCode(int code){
-        switch (code){
-            case 1:
-                // error
-                Toast.makeText(mContext, "error, connection between bikes failed", Toast.LENGTH_SHORT).show();
-                break;
-            case 2:
-                // success
-                Toast.makeText(mContext, "successfull connection between the bikes", Toast.LENGTH_SHORT).show();
-                break;
+    private void proccessSetupCode(int setupCode) {
+        if(setupCode == 1){
+            //error no connection between pedals
+            Toast.makeText(mContext, "there is a problem with the connection between the pedals",Toast.LENGTH_LONG).show();
+        }else if(setupCode == 2){
+            //success, connection beween pedals ok
+            Toast.makeText(mContext, "Connection successful", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void checkBikeModule(){
+        String message = "C";
+        writeMessage(message);
     }
 }
 

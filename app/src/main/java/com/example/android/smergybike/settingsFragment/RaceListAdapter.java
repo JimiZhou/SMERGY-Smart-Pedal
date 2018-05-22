@@ -84,7 +84,7 @@ public class RaceListAdapter extends ArrayAdapter<Race> {
             final Race selectedRace = races.get(position);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Delete")
-                    .setMessage("Are you sure you want to delete this event and all its races")
+                    .setMessage("Are you sure you want to delete this race")
                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
