@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import com.example.android.smergybike.Event;
 import com.example.android.smergybike.Globals;
-import com.example.android.smergybike.MilestonesActivity;
 import com.example.android.smergybike.R;
-import com.example.android.smergybike.TutorialActivity;
 import com.example.android.smergybike.bluetooth.BluetoothController;
 import com.example.android.smergybike.localDatabase.DbModel;
 

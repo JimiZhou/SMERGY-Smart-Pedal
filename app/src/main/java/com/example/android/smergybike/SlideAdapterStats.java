@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.example.android.smergybike.StatisticsFragment;
 
 /**
  * Created by Gebruiker on 22/05/2018.
@@ -21,6 +20,11 @@ public class SlideAdapterStats extends PagerAdapter {
 
     public SlideAdapterStats(Context context) {
         this.context = context;
+    }
+
+    @Override
+    public float getPageWidth(int position) {
+        return (0.9f);
     }
 
     public int slide_images[] = {

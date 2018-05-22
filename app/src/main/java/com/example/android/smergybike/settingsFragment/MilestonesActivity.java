@@ -1,8 +1,10 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.settingsFragment;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+
+import com.example.android.smergybike.R;
 
 public class MilestonesActivity extends AppCompatActivity {
 

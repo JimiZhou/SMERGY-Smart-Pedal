@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -26,9 +23,6 @@ public class StatisticsFragment extends Fragment {
     private static Player bluePlayer;
     private static Player redPlayer;
     private boolean fromLeaderboard;
-    private TextView[] mDots;
-    private LinearLayout mDotsLayout;
-
     private ViewPager mSlideViewPager;
     private SlideAdapterStats slideAdapter;
 
@@ -66,14 +60,13 @@ public class StatisticsFragment extends Fragment {
         setWinnerText(winnerText);
         TextView blueEnergyText = view.findViewById(R.id.energy_blue_text);
         TextView redEnergyText = view.findViewById(R.id.energy_red_text);
-        blueEnergyText.setText(bluePlayer.getEnergy() + " J");
-        redEnergyText.setText(redPlayer.getEnergy() + " J");
+        blueEnergyText.setText(bluePlayer.getEnergy() + " kJ");
+        redEnergyText.setText(redPlayer.getEnergy() + " kJ");
         int maxEnergy = 500;
         RoundCornerProgressBar progressBlueEnergy = view.findViewById(R.id.progress_3);
         progressBlueEnergy.setProgress((float) redPlayer.getPower()/maxEnergy);
         RoundCornerProgressBar progressRedEnergy = view.findViewById(R.id.progress_4);
         progressRedEnergy.setProgress((float) bluePlayer.getPower()/maxEnergy);
-
 
         TextView timeTextView = view.findViewById(R.id.totalRaceTime);
         long time = showedRace.getTotalTime();
@@ -83,12 +76,10 @@ public class StatisticsFragment extends Fragment {
 
         // TODO: TEST THIS IMAGESLIDER
         mSlideViewPager = view.findViewById(R.id.SlideViewPager2);
-        mDotsLayout = view.findViewById(R.id.dotsLayout);
-
         slideAdapter = new SlideAdapterStats(view.getContext());
         mSlideViewPager.setAdapter(slideAdapter);
-        addDotsIndicator(0);
-        mSlideViewPager.addOnPageChangeListener(viewListener);
+        mSlideViewPager.setClipToPadding(false);
+        mSlideViewPager.setPageMargin(20);
 
         return view;
     }
@@ -105,8 +96,6 @@ public class StatisticsFragment extends Fragment {
         }
     }
 
-
-    // TODO: create actionbar_new_race button
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
@@ -127,38 +116,6 @@ public class StatisticsFragment extends Fragment {
             return true;
         }
         return false;
-    }
-    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            addDotsIndicator(position);
-
-        }
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
-
-    public void addDotsIndicator(int position){
-        mDots = new TextView[10];
-        mDotsLayout.removeAllViews();
-
-        for(int i = 0; i < mDots.length; i++){
-            mDots[i] = new TextView(getContext());
-            mDots[i].setText(Html.fromHtml("&#8226"));
-            mDots[i].setTextSize(35);
-            mDots[i].setTextColor(getResources().getColor(R.color.transparantish));
-            mDotsLayout.addView(mDots[i]);
-        }
-
-        if(mDots.length > 0){
-            mDots[position].setTextColor(getResources().getColor(R.color.white));
-        }
     }
 
     public static String calculateRunTime(int i){

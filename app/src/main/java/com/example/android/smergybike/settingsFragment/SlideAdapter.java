@@ -1,4 +1,4 @@
-package com.example.android.smergybike;
+package com.example.android.smergybike.settingsFragment;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.android.smergybike.R;
 
 /**
  * Created by Joren on 19-5-2018.

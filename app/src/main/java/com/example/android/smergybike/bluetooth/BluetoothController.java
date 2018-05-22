@@ -88,7 +88,9 @@ public class BluetoothController {
 
     public void writeMessage(String message){
         byte[] send = message.getBytes();
-        BTconnectedThread.write(send);
+        if(BTconnectedThread != null){
+            BTconnectedThread.write(send);
+        }
     }
 
     public void CancelConnection(){

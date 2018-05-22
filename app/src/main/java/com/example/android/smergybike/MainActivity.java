@@ -1,143 +1,96 @@
 package com.example.android.smergybike;
 
-import android.annotation.SuppressLint;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-import com.example.android.smergybike.bluetooth.BluetoothController;
-
-import java.util.ArrayList;
-
+import com.example.android.smergybike.leaderboardFragment.LeaderboardFragment;
+import com.example.android.smergybike.localDatabase.DbModel;
+import com.example.android.smergybike.settingsFragment.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private double speed;
-    private double energy;
-    private double power;
-    private ArrayList avgpower;
-    private Button mStartButton;
-    private long starttime;
-    private long stoptime;
-    private Button mStopButton;
-    private BluetoothController BTcontroller;
-
-    @SuppressLint("HandlerLeak")
-    final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg){
-            System.out.println("in handler");
-            Bundle bundle = msg.getData();
-            String string = bundle.getString("message");
-            speed = Double.parseDouble(string);
-            String string2 = ("Speed: " + speed + "km/h");
-            System.out.println("handler: " + string);
-            TextView text = (TextView) findViewById(R.id.readData);
-            text.setText(string2);
-//            calculateVermogen();
-        }
-    };
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //BottomNavigationView navigationView = findViewById(R.id.navigation);
-        //navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.onNavigationItem);
+        DbModel dbModel = new DbModel(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences globals
+        Globals.getGlobals().setAllId(prefs.getLong("allid", 0));
+        if(prefs.getLong("currentEventId",-1) != -1) {
+            Globals.getGlobals().setCurrentEvent(dbModel.getEventById(prefs.getLong("currentEventId", 0)));
+        }
+        //loads setupdate when app gets installed for the first time
+        if (!prefs.getBoolean("firstTime", false)) {
+            dbModel.databaseSetupData();
+            // mark first time has runned.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.putLong("allid", Globals.getGlobals().getAllId());
+            editor.apply();
+        }
 
-//        avgpower = new ArrayList();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
+        transaction.commit();
 
-        //final BluetoothController BTcontroller = new BluetoothController();
-        BTcontroller = new BluetoothController();
-        mStartButton = (Button) findViewById(R.id.start_button);
-        mStopButton = (Button) findViewById(R.id.stop_button);
-        //BTcontroller.getAllPairedDevices();
+        final BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-//        setListeners();
-        ArrayAdapter<String> BluetoothDeviceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, BTcontroller.getAllPairedDevices());
-        ListView listView = (ListView) findViewById(R.id.deviceListView);
-        listView.setAdapter(BluetoothDeviceAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String info = ((TextView) view).getText().toString();
-                String address = info.substring(info.length() - 17);
-                System.out.println(address);
-                BTcontroller.connectDevice(address);
-                BTcontroller.manageConnection();
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
+            if(Globals.getGlobals().getCurrentRace() != null){
+                showdialog();
+                navigation.getMenu().getItem(0).setChecked(true);
+                return false;
             }
-        });
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    selectedFragment = HomeFragment.newInstance();
+                    break;
+                case R.id.navigation_leaderboard:
+                    selectedFragment = LeaderboardFragment.newInstance();
+                    break;
+                case R.id.navigation_settings:
+                    selectedFragment = SettingsFragment.newInstance();
+                    break;
+            }
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, selectedFragment);
+            transaction.commit();
+            return true;
+        }
 
+        });
     }
 
-//    public void calculateVermogen() {
-//
-//        double vermogenRood1 = Math.pow(speed, 3.0D);
-//        double vermogenRood2 = Math.pow(speed, 2.0D);
-//        double vermogenRood3 = speed;
-//
-//        double vermogenRoodStore = 7.0D * vermogenRood1 / 24000.0D + 161.0D * vermogenRood2 / 800.0D - 287.0D * vermogenRood3 / 120.0D;
-//        this.power = (Math.floor(vermogenRoodStore * 100.0D) / 100.0D);
-//
-//        avgpower = new ArrayList<>();
-//        avgpower.add(power);
-//        String string = ("Power:" + this.power);
-//        TextView text = (TextView) findViewById(R.id.readPower);
-//        text.setText(string);
-//
-//
-//    }
-//
-//    public void calculateEnergy() {
-//        long elapsedMilliSeconds = stoptime - starttime;
-//        long elapsedSeconds = (elapsedMilliSeconds / 1000);
-//
-//        double energieRoodStore = getAverage(avgpower) / elapsedSeconds;     // gedurende 1 minuut fietsen
-//        this.energy = (Math.floor(energieRoodStore * 100.0D) / 100.0D);
-//
-//
-//        String string = (" Average Power:" + getAverage(avgpower));
-//        TextView text = (TextView) findViewById(R.id.readPower);
-//        text.setText(string);
-//        String string2 = ("energy:" + this.energy);
-//        TextView text2 = (TextView) findViewById(R.id.readEnergy);
-//        text2.setText(string2);
-//
-//    }
-//
-//    public void setListeners() {
-//
-//        mStartButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                starttime = SystemClock.elapsedRealtime();
-//            }
-//        });
-//
-//        mStopButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                stoptime = SystemClock.elapsedRealtime();
-//                calculateEnergy();
-//                BTcontroller.CancelConnection();
-//            }
-//        });
-//    }
-//
-//    public double getAverage(List<Double> sum) {
-//    double total = 0;
-//        for (int i = 0; i < sum.size(); i++) {
-//            total = total + sum.get(i);
-//
-//        }
-//        return total/sum.size();
-//
-//    }
+    private void showdialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Warning")
+                .setMessage("finish race before navigating to a different page")
+                .setPositiveButton("ok",null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(Globals.getGlobals().getCurrentEvent() != null){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong("currentEventId", Globals.getGlobals().getCurrentEvent().getId());
+            editor.apply();
+        }
+    }
 }
