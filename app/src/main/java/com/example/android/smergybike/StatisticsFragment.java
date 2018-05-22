@@ -3,12 +3,16 @@ package com.example.android.smergybike;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -18,10 +22,15 @@ import com.example.android.smergybike.localDatabase.DbModel;
 public class StatisticsFragment extends Fragment {
 
     private DbModel dbModel = new DbModel(getContext());
-    private Race showedRace;
-    private Player bluePlayer;
-    private Player redPlayer;
+    private static Race showedRace;
+    private static Player bluePlayer;
+    private static Player redPlayer;
     private boolean fromLeaderboard;
+    private TextView[] mDots;
+    private LinearLayout mDotsLayout;
+
+    private ViewPager mSlideViewPager;
+    private SlideAdapterStats slideAdapter;
 
 
     public static StatisticsFragment newInstance() {
@@ -57,31 +66,34 @@ public class StatisticsFragment extends Fragment {
         setWinnerText(winnerText);
         TextView blueEnergyText = view.findViewById(R.id.energy_blue_text);
         TextView redEnergyText = view.findViewById(R.id.energy_red_text);
-        TextView bluePowerText = view.findViewById(R.id.power_blue_text);
-        TextView redPowerText = view.findViewById(R.id.power_red_text);
         blueEnergyText.setText(bluePlayer.getEnergy() + " J");
         redEnergyText.setText(redPlayer.getEnergy() + " J");
-        bluePowerText.setText(bluePlayer.getPower() + " W");
-        redPowerText.setText(redPlayer.getPower() + " W");
-        int maxPower = 500;
         int maxEnergy = 500;
-        int maxDistance = 500;
-        RoundCornerProgressBar progressBluePower = view.findViewById(R.id.progress_1);
-        progressBluePower.setProgress((float) redPlayer.getPower()/maxPower);
-        RoundCornerProgressBar progressRedPower = view.findViewById(R.id.progress_2);
-        progressRedPower.setProgress((float) bluePlayer.getPower()/maxPower);
         RoundCornerProgressBar progressBlueEnergy = view.findViewById(R.id.progress_3);
         progressBlueEnergy.setProgress((float) redPlayer.getPower()/maxEnergy);
         RoundCornerProgressBar progressRedEnergy = view.findViewById(R.id.progress_4);
         progressRedEnergy.setProgress((float) bluePlayer.getPower()/maxEnergy);
+
 
         TextView timeTextView = view.findViewById(R.id.totalRaceTime);
         long time = showedRace.getTotalTime();
         int minutes = (int) (time / 1000) / 60;
         int seconds = (int) (time / 1000) % 60;
         timeTextView.setText(minutes + "min " + seconds + "sec"); // race.getTotalTime()
+
+        // TODO: TEST THIS IMAGESLIDER
+        mSlideViewPager = view.findViewById(R.id.SlideViewPager2);
+        mDotsLayout = view.findViewById(R.id.dotsLayout);
+
+        slideAdapter = new SlideAdapterStats(view.getContext());
+        mSlideViewPager.setAdapter(slideAdapter);
+        addDotsIndicator(0);
+        mSlideViewPager.addOnPageChangeListener(viewListener);
+
         return view;
     }
+
+
 
     private void setWinnerText(TextView winnerText) {
         if(redPlayer.getHighscore() > bluePlayer.getHighscore()){
@@ -92,6 +104,7 @@ public class StatisticsFragment extends Fragment {
             winnerText.setText("It's a draw");
         }
     }
+
 
     // TODO: create actionbar_new_race button
     @Override
@@ -115,4 +128,82 @@ public class StatisticsFragment extends Fragment {
         }
         return false;
     }
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            addDotsIndicator(position);
+
+        }
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+    public void addDotsIndicator(int position){
+        mDots = new TextView[10];
+        mDotsLayout.removeAllViews();
+
+        for(int i = 0; i < mDots.length; i++){
+            mDots[i] = new TextView(getContext());
+            mDots[i].setText(Html.fromHtml("&#8226"));
+            mDots[i].setTextSize(35);
+            mDots[i].setTextColor(getResources().getColor(R.color.transparantish));
+            mDotsLayout.addView(mDots[i]);
+        }
+
+        if(mDots.length > 0){
+            mDots[position].setTextColor(getResources().getColor(R.color.white));
+        }
+    }
+
+    public static String calculateRunTime(int i){
+       long totalTime = (showedRace.getTotalTime()/1000);
+       long RunTime;
+       String runtimestring;
+       int energy = 2000;
+       /*  if(redPlayer.getHighscore() > bluePlayer.getHighscore()){
+            energy = (redPlayer.getEnergy() *1000);
+        }else {
+            energy = (bluePlayer.getEnergy()*1000);
+        }
+        */
+        if(i == 1){
+            RunTime = (energy/7);
+        }else if (i == 2){
+            RunTime = (energy/10);
+        }else if (i == 3){
+            RunTime = (energy/40);
+        }else if (i == 4){
+            RunTime = (energy/50);
+        }else if (i == 5){
+            RunTime = (energy/100);
+        }else if (i == 6){
+            RunTime = (energy/150);
+        }else if (i == 7){
+            RunTime = (energy/200);
+        }else if (i == 8){
+            RunTime = (energy/250);
+        }else if (i == 9){
+            RunTime = (energy/300);
+        }else{
+            RunTime = (energy/500);
+        }
+
+        int minutes = (int) (RunTime) / 60;
+        int seconds = (int) (RunTime) % 60;
+        if(minutes == 0){
+            runtimestring = "" + seconds + " seconds";
+        }else{
+            runtimestring = "" + minutes + " minutes " + seconds + " seconds";
+        }
+
+        return runtimestring;
+    }
+
+
 }

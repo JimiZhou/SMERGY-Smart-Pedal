@@ -69,7 +69,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isBTconnected == false){
-                    bluetoothNotConnDialog();
+                   bluetoothNotConnDialog();
+
                 }else if(currentEvent == null){
                     createNewEvent();
                 }

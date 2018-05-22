@@ -16,90 +16,48 @@
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
             android:layout_marginEnd="74dp"
             android:layout_marginStart="74dp"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             android:text="Blue Wins"
             android:textColor="@color/white"
             android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/power_text"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline3" />
+            app:layout_constraintStart_toEndOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/energy_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="124dp"
             android:layout_marginEnd="126dp"
             android:layout_marginStart="126dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_horizontal"
             android:text="Energy"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline3" />
-
-        <TextView
-            android:id="@+id/power_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="129dp"
-            android:layout_marginStart="127dp"
-            android:text="Power"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/progress_2"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline3" />
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_1"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/energy_text"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/guideline3"
-            app:rcBackgroundPadding="5dp"
-            app:rcMax="1"
-            app:rcBackgroundColor="@color/white"
-            app:rcProgressColor="@color/playerBlue"
-            app:rcRadius="10dp"
-            app:rcReverse="true" />
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_2"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/energy_text"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toEndOf="@+id/guideline"
-            app:rcBackgroundPadding="5dp"
-            app:rcMax="1"
-            app:rcBackgroundColor="@color/white"
-            app:rcProgressColor="@color/playerRed"
-            app:rcRadius="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/progress_3"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/energy_text"
+            app:rcBackgroundColor="@color/white"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
-            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp"
             app:rcReverse="true" />
@@ -109,13 +67,14 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/energy_text"
+            app:rcBackgroundColor="@color/white"
             app:rcBackgroundPadding="5dp"
             app:rcMax="1"
-            app:rcBackgroundColor="@color/white"
             app:rcProgressColor="@color/playerRed"
             app:rcRadius="10dp" />
 
@@ -123,8 +82,8 @@
             android:id="@+id/text_red_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="24dp"
             android:text="Time :"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -137,12 +96,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="24dp"
             android:text="9min 34sec"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintHorizontal_bias="0.663"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/progress_3" />
 
@@ -151,9 +110,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:layout_marginEnd="160dp"
+            android:layout_marginStart="160dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/title_text"
-            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="160dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread" />
 
@@ -162,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.47" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline3"
@@ -179,52 +142,69 @@
             app:layout_constraintGuide_percent="0.85" />
 
         <TextView
-            android:id="@+id/power_blue_text"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
-            android:layout_marginBottom="49dp"
-            android:layout_marginEnd="4dp"
-            android:text="369 W"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toStartOf="@+id/progress_1" />
-
-        <TextView
             android:id="@+id/energy_blue_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:text="369 J"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/progress_3"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
-
-        <TextView
-            android:id="@+id/power_red_text"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
-            android:layout_marginBottom="48dp"
-            android:layout_marginStart="4dp"
-            android:text="369 W"
-            android:textColor="@color/white"
-            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintStart_toEndOf="@+id/guideline4" />
+            app:layout_constraintEnd_toStartOf="@+id/progress_3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.712" />
 
         <TextView
             android:id="@+id/energy_red_text"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="369 J"
             android:textColor="@color/white"
             android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.712" />
+
+        <RelativeLayout
+            android:id="@+id/SlideLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/SlideViewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:id="@+id/dotsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal|center"
+                android:orientation="horizontal"
+                android:padding="20dp" />
+
+        </RelativeLayout>
 
 
     </android.support.constraint.ConstraintLayout>
