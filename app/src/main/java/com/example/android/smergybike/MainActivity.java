@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Warning")
                 .setMessage("finish race before navigating to a different page")
-                .setPositiveButton("ok",null);
+                .setPositiveButton("OK",null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

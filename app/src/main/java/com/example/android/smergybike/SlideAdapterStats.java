@@ -2,12 +2,12 @@ package com.example.android.smergybike;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -82,7 +82,7 @@ public class SlideAdapterStats extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((RelativeLayout)object);
+        container.removeView((ConstraintLayout)object);
     }
 
     public String getRunTime(int i){

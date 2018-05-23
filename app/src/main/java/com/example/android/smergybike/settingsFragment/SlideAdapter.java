@@ -33,10 +33,10 @@ public class SlideAdapter extends PagerAdapter {
 
     public String slide_headings[] = {"EVENTS", "RACES", "LEADERBOARD", "SETTINGS"};
     public String slide_descs[] = {
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices nisi tortor, sed semper lorem pharetra vitae. Nulla tincidunt ligula.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices nisi tortor, sed semper lorem pharetra vitae. Nulla tincidunt ligula.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices nisi tortor, sed semper lorem pharetra vitae. Nulla tincidunt ligula.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices nisi tortor, sed semper lorem pharetra vitae. Nulla tincidunt ligula."
+            "Create and save every event you go to. You are able to set the race time and see a seperate leaderboard. Every race will be saved under the active event you can change the active event in the settings tab.",
+            "Start races in the race tab. \n Fill in the names of the participants and press start. The progressbars show the total energy the racers have generated. After the race you will get an overview of the devices the racers can turn on and the total energy they generated.",
+            "In the leaderboard tab, you see the ranking of all players. By using the dropdown menu you can select specific events. By tapping on a player you can see the race overview again.",
+            "In the settings tab you can connect to the pedals through bluetooth, create new events, delete events and change the active event. There is also an overview of all the possible milestones and the energy needed to receive them."
     };
     @Override
     public int getCount() {
