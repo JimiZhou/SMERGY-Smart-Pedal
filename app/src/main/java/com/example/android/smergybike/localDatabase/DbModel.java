@@ -415,6 +415,22 @@ public class DbModel {
         }
     }
 
+    public List<Event> getAllEventsWithRaceTime(final long raceTime){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                returnEventList = mEventDao.getAllEventsByRaceLength(raceTime);
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return returnEventList;
+    }
+
     public void databaseSetupData(){
         deleteAllPlayers();
         deleteAllRaces();

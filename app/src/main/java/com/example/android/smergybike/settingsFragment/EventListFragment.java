@@ -27,7 +27,7 @@ public class EventListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         dbModel = new DbModel(getContext());
         events = dbModel.getAllEvents();
-        events.remove(0);
+        events.remove(0); //removes all_event
     }
 
     @Override

@@ -40,7 +40,7 @@ public class RaceListFragment extends Fragment {
         list.setAdapter(adapter);
 //        list.setOnItemClickListener(mClickListener);
         list.setEmptyView(emptyText);
-        getActivity().setTitle("Events");
+        getActivity().setTitle("Races");
 
         return view;
     }

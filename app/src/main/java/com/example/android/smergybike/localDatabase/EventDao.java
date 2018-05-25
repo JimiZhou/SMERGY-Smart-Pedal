@@ -24,6 +24,9 @@ public interface EventDao {
     @Query("SELECT * FROM event WHERE id = (:eventId)")
     Event getEventById(long eventId);
 
+    @Query("SELECT * FROM event WHERE raceLength = (:raceLength)")
+    List<Event> getAllEventsByRaceLength(long raceLength);
+
     @Query("DELETE FROM Event")
     void deleteAllEvents();
 

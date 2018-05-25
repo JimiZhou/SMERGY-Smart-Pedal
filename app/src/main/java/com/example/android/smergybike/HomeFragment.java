@@ -68,7 +68,10 @@ public class HomeFragment extends Fragment {
         raceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isBTconnected == false){
+                if(editText_blue.getText().toString().equals("") || editText_red.getText().toString().equals("")){
+                    emptyNamesDialog();
+                }
+                else if (isBTconnected == false){
                    bluetoothNotConnDialog();
 
                 }else if(currentEvent == null){
@@ -80,6 +83,15 @@ public class HomeFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void emptyNamesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Warning")
+                .setMessage("Name fields are empty")
+                .setPositiveButton("ok", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void setRaceInfo() {

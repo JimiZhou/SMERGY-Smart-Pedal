@@ -22,13 +22,36 @@
         android:gravity="end"
         android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/dropdown_leaderboard"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:popupBackground="@color/white"
-            android:spinnerMode="dropdown"
-            app:backgroundTint="@color/white" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/dropdown_racetime"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+                android:layout_marginStart="24dp"
+                android:popupBackground="@color/white"
+                android:spinnerMode="dropdown"
+                android:visibility="visible"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/dropdown_leaderboard"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:popupBackground="@color/white"
+                android:spinnerMode="dropdown"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <View
             android:id="@+id/divider"
@@ -36,6 +59,7 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
             tools:background="@color/transparantish" />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listView_leaderboard"
