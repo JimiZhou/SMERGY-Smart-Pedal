@@ -139,7 +139,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/ic_smergy"
             android:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/guideline30percent"
             app:layout_constraintEnd_toEndOf="parent"
