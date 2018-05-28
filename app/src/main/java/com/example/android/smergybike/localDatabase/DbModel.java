@@ -20,13 +20,10 @@ public class DbModel {
     private List<Player> returnPlayerList;
     private Player returnPlayer;
     private long returnValueId;
-    private int returnMax;
     private Race returnRace;
     private Event returnEvent;
     private List<Event> returnEventList;
     private List<Race> returnRaceList;
-    private List<String> returnEventTitles;
-
 
     public DbModel(Context context) {
         AppDatabase db = AppDatabase.getDatabase(context);
@@ -102,54 +99,6 @@ public class DbModel {
             e.printStackTrace();
         }
     }
-
-//    public int getMaxPower(){
-////        Thread thread = new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////                returnMax = mplayerDao.getMaxPower();
-////            }
-////        });
-////        thread.start();
-////        try {
-////            thread.join();
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        }
-////        return returnMax;
-////    }
-////
-////    public int getMaxEnergy() {
-////        Thread thread = new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////                returnMax = mplayerDao.getMaxEnergy();
-////            }
-////        });
-////        thread.start();
-////        try {
-////            thread.join();
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        }
-////        return returnMax;
-////    }
-////
-////    public int getMaxDistance() {
-////        Thread thread = new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////                returnMax = mplayerDao.getMaxDistance();
-////            }
-////        });
-////        thread.start();
-////        try {
-////            thread.join();
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        }
-////        return returnMax;
-////    }
 
     public long insertRace(final Race race) {
         Thread thread = new Thread(new Runnable() {

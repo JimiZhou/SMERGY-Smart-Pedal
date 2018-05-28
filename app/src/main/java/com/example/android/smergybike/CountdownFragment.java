@@ -31,7 +31,6 @@ public class CountdownFragment extends Fragment {
         countDown = view.findViewById(R.id.countdown_number);
         startCountDown();
         return view;
-
     }
 
     private void startCountDown() {

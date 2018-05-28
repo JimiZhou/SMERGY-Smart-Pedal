@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
                 navigation.getMenu().getItem(0).setChecked(true);
                 return false;
             }
+            if (getSupportFragmentManager() != null) {
+                int backstackCount = getSupportFragmentManager().getBackStackEntryCount();
+                for(int i = 0; i < backstackCount; i++){
+                    getSupportFragmentManager().popBackStack();
+                }
+            }
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     selectedFragment = HomeFragment.newInstance();
