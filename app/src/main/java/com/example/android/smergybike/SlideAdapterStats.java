@@ -96,7 +96,6 @@ public class SlideAdapterStats extends PagerAdapter {
         }else{
             energy = redPlayer.getEnergy();
         }
-        energy = 2000;
         if(i == 1){
             RunTime = (energy/7);
         }else if (i == 2){

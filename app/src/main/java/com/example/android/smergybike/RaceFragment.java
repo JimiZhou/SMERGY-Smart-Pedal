@@ -126,8 +126,10 @@ public class RaceFragment extends Fragment {
             //stop timer
             mCountDownTimer.cancel();
             endRace();
+            // send reset request to pedal to reset the values
             BluetoothController bluetoothController = Globals.getGlobals().getBluetoothController();
             bluetoothController.writeMessage("R");
+
             StatisticsFragment statistics_fragment = new StatisticsFragment();
             Bundle arguments = new Bundle();
             arguments.putLong( "currentRaceId" , Globals.getGlobals().getCurrentRace().getId());

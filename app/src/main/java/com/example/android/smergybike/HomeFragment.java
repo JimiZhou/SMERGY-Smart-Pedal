@@ -127,9 +127,9 @@ public class HomeFragment extends Fragment {
                         if(currentEvent == null){
                             createNewEvent();
                         }
-                        else{
-                            createRace();
-                        }
+//                        else{
+//                            createRace();
+//                        }
                     }
                 });
         AlertDialog dialog = builder.create();
