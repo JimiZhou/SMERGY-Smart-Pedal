@@ -15,11 +15,19 @@ import android.widget.TextView;
  */
 
 public class SlideAdapterStats extends PagerAdapter {
-    Context context;
-    LayoutInflater inflater;
 
-    public SlideAdapterStats(Context context) {
+    private Context context;
+    private LayoutInflater inflater;
+    private Race race;
+    private Player redPlayer;
+    private Player bluePlayer;
+
+
+    public SlideAdapterStats(Context context, Race race, Player redPlayer, Player bluePlayer) {
         this.context = context;
+        this.race = race;
+        this.redPlayer = redPlayer;
+        this.bluePlayer = bluePlayer;
     }
 
     @Override
@@ -42,16 +50,7 @@ public class SlideAdapterStats extends PagerAdapter {
 
     public String slide_headings[] = {"ALARM CLOCK", "LED LIGHT BULB", "INCANDESCENT LIGHT BULB", "FRIDGE", "LAPTOP",  "GAMING CONSOLE", "FAN",
             "LCD TV", "GAMING DESKTOP", "BLENDER"};
-    public String slide_descs[] = {"You can power this device for " + getRunTime(1),
-            "You can power this device for " + getRunTime(2),
-            "You can power this device for " + getRunTime(3),
-            "You can power this device for " + getRunTime(4),
-            "You can power this device for " + getRunTime(5),
-            "You can power this device for " + getRunTime(6),
-            "You can power this device for " + getRunTime(7),
-            "You can power this device for " + getRunTime(8),
-            "You can power this device for " + getRunTime(9),
-            "You can power this device for " + getRunTime(10)};
+
     @Override
     public int getCount() {
         return slide_headings.length;
@@ -70,11 +69,13 @@ public class SlideAdapterStats extends PagerAdapter {
 
         ImageView slideImageView = view.findViewById(R.id.slide_image2);
         TextView slideHeaderView = view.findViewById(R.id.slide_heading2);
-        TextView slideDescsView = view.findViewById(R.id.slide_description2);
+        TextView slideDescsRedView = view.findViewById(R.id.slide_descriptionRed);
+        TextView slideDescsBlueView = view.findViewById(R.id.slide_descriptionBlue);
 
         slideImageView.setImageResource(slide_images[position]);
         slideHeaderView.setText(slide_headings[position]);
-        slideDescsView.setText(slide_descs[position]);
+        slideDescsRedView.setText("" + calculateRunTime(position, false));
+        slideDescsBlueView.setText("" + calculateRunTime(position, true));
 
         container.addView(view);
         return view;
@@ -85,8 +86,47 @@ public class SlideAdapterStats extends PagerAdapter {
         container.removeView((ConstraintLayout)object);
     }
 
-    public String getRunTime(int i){
-           String runtime = StatisticsFragment.calculateRunTime(i);
-           return runtime;
+    public String calculateRunTime(int i, boolean isBlue){
+        long totalTime = (race.getTotalTime()/1000);
+        long RunTime;
+        String runtimestring;
+        int energy;
+        if(isBlue){
+            energy = bluePlayer.getEnergy();
+        }else{
+            energy = redPlayer.getEnergy();
+        }
+        energy = 2000;
+        if(i == 1){
+            RunTime = (energy/7);
+        }else if (i == 2){
+            RunTime = (energy/10);
+        }else if (i == 3){
+            RunTime = (energy/40);
+        }else if (i == 4){
+            RunTime = (energy/50);
+        }else if (i == 5){
+            RunTime = (energy/100);
+        }else if (i == 6){
+            RunTime = (energy/150);
+        }else if (i == 7){
+            RunTime = (energy/200);
+        }else if (i == 8){
+            RunTime = (energy/250);
+        }else if (i == 9){
+            RunTime = (energy/300);
+        }else{
+            RunTime = (energy/500);
+        }
+
+        int minutes = (int) (RunTime) / 60;
+        int seconds = (int) (RunTime) % 60;
+        if(minutes == 0){
+            runtimestring = "" + seconds + " seconds";
+        }else{
+            runtimestring = "" + minutes + " minutes \n" + seconds + " seconds";
+        }
+
+        return runtimestring;
     }
 }

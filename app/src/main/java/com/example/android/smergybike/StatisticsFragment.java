@@ -58,15 +58,20 @@ public class StatisticsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         TextView winnerText = view.findViewById(R.id.title_text);
         setWinnerText(winnerText);
+
+        TextView textRedName = view.findViewById(R.id.playerRedName);
+        TextView textBlueName = view.findViewById(R.id.playerBlueName);
+        textRedName.setText(redPlayer.getName());
+        textBlueName.setText(bluePlayer.getName());
+
         TextView blueEnergyText = view.findViewById(R.id.energy_blue_text);
         TextView redEnergyText = view.findViewById(R.id.energy_red_text);
         blueEnergyText.setText(bluePlayer.getEnergy() + " kJ");
         redEnergyText.setText(redPlayer.getEnergy() + " kJ");
-        int maxEnergy = 500;
         RoundCornerProgressBar progressBlueEnergy = view.findViewById(R.id.progress_3);
-        progressBlueEnergy.setProgress((float) redPlayer.getPower()/maxEnergy);
+        progressBlueEnergy.setProgress((float) redPlayer.getEnergy());
         RoundCornerProgressBar progressRedEnergy = view.findViewById(R.id.progress_4);
-        progressRedEnergy.setProgress((float) bluePlayer.getPower()/maxEnergy);
+        progressRedEnergy.setProgress((float) bluePlayer.getEnergy());
 
         TextView timeTextView = view.findViewById(R.id.totalRaceTime);
         long time = showedRace.getTotalTime();
@@ -74,13 +79,12 @@ public class StatisticsFragment extends Fragment {
         int seconds = (int) (time / 1000) % 60;
         timeTextView.setText(minutes + "min " + seconds + "sec"); // race.getTotalTime()
 
-        // TODO: TEST THIS IMAGESLIDER
+
         mSlideViewPager = view.findViewById(R.id.SlideViewPager2);
-        slideAdapter = new SlideAdapterStats(view.getContext());
+        slideAdapter = new SlideAdapterStats(view.getContext(), showedRace, bluePlayer, redPlayer);
         mSlideViewPager.setAdapter(slideAdapter);
         mSlideViewPager.setClipToPadding(false);
         mSlideViewPager.setPageMargin(20);
-
         return view;
     }
 
@@ -118,49 +122,7 @@ public class StatisticsFragment extends Fragment {
         return false;
     }
 
-    public static String calculateRunTime(int i){
-       long totalTime = (showedRace.getTotalTime()/1000);
-       long RunTime;
-       String runtimestring;
-       int energy = 2000;
-       /*  if(redPlayer.getHighscore() > bluePlayer.getHighscore()){
-            energy = (redPlayer.getEnergy() *1000);
-        }else {
-            energy = (bluePlayer.getEnergy()*1000);
-        }
-        */
-        if(i == 1){
-            RunTime = (energy/7);
-        }else if (i == 2){
-            RunTime = (energy/10);
-        }else if (i == 3){
-            RunTime = (energy/40);
-        }else if (i == 4){
-            RunTime = (energy/50);
-        }else if (i == 5){
-            RunTime = (energy/100);
-        }else if (i == 6){
-            RunTime = (energy/150);
-        }else if (i == 7){
-            RunTime = (energy/200);
-        }else if (i == 8){
-            RunTime = (energy/250);
-        }else if (i == 9){
-            RunTime = (energy/300);
-        }else{
-            RunTime = (energy/500);
-        }
 
-        int minutes = (int) (RunTime) / 60;
-        int seconds = (int) (RunTime) % 60;
-        if(minutes == 0){
-            runtimestring = "" + seconds + " seconds";
-        }else{
-            runtimestring = "" + minutes + " minutes " + seconds + " seconds";
-        }
-
-        return runtimestring;
-    }
 
 
 }

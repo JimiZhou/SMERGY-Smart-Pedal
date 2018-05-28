@@ -182,7 +182,6 @@ public class RaceFragment extends Fragment {
     };
 
     private void updateProgressBars() {
-        int maxPower = 500;
         blueBar.setProgress(bluePlayer.getEnergy());
         redBar.setProgress(redPlayer.getEnergy());
     }

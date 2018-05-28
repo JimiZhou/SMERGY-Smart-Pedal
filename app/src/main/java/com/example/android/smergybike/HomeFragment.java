@@ -124,10 +124,11 @@ public class HomeFragment extends Fragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(currentEvent != null){
-                            createRace();
-                        }else{
+                        if(currentEvent == null){
                             createNewEvent();
+                        }
+                        else{
+                            createRace();
                         }
                     }
                 });
@@ -146,10 +147,6 @@ public class HomeFragment extends Fragment {
         List<Player> players = dbModel.getAllPlayers();
 
         global.setCurrentRace(dbModel.getRaceById(raceId));
-//        RaceFragment race_fragment = new RaceFragment();
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frame_layout, race_fragment);
-//        transaction.commit();
         CountdownFragment countdownFragment = new CountdownFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, countdownFragment);

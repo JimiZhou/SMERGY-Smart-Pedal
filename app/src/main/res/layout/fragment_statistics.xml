@@ -29,7 +29,6 @@
             app:layout_constraintStart_toEndOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
             android:id="@+id/energy_text"
             android:layout_width="wrap_content"
@@ -55,9 +54,8 @@
             app:layout_constraintStart_toEndOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/energy_text"
             app:rcBackgroundColor="@color/white"
-            app:rcBackgroundPadding="1dp"
-            app:rcMax="1"
-            app:rcProgress="0.3"
+            app:rcBackgroundPadding="2dp"
+            app:rcMax="30"
             app:rcProgressColor="@color/playerBlue"
             app:rcRadius="10dp"
             app:rcReverse="true" />
@@ -73,9 +71,8 @@
             app:layout_constraintStart_toEndOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/energy_text"
             app:rcBackgroundColor="@color/white"
-            app:rcBackgroundPadding="1dp"
-            app:rcMax="1"
-            app:rcProgress="0.3"
+            app:rcBackgroundPadding="2dp"
+            app:rcMax="30"
             app:rcProgressColor="@color/playerRed"
             app:rcRadius="10dp" />
 
@@ -185,6 +182,30 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
+
+        <TextView
+            android:id="@+id/playerRedName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textColor="@color/transparantish"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="@+id/guideline4" />
+
+        <TextView
+            android:id="@+id/playerBlueName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textColor="@color/transparantish"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     </android.support.constraint.ConstraintLayout>
 
